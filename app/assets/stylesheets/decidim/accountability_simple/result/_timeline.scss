@@ -1,0 +1,27 @@
+@import "decidim/variables";
+@import "decidim/utils/settings";
+@import "util/breakpoint";
+
+.timeline{
+  @include breakpoint(medium){
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.timeline__info{
+  @include breakpoint(medium){
+    float: none;
+    margin-top: 40px;
+  }
+}
+
+.timeline__item{
+  @include breakpoint(medium){
+    &::before{
+      top: 1rem;
+      height: 3px;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+---
+en:
+  activemodel:
+    attributes:
+      result:
+        main_image: Huvudbild
+        list_image: Lista bild
+  decidim:
+    accountability:
+      admin:
+        results:
+          form:
+            images: Images
+      models:
+        result:
+          fields:
+            comments: Bilder
+      results:
+        filters:
+          category: Kategori
+          category_prompt: Kategorifråga
+          open: Öppna
+          related_to: Relaterade till
+          search: Sök
+        filters_small_view:
+          close_modal: Stäng fönster
+          filter: Filtrera
+          filter_by: Filtrera efter
+          unfold: Veckla ut
+        nav_breadcrumb:
+          all_projects: Alla projekt
+        result:
+          show_project: Visa projekt

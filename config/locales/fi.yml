@@ -1,0 +1,33 @@
+---
+fi:
+  activemodel:
+    attributes:
+      result:
+        main_image: Pääkuva
+        list_image: Listauksen kuva
+  decidim:
+    accountability:
+      admin:
+        results:
+          form:
+            images: Kuvat
+      models:
+        result:
+          fields:
+            comments: Kommentit
+      results:
+        filters:
+          category: Aihepiiri
+          category_prompt: Aihepiiri-ilmoitus
+          open: Avaa
+          related_to: Liittyy
+          search: Hae
+        filters_small_view:
+          close_modal: Sulje ikkuna
+          filter: Rajaa
+          filter_by: Rajaa hakua
+          unfold: Avaa
+        nav_breadcrumb:
+          all_projects: Kaikki projektit
+        result:
+          show_project: Näytä projekti

@@ -1,0 +1,33 @@
+---
+en:
+  activemodel:
+    attributes:
+      result:
+        main_image: Main image
+        list_image: List image
+  decidim:
+    accountability:
+      admin:
+        results:
+          form:
+            images: Images
+      models:
+        result:
+          fields:
+            comments: Comments
+      results:
+        filters:
+          category: Category
+          category_prompt: Category Prompt
+          open: Open
+          related_to: Related to
+          search: Search
+        filters_small_view:
+          close_modal: Close modal
+          filter: Filter
+          filter_by: Filter by
+          unfold: Unfold
+        nav_breadcrumb:
+          all_projects: All projects
+        result:
+          show_project: Show project

@@ -1,0 +1,6 @@
+var $results = $('#results');
+
+$results.html('<%= j(render partial: "results_parent", locals: { results: results, total_count: results.total_count }).strip.html_safe %>');
+
+var $dropdownMenu = $('.dropdown.menu', $results);
+$dropdownMenu.foundation();
