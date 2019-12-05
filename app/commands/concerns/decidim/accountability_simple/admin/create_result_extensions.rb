@@ -23,12 +23,12 @@ module Decidim
               decidim_accountability_status_id: @form.decidim_accountability_status_id,
               external_id: @form.external_id.presence,
               weight: @form.weight,
-              main_image: form.main_image,
-              list_image: form.list_image
+              main_image: @form.main_image,
+              list_image: @form.list_image
             }
 
             @result = Decidim.traceability.create!(
-              Result,
+              Decidim::Accountability::Result,
               @form.current_user,
               params,
               visibility: "all"
