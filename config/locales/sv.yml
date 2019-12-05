@@ -7,6 +7,9 @@ sv:
         list_image: Lista bild
   decidim:
     accountability:
+      actions:
+        attachment_collections: Mappar
+        attachments: Bilagor
       admin:
         results:
           form:

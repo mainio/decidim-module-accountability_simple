@@ -9,6 +9,15 @@ module Decidim
         app.config.assets.precompile += %w(decidim/accountability_simple/result.css)
       end
 
+      initializer "decidim_budgets_enhanced.admin_routes", before: :add_routing_paths do
+        Decidim::Accountability::AdminEngine.routes.append do
+          resources :results, only: [] do
+            resources :attachment_collections
+            resources :attachments
+          end
+        end
+      end
+
       config.to_prepare do
         # Model extensions
         Decidim::Accountability::Result.send(

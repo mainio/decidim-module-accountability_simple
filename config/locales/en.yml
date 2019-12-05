@@ -7,6 +7,9 @@ en:
         list_image: List image
   decidim:
     accountability:
+      actions:
+        attachment_collections: Folders
+        attachments: Attachments
       admin:
         results:
           form:

@@ -5,6 +5,9 @@ module Decidim
     module ResultExtensions
       extend ActiveSupport::Concern
 
+      include Decidim::HasAttachments
+      include Decidim::HasAttachmentCollections
+
       included do
         mount_uploader :main_image, Decidim::AccountabilitySimple::MainImageUploader
         mount_uploader :list_image, Decidim::AccountabilitySimple::ListImageUploader
