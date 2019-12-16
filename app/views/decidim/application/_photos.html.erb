@@ -1,0 +1,24 @@
+<% if photos.any? %>
+  <div class="section images">
+    <h4 class="section-heading"><%= t(".related_photos") %></h4>
+    <div class="gallery row">
+      <% photos.in_groups_of(3, false).each do |group| %>
+        <% group.each_with_index do |photo, index| %>
+          <div class="columns small-6 medium-4 <%= (index == 2 || photo == group.last ? "end" : "") %>">
+            <%= link_to photo.big_url, target: "_blank", rel: "noopener", class: "card-link" do %>
+              <div class="card card-attachment">
+                <div class="card-image" style="background-image:url(<%= photo.thumbnail_url %>);">
+                  <%= image_tag photo.thumbnail_url, alt: strip_tags(translated_attribute(photo.title)) %>
+                </div>
+                <div class="card-section">
+                  <h6><%= translated_attribute(photo.title) %></h6>
+                  <p class="text-small"><%= translated_attribute(photo.description) %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
