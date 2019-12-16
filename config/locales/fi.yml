@@ -34,9 +34,9 @@ fi:
           filter_by: Rajaa hakua
           unfold: Avaa
         nav_breadcrumb:
-          all_projects: Kaikki projektit
+          all_projects: Kaikki hankkeet
         result:
-          show_project: Näytä projekti
-          progress_explanation: Projektin edistyminen
+          show_project: Näytä hanke
+          progress_explanation: Hankkeen edistyminen
         stats_box:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
