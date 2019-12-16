@@ -52,6 +52,12 @@ module Decidim
           :include,
           Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
         )
+
+        # Helper extensions
+        Decidim::Accountability::ApplicationHelper.send(
+          :include,
+          Decidim::AccountabilitySimple::ApplicationHelperExtensions
+        )
       end
     end
   end
