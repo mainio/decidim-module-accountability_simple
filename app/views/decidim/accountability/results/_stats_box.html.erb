@@ -12,6 +12,10 @@
       <div class="progress">
         <div class="progress-meter" style="width:<%= result.progress %>%"></div>
       </div>
+
+      <p class="text-small">
+        <%= t(".average_progress", progress: display_percentage(progress_calculator(current_scope, nil))) %>
+      </p>
     </div>
   <% end %>
 
