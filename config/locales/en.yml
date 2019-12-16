@@ -18,6 +18,9 @@ en:
         result:
           fields:
             comments: Comments
+        timeline_entry:
+          fields:
+            title: Title
       results:
         filters:
           category: Category
@@ -34,3 +37,6 @@ en:
           all_projects: All projects
         result:
           show_project: Show project
+          progress_explanation: Project progress
+        stats_box:
+          average_progress: Average progress on all projects %{progress}.

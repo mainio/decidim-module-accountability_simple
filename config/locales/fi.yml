@@ -18,6 +18,9 @@ fi:
         result:
           fields:
             comments: Kommentit
+        timeline_entry:
+          fields:
+            title: Otsikko
       results:
         filters:
           category: Aihepiiri
@@ -34,3 +37,6 @@ fi:
           all_projects: Kaikki projektit
         result:
           show_project: Näytä projekti
+          progress_explanation: Projektin edistyminen
+        stats_box:
+          average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.

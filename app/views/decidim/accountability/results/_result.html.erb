@@ -18,11 +18,8 @@
           <%= decidim_sanitize(html_truncate(translated_attribute(result.description), length: 100)) %>
         </div>
 
-        <% if result.children.any? %>
-          <span class="text-small"><%= heading_leaf_level_results(result.children.count) %></span>
-        <% end %>
-
         <% if component_settings.display_progress_enabled? && result.progress.present? %>
+          <span class="text-small"><%= t(".progress_explanation") %></span>
           <div class="progress">
             <div class="progress-meter" style="width:<%= result.progress %>%">
               <p class="progress-meter-text"><%= display_percentage result.progress %></p>

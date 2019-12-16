@@ -18,6 +18,9 @@ sv:
         result:
           fields:
             comments: Bilder
+        timeline_entry:
+          fields:
+            title: Rubrik
       results:
         filters:
           category: Kategori
@@ -34,3 +37,6 @@ sv:
           all_projects: Alla projekt
         result:
           show_project: Visa projekt
+          progress_explanation: Projektets framsteg
+        stats_box:
+          average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
