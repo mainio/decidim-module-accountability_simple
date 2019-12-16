@@ -5,6 +5,11 @@ fi:
       result:
         main_image: Pääkuva
         list_image: Listauksen kuva
+  activerecord:
+    models:
+      decidim/accountability/result:
+        one: Hanke
+        other: Hanketta
   decidim:
     accountability:
       actions:
@@ -22,6 +27,10 @@ fi:
           fields:
             title: Otsikko
       results:
+        count:
+          results_count:
+            one: 1 hanke
+            other: "%{count} hanketta"
         filters:
           category: Aihepiiri
           category_prompt: Aihepiiri-ilmoitus

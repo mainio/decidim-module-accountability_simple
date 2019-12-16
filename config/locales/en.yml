@@ -5,6 +5,11 @@ en:
       result:
         main_image: Main image
         list_image: List image
+  activerecord:
+    models:
+      decidim/accountability/result:
+        one: Project
+        other: Projects
   decidim:
     accountability:
       actions:
@@ -22,6 +27,10 @@ en:
           fields:
             title: Title
       results:
+        count:
+          results_count:
+            one: 1 project
+            other: "%{count} projects"
         filters:
           category: Category
           category_prompt: Category Prompt

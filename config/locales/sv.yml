@@ -5,6 +5,11 @@ sv:
       result:
         main_image: Huvudbild
         list_image: Lista bild
+  activerecord:
+    models:
+      decidim/accountability/result:
+        one: Projekt
+        other: Projekt
   decidim:
     accountability:
       actions:
@@ -22,6 +27,10 @@ sv:
           fields:
             title: Rubrik
       results:
+        count:
+          results_count:
+            one: 1 projekt
+            other: "%{count} projekt"
         filters:
           category: Kategori
           category_prompt: Kategorifråga
