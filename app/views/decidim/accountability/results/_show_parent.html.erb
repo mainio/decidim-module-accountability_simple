@@ -4,15 +4,15 @@
   </div>
 
   <div class="small-12 columns">
-    <% if result.main_image && result.main_image.url %>
-      <%= image_tag result.main_image.url, alt: translated_attribute(result.title), class: "hero-heading" %>
-    <% end %>
-
-    <h2 class="heading2"><%= translated_attribute result.title %></h2>
-
     <div class="row">
       <div class="mediumlarge-8 columns">
         <div class="section">
+          <% if result.main_image && result.main_image.url %>
+            <%= image_tag result.main_image.url, alt: translated_attribute(result.title), class: "hero-heading" %>
+          <% end %>
+
+          <h2 class="heading2"><%= translated_attribute result.title %></h2>
+
           <div class="description">
             <%== translated_attribute result.description %>
           </div>
