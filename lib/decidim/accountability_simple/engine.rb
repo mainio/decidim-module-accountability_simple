@@ -5,11 +5,11 @@ module Decidim
     class Engine < ::Rails::Engine
       isolate_namespace Decidim::AccountabilitySimple
 
-      initializer "decidim_budgets_enhanced.assets" do |app|
+      initializer "decidim_accountability_simple.assets" do |app|
         app.config.assets.precompile += %w(decidim/accountability_simple/result.css)
       end
 
-      initializer "decidim_budgets_enhanced.admin_routes", before: :add_routing_paths do
+      initializer "decidim_accountability_simple.admin_routes", before: :add_routing_paths do
         Decidim::Accountability::AdminEngine.routes.append do
           resources :results, only: [] do
             resources :attachment_collections
@@ -30,6 +30,10 @@ module Decidim
           :include,
           Decidim::AccountabilitySimple::Admin::ResultFormExtensions
         )
+        Decidim::Accountability::Admin::TimelineEntryForm.send(
+          :include,
+          Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
+        )
 
         # Command extensions
         Decidim::Accountability::Admin::CreateResult.send(
@@ -39,6 +43,14 @@ module Decidim
         Decidim::Accountability::Admin::UpdateResult.send(
           :include,
           Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
+        )
+        Decidim::Accountability::Admin::CreateTimelineEntry.send(
+          :include,
+          Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
+        )
+        Decidim::Accountability::Admin::UpdateTimelineEntry.send(
+          :include,
+          Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
         )
       end
     end
