@@ -1,0 +1,60 @@
+.line-stats-project{
+  border-width: 4px;
+}
+
+.definition-data__boxtitle{
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.4rem;
+  padding: 0.2rem 0 0.4rem;
+}
+
+.definition-data__item.result_detail{
+  border-bottom: 0;
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+
+  .definition-data__title,
+  .definition-data__description{
+    display: inline;
+    margin-bottom: 0;
+    color: inherit;
+    text-transform: none;
+    line-height: inherit;
+    font-size: inherit;
+  }
+
+  .definition-data__title{
+    &.with_description{
+      &::after{
+        content: ": ";
+      }
+    }
+  }
+
+  .definition-data__icon{
+    display: block;
+    float: left;
+
+    .icon{
+      width: 1.7em;
+      height: 1.7em;
+      margin-top: 5px;
+    }
+
+    .definition-data__icon__marker{
+      display: block;
+      height: 22px;
+      width: 22px;
+      margin-top: 3px;
+      border-radius: 50%;
+    }
+  }
+
+  .definition-data__info{
+    display: block;
+    padding-left: 35px;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+}

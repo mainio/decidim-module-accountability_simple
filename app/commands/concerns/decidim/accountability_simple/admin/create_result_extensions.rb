@@ -24,7 +24,8 @@ module Decidim
               external_id: @form.external_id.presence,
               weight: @form.weight,
               main_image: @form.main_image,
-              list_image: @form.list_image
+              list_image: @form.list_image,
+              theme_color: @form.theme_color
             }
 
             @result = Decidim.traceability.create!(
@@ -33,6 +34,40 @@ module Decidim
               params,
               visibility: "all"
             )
+
+            create_result_details
+          end
+        end
+
+        def create_result_details
+          @form.result_details.each do |form_result_detail|
+            create_result_detail(form_result_detail)
+          end
+        end
+
+        def create_result_detail(form_result_detail)
+          result_detail_attributes = {
+            title: form_result_detail.title,
+            description: form_result_detail.description,
+            icon: form_result_detail.icon,
+            position: form_result_detail.position,
+            result: @result
+          }
+
+          record = Decidim::AccountabilitySimple::ResultDetail.find_or_create_by!(
+            result_detail_attributes
+          )
+
+          yield record if block_given?
+
+          if record.persisted?
+            if form_result_detail.deleted?
+              record.destroy!
+            else
+              record.update!(result_detail_attributes)
+            end
+          else
+            record.save!
           end
         end
       end

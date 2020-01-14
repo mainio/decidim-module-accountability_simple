@@ -18,7 +18,14 @@ sv:
       admin:
         results:
           form:
-            images: Images
+            add_result_detail: Lägg till detaljer
+            images: Bilder
+            result_details: Detaljer
+          result_detail:
+            down: Ner
+            remove: Ta bort
+            result_detail: Detalj
+            up: Upp
       models:
         result:
           fields:
@@ -47,5 +54,16 @@ sv:
         result:
           show_project: Visa projekt
           progress_explanation: Projektets framsteg
+          project_info: Projektinfo
+        show:
+          stats:
+            scope: Tema
+            category: Kategori
         stats_box:
           average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
+    accountability_simple:
+      models:
+        result_detail:
+          icons:
+            map_pointer: Kartmarkör
+            person: Person

@@ -1,0 +1,15 @@
+<div class="grid-x">
+  <div class="cell auto">
+    <%= form.select :icon, result_detail_icons, include_blank: true, tabs_id: tabs_id %>
+  </div>
+  <div class="cell auto">
+    <%= form.translated :text_field, :title, tabs_id: tabs_id %>
+  </div>
+  <div class="cell auto">
+    <%= form.translated :text_field, :description, tabs_id: tabs_id %>
+  </div>
+</div>
+
+<%= form.hidden_field :id %>
+<%= form.hidden_field :position, value: result_detail.position || 0 %>
+<%= form.hidden_field :deleted %>

@@ -19,56 +19,48 @@
     </div>
   <% end %>
 
-  <% if result.versions.any? || result.linked_resources(:proposals, "included_proposals").any? %>
-    <div class="card extra line-stats">
-      <div class="definition-data">
-        <% if result.versions.any? %>
-          <div class="definition-data__item versions_count">
-            <span class="definition-data__title"><%= t("results.show.stats.version_number", scope: "decidim.accountability") %></span>
-            <%= result.versions.count %>
-            <div class="pr-s pl-s">
-              <%= link_to t("results.show.stats.show_all_versions", scope: "decidim.accountability"), result_versions_path(result), class: "button button--sc hollow secondary small expanded" %>
-            </div>
-          </div>
-          <% if result.last_editor.present? %>
-            <div class="definition-data__item last_revision_by">
-              <span class="definition-data__title"><%= t("results.show.stats.last_edited_by", scope: "decidim.accountability") %></span>
-              <%= render_resource_last_editor(result) %>
-            </div>
-          <% end %>
-          <div class="definition-data__item last_updated_at">
-            <span class="definition-data__title"><%= t("results.show.stats.last_updated_at", scope: "decidim.accountability") %></span>
-            <%= l result.versions.last.created_at, format: :decidim_short %>
-          </div>
-        <% end %>
-        <% if result.linked_resources(:proposals, "included_proposals").any? %>
-          <div class="definition-data__item definition-data__item--double">
-            <span class="definition-data__title"><%= t("results.show.stats.proposals", scope: "decidim.accountability") %></span>
-            <span class="definition-data__number"><%= stats_calculator.proposals_count %></span>
-          </div>
-          <div class="definition-data__item definition-data__item--double">
-            <span class="definition-data__title"><%= t("results.show.stats.meetings", scope: "decidim.accountability") %></span>
-            <span class="definition-data__number"><%= stats_calculator.meetings_count %></span>
-          </div>
-          <div class="definition-data__item definition-data__item--double">
-            <span class="definition-data__title"><%= t("results.show.stats.comments", scope: "decidim.accountability") %></span>
-            <span class="definition-data__number"><%= stats_calculator.comments_count %></span>
-          </div>
-          <div class="definition-data__item definition-data__item--double">
-            <span class="definition-data__title"><%= t("results.show.stats.attendees", scope: "decidim.accountability") %></span>
-            <span class="definition-data__number"><%= stats_calculator.attendees_count %></span>
-          </div>
-          <div class="definition-data__item definition-data__item--double">
-            <span class="definition-data__title"><%= t("results.show.stats.votes", scope: "decidim.accountability") %></span>
-            <span class="definition-data__number"><%= stats_calculator.votes_count %></span>
-          </div>
-          <div class="definition-data__item definition-data__item--double">
-            <span class="definition-data__title"><%= t("results.show.stats.contributions", scope: "decidim.accountability") %></span>
-            <span class="definition-data__number"><%= stats_calculator.contributions_count %></span>
-          </div>
-        <% end %>
-      </div>
-    </div>
+  <% if result.result_details.any? || !result.scope.nil? || !result.category.nil? %>
+    <%= result_detail_info(result) do %>
+      <% result.result_details.each do |detail| %>
+        <div class="definition-data__item result_detail">
+          <span class="definition-data__icon">
+            <%= result_detail_icon(result, detail) %>
+          </span>
+          <span class="definition-data__info">
+            <% if translated_attribute(detail.description).empty? %>
+              <span class="definition-data__title"><%= translated_attribute detail.title %></span>
+            <% else %>
+              <span class="definition-data__title with_description"><%= translated_attribute detail.title %></span>
+              <span class="definition-data__description"><%= translated_attribute detail.description %></span>
+            <% end %>
+          </span>
+        </div>
+      <% end %>
+
+      <% if result.scope %>
+        <div class="definition-data__item result_detail">
+          <span class="definition-data__icon">
+            <%= result_detail_icon(result) %>
+          </span>
+          <span class="definition-data__info">
+            <span class="definition-data__title with_description"><%= t("results.show.stats.scope", scope: "decidim.accountability") %></span>
+            <span class="definition-data__description"><%= translated_attribute result.scope.name %></span>
+          </span>
+        </div>
+      <% end %>
+
+      <% if result.category %>
+        <div class="definition-data__item result_detail">
+          <span class="definition-data__icon">
+            <%= result_detail_icon(result) %>
+          </span>
+          <span class="definition-data__info">
+            <span class="definition-data__title with_description"><%= t("results.show.stats.category", scope: "decidim.accountability") %></span>
+            <span class="definition-data__description"><%= translated_attribute result.category.name %></span>
+          </span>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
 
   <%= resource_reference(result) %>

@@ -18,7 +18,14 @@ en:
       admin:
         results:
           form:
+            add_result_detail: Add detail
             images: Images
+            result_details: Details
+          result_detail:
+            down: Down
+            remove: Remove
+            result_detail: Detail
+            up: Up
       models:
         result:
           fields:
@@ -47,5 +54,16 @@ en:
         result:
           show_project: Show project
           progress_explanation: Project progress
+          project_info: Project info
+        show:
+          stats:
+            scope: Scope
+            category: Category
         stats_box:
           average_progress: Average progress on all projects %{progress}.
+    accountability_simple:
+      models:
+        result_detail:
+          icons:
+            map_marker: Map marker
+            person: Person

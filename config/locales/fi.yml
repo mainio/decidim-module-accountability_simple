@@ -18,7 +18,14 @@ fi:
       admin:
         results:
           form:
+            add_result_detail: Lisää lisätieto
             images: Kuvat
+            result_details: Lisätiedot
+          result_detail:
+            down: Alas
+            remove: Poista
+            result_detail: Lisätieto
+            up: Ylös
       models:
         result:
           fields:
@@ -47,5 +54,16 @@ fi:
         result:
           show_project: Näytä hanke
           progress_explanation: Hankkeen edistyminen
+          project_info: Hankeinfo
+        show:
+          stats:
+            scope: Teema
+            category: Kategoria
         stats_box:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
+    accountability_simple:
+      models:
+        result_detail:
+          icons:
+            map_pointer: Karttamerkki
+            person: Henkilö

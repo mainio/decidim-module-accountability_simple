@@ -20,6 +20,8 @@
 
     <% else %>
 
+      <%= form.color_field :theme_color %>
+
       <% if current_participatory_space.has_subscopes? %>
         <div class="row column">
           <%= scopes_picker_field form, :decidim_scope_id %>
@@ -87,3 +89,30 @@
     </div>
   </div>
 </div>
+
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title"><%= t(".result_details") %></h2>
+  </div>
+
+  <div class="card-section">
+    <div class="result-detail-items">
+      <%= fields_for "result[result_details][#{blank_result_detail.to_param}]", blank_result_detail do |result_detail_form| %>
+        <script type="text/template" class="decidim-template">
+          <%= render "result_detail", form: result_detail_form, tabs_id: tabs_id_for_result_detail(blank_result_detail), editable: true, child_template_selector: "#result-detail-child-template-dummy" %>
+        </script>
+      <% end %>
+
+      <div class="result-detail-items-list">
+        <% @form.result_details.each_with_index do |result_detail, index| %>
+          <%= fields_for "result[result_details][]", result_detail do |result_detail_form| %>
+            <%= render "result_detail", form: result_detail_form, tabs_id: tabs_id_for_result_detail(result_detail), editable: true, child_template_selector: "#result-detail-child-template-#{index}" %>
+          <% end %>
+        <% end %>
+      </div>
+      <button class="button add-result-detail-item"><%= t(".add_result_detail") %></button>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "decidim/accountability_simple/admin/results" %>

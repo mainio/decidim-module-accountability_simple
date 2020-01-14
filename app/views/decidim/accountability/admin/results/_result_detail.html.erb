@@ -1,0 +1,26 @@
+<% result_detail = form.object %>
+<div class="card result-detail-item" id="<%= tabs_id %>-field">
+  <div class="card-divider result-detail-item-divider">
+    <h2 class="card-title">
+      <span>
+        <%== "#{icon("move")} #{t(".result_detail")}" %>
+      </span>
+
+      <button class="button small alert hollow move-up-result-detail-item button--title">
+        <%== "#{icon("arrow-top")} #{t(".up")}" %>
+      </button>
+
+      <button class="button small alert hollow move-down-result-detail-item button--title">
+        <%== "#{icon("arrow-bottom")} #{t(".down")}" %>
+      </button>
+
+      <button class="button small alert hollow remove-result-detail-item button--title">
+        <%= t(".remove") %>
+      </button>
+    </h2>
+  </div>
+
+  <div class="card-section">
+    <%= render "result_detail_fields", tabs_id: tabs_id, form: form, result_detail: result_detail %>
+  </div>
+</div>
