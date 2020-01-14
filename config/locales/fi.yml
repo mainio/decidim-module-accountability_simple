@@ -65,5 +65,5 @@ fi:
       models:
         result_detail:
           icons:
-            map_pointer: Karttamerkki
+            map_marker: Karttamerkki
             person: Henkilö
