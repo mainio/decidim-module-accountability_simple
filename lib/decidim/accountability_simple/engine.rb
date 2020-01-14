@@ -9,6 +9,10 @@ module Decidim
         app.config.assets.precompile += %w(decidim/accountability_simple/result.css)
       end
 
+      initializer "decidim_accountability_simple.admin_assets" do |app|
+        app.config.assets.precompile += %w(decidim_accountability_simple_admin_manifest.js)
+      end
+
       initializer "decidim_accountability_simple.admin_routes", before: :add_routing_paths do
         Decidim::Accountability::AdminEngine.routes.append do
           resources :results, only: [] do
