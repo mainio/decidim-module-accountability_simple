@@ -10,7 +10,8 @@ module Decidim
       end
 
       initializer "decidim_accountability_simple.admin_assets" do |app|
-        app.config.assets.precompile += %w(decidim_accountability_simple_admin_manifest.js)
+        app.config.assets.precompile += %w(decidim_accountability_simple_admin_manifest.js
+                                           decidim/accountability_simple/admin/results.js)
       end
 
       initializer "decidim_accountability_simple.admin_routes", before: :add_routing_paths do
