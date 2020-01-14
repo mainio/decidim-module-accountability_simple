@@ -26,12 +26,9 @@ module Decidim
       end
 
       def result_detail_info(result)
-        style = nil
-        title_style = nil
-        if result.theme_color
-          style = "border-color: #{result.theme_color};"
-          title_style = "background-color: #{result.theme_color};"
-        end
+        color = result.theme_color || default_theme_color
+        style = "border-color: #{color};"
+        title_style = "background-color: #{color};"
 
         content_tag :div, class: "card extra line-stats line-stats-project", style: style do
           title = content_tag :div, class: "definition-data__boxtitle", style: title_style do
@@ -48,10 +45,14 @@ module Decidim
       def result_detail_icon(result, detail = nil)
         return icon(detail.icon) if detail && !detail.icon.empty?
 
-        style = nil
-        style = "background-color: #{result.theme_color};" if result.theme_color
+        color = result.theme_color || default_theme_color
+        style = "background-color: #{color};"
 
         content_tag(:span, "", class: "definition-data__icon__marker", style: style).html_safe
+      end
+
+      def default_theme_color
+        "#abb2bd"
       end
     end
   end
