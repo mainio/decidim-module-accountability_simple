@@ -12,7 +12,8 @@ module Decidim
         def new
           enforce_permission_to :create, :result
 
-          @form = form(ResultForm).instance
+          # Pass the component
+          @form = form(ResultForm).from_model(Result.new(component: current_component))
           @form.parent_id = params[:parent_id]
         end
 

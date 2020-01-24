@@ -15,11 +15,29 @@ sv:
       actions:
         attachment_collections: Mappar
         attachments: Bilagor
+        default_details: Default detaljer
       admin:
+        details:
+          detail:
+            down: Ner
+            detail: Standard detalj
+            remove: Ta bort
+            up: Upp
+          form:
+            add_detail: Lägg till standard detalj
+          show:
+            title: Standard detaljer
+            update: Uppdatera
+          update:
+            invalid: Det gick inte att uppdatera standardin detaljer
+            success: Standard detaljer har uppdaterats
         results:
+          default_detail:
+            default_detail: Standard detailj
           form:
             add_result_detail: Lägg till detaljer
             images: Bilder
+            result_default_details: Standard detaljer
             result_details: Detaljer
           result_detail:
             down: Ner
@@ -67,3 +85,19 @@ sv:
           icons:
             map_marker: Kartmarkör
             person: Person
+      results:
+        filters:
+          category: Kategori
+          category_prompt: Kategorifråga
+          open: Öppna
+          related_to: Relaterade till
+          search: Sök
+          space: Plats
+        filters_small_view:
+          close_modal: Stäng fönster
+          filter: Filtrera
+          filter_by: Filtrera efter
+          unfold: Veckla ut
+        result:
+          show_project: Visa projekt
+          progress_explanation: Projektets framsteg

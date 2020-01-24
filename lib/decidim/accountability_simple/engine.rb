@@ -20,6 +20,7 @@ module Decidim
             resources :attachment_collections
             resources :attachments
           end
+          resource :details, only: [:index, :show, :update]
         end
       end
 

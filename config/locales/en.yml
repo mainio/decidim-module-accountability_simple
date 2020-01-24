@@ -15,11 +15,29 @@ en:
       actions:
         attachment_collections: Folders
         attachments: Attachments
+        default_details: Default details
       admin:
+        details:
+          detail:
+            down: Down
+            detail: Default detail
+            remove: Remove
+            up: Up
+          form:
+            add_detail: Add default detail
+          show:
+            title: Default details
+            update: Update
+          update:
+            invalid: There was a problem updating the default details
+            success: Default details successfully updated
         results:
+          default_detail:
+            default_detail: Default detail
           form:
             add_result_detail: Add detail
             images: Images
+            result_default_details: Default details
             result_details: Details
           result_detail:
             down: Down
@@ -67,3 +85,19 @@ en:
           icons:
             map_marker: Map marker
             person: Person
+      results:
+        filters:
+          category: Category
+          category_prompt: Category Prompt
+          open: Open
+          related_to: Related to
+          search: Search
+          space: Space
+        filters_small_view:
+          close_modal: Close modal
+          filter: Filter
+          filter_by: Filter by
+          unfold: Unfold
+        result:
+          show_project: Show project
+          progress_explanation: Project progress

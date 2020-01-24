@@ -15,11 +15,29 @@ fi:
       actions:
         attachment_collections: Kansiot
         attachments: Liitteet
+        default_details: Oletustiedot
       admin:
+        details:
+          detail:
+            down: Alas
+            detail: Oletustieto
+            remove: Poista
+            up: Ylös
+          form:
+            add_detail: Lisää oletustieto
+          show:
+            title: Oletustiedot
+            update: Päivitä
+          update:
+            invalid: Oletustietojen päivitys epäonnistui
+            success: Oletustietojen päivitys onnistui
         results:
+          default_detail:
+            default_detail: Oletustieto
           form:
             add_result_detail: Lisää lisätieto
             images: Kuvat
+            result_default_details: Oletustiedot
             result_details: Lisätiedot
           result_detail:
             down: Alas
@@ -67,3 +85,19 @@ fi:
           icons:
             map_marker: Karttamerkki
             person: Henkilö
+      results:
+        filters:
+          category: Aihepiiri
+          category_prompt: Aihepiiri-ilmoitus
+          open: Avaa
+          related_to: Liittyy
+          search: Hae
+          space: Tila
+        filters_small_view:
+          close_modal: Sulje ikkuna
+          filter: Rajaa
+          filter_by: Rajaa hakua
+          unfold: Avaa
+        result:
+          show_project: Näytä hanke
+          progress_explanation: Hankkeen edistyminen

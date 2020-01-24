@@ -90,6 +90,31 @@
   </div>
 </div>
 
+
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title"><%= t(".result_default_details") %></h2>
+  </div>
+
+  <div class="card-section">
+    <div class="row column">
+      <%= form.check_box :use_default_details %>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <div class="result-default-detail-items">
+      <div class="result-default-detail-items-list">
+        <% @form.result_default_details.each_with_index do |default_detail, index| %>
+          <%= fields_for "result[result_default_details][]", default_detail do |default_detail_form| %>
+            <%= render "default_detail", form: default_detail_form, tabs_id: tabs_id_for_default_detail(default_detail), editable: true %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="card">
   <div class="card-divider">
     <h2 class="card-title"><%= t(".result_details") %></h2>
@@ -99,14 +124,14 @@
     <div class="result-detail-items">
       <%= fields_for "result[result_details][#{blank_result_detail.to_param}]", blank_result_detail do |result_detail_form| %>
         <script type="text/template" class="decidim-template">
-          <%= render "result_detail", form: result_detail_form, tabs_id: tabs_id_for_result_detail(blank_result_detail), editable: true, child_template_selector: "#result-detail-child-template-dummy" %>
+          <%= render "result_detail", form: result_detail_form, tabs_id: tabs_id_for_result_detail(blank_result_detail), editable: true %>
         </script>
       <% end %>
 
       <div class="result-detail-items-list">
         <% @form.result_details.each_with_index do |result_detail, index| %>
           <%= fields_for "result[result_details][]", result_detail do |result_detail_form| %>
-            <%= render "result_detail", form: result_detail_form, tabs_id: tabs_id_for_result_detail(result_detail), editable: true, child_template_selector: "#result-detail-child-template-#{index}" %>
+            <%= render "result_detail", form: result_detail_form, tabs_id: tabs_id_for_result_detail(result_detail), editable: true %>
           <% end %>
         <% end %>
       </div>

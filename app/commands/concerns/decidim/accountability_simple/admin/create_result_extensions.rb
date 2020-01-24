@@ -25,7 +25,8 @@ module Decidim
               weight: @form.weight,
               main_image: @form.main_image,
               list_image: @form.list_image,
-              theme_color: @form.theme_color
+              theme_color: @form.theme_color,
+              use_default_details: @form.use_default_details
             }
 
             @result = Decidim.traceability.create!(
@@ -35,7 +36,14 @@ module Decidim
               visibility: "all"
             )
 
+            create_result_default_details
             create_result_details
+          end
+        end
+
+        def create_result_default_details
+          @form.result_default_details.each do |form_default_detail|
+            create_result_default_detail(form_default_detail)
           end
         end
 
@@ -45,13 +53,22 @@ module Decidim
           end
         end
 
+        def create_result_default_detail(form_default_detail)
+          record = Decidim::AccountabilitySimple::ResultDetail.find(
+            form_default_detail.id
+          )
+
+          value = record.value_for(@result) || record.values.build(result: @result)
+          value.attributes = { description: form_default_detail.description }
+          value.save!
+        end
+
         def create_result_detail(form_result_detail)
           result_detail_attributes = {
             title: form_result_detail.title,
-            description: form_result_detail.description,
             icon: form_result_detail.icon,
             position: form_result_detail.position,
-            result: @result
+            accountability_result_detailable: @result
           }
 
           record = Decidim::AccountabilitySimple::ResultDetail.find_or_create_by!(
@@ -63,12 +80,19 @@ module Decidim
           if record.persisted?
             if form_result_detail.deleted?
               record.destroy!
-            else
-              record.update!(result_detail_attributes)
+              return
             end
+
+            record.update!(result_detail_attributes)
           else
             record.save!
           end
+
+          value = record.value_for(@result) || record.values.build(result: @result)
+          value.attributes = { description: form_result_detail.description }
+          value.save!
+
+          record
         end
       end
     end

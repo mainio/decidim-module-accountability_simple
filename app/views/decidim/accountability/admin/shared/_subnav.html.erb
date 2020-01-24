@@ -1,0 +1,2 @@
+<%= link_to t(".statuses"), statuses_path, class: "button tiny button--simple" %>
+<%= link_to t("actions.default_details", scope: "decidim.accountability"), details_path, class: "button tiny button--simple" if allowed_to? :create, :result %>

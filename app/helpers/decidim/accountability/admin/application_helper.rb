@@ -6,6 +6,10 @@ module Decidim
       # Custom helpers, scoped to the accountability admin engine.
       #
       module ApplicationHelper
+        def tabs_id_for_default_detail(default_detail)
+          "default_detail_item_#{default_detail.to_param}"
+        end
+
         def tabs_id_for_result_detail(result_detail)
           "result_detail_item_#{result_detail.to_param}"
         end

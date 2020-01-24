@@ -1,0 +1,14 @@
+<% default_detail = form.object %>
+<div class="card result-default-detail-item" id="<%= tabs_id %>-field">
+  <div class="card-divider result-default-detail-item-divider">
+    <h2 class="card-title">
+      <span>
+        <%== t(".default_detail") %>
+      </span>
+    </h2>
+  </div>
+
+  <div class="card-section">
+    <%= render "default_detail_fields", tabs_id: tabs_id, form: form, default_detail: default_detail %>
+  </div>
+</div>

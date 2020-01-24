@@ -19,19 +19,19 @@
     </div>
   <% end %>
 
-  <% if result.result_details.any? || !result.scope.nil? || !result.category.nil? %>
+  <% if result.result_all_details.any? || !result.scope.nil? || !result.category.nil? %>
     <%= result_detail_info(result) do %>
-      <% result.result_details.each do |detail| %>
+      <% result.result_all_details.each do |detail| %>
         <div class="definition-data__item result_detail">
           <span class="definition-data__icon">
             <%= result_detail_icon(result, detail) %>
           </span>
           <span class="definition-data__info">
-            <% if translated_attribute(detail.description).empty? %>
+            <% if translated_attribute(detail.description_for(result)).empty? %>
               <span class="definition-data__title"><%= translated_attribute detail.title %></span>
             <% else %>
               <span class="definition-data__title with_description"><%= translated_attribute detail.title %></span>
-              <span class="definition-data__description"><%= translated_attribute detail.description %></span>
+              <span class="definition-data__description"><%= translated_attribute detail.description_for(result) %></span>
             <% end %>
           </span>
         </div>
