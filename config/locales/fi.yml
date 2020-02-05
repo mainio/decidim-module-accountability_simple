@@ -83,8 +83,11 @@ fi:
       models:
         result_detail:
           icons:
+            budget: Budjetti
+            calendar: Kalenteri
             map_marker: Karttamerkki
             person: Henkilö
+            vote: Äänestys
       results:
         filters:
           category: Aihepiiri

@@ -83,8 +83,11 @@ en:
       models:
         result_detail:
           icons:
+            budget: Budget
+            calendar: Calendar
             map_marker: Map marker
             person: Person
+            vote: Voting
       results:
         filters:
           category: Category

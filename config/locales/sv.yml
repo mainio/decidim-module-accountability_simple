@@ -83,8 +83,11 @@ sv:
       models:
         result_detail:
           icons:
+            budget: Budget
+            calendar: Kalender
             map_marker: Kartmarkör
             person: Person
+            vote: Röstning
       results:
         filters:
           category: Kategori

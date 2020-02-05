@@ -1,0 +1,19 @@
+.result-view{
+  .progress-level{
+    padding: 0;
+    border-radius: 0;
+    border-width: 4px;
+
+    .definition-data__boxtitle{
+      text-align: center;
+    }
+
+    .progress-level-data{
+      padding: 0.5rem 0.7rem;
+    }
+
+    .progress-label{
+      justify-content: center;
+    }
+  }
+}

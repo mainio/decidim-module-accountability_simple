@@ -23,6 +23,18 @@ module Decidim
             [
               t("person", scope: "decidim.accountability_simple.models.result_detail.icons"),
               "person"
+            ],
+            [
+              t("budget", scope: "decidim.accountability_simple.models.result_detail.icons"),
+              "budget"
+            ],
+            [
+              t("calendar", scope: "decidim.accountability_simple.models.result_detail.icons"),
+              "calendar"
+            ],
+            [
+              t("vote", scope: "decidim.accountability_simple.models.result_detail.icons"),
+              "vote"
             ]
           ]
         end
