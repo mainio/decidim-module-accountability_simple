@@ -101,6 +101,9 @@ en:
           filter: Filter
           filter_by: Filter by
           unfold: Unfold
+        index:
+          results: Tracking
+      shared:
         result:
           show_project: Show project
           progress_explanation: Project progress

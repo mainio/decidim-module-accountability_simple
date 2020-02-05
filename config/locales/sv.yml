@@ -101,6 +101,9 @@ sv:
           filter: Filtrera
           filter_by: Filtrera efter
           unfold: Veckla ut
+        index:
+          results: Spårning
+      shared:
         result:
           show_project: Visa projekt
           progress_explanation: Projektets framsteg

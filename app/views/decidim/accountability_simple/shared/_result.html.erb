@@ -1,14 +1,14 @@
 <div class="column" id="result_<%= result.id %>">
   <article class="card card--proposal">
     <% if result.list_image && result.list_image.url %>
-      <%= link_to result do %>
+      <%= link_to resource_locator(result).path do %>
         <%= image_tag result.list_image.url, class: "card__image", alt: translated_attribute(result.title) %>
       <% end %>
     <% end %>
 
     <div class="card__content">
       <div class="card__header">
-        <%= link_to result do %>
+        <%= link_to resource_locator(result).path do %>
           <h5 class="card__title"><%= translated_attribute result.title %></h5>
         <% end %>
       </div>
@@ -18,7 +18,7 @@
           <%= decidim_sanitize(html_truncate(translated_attribute(result.description), length: 100)) %>
         </div>
 
-        <% if component_settings.display_progress_enabled? && result.progress.present? %>
+        <% if result.component.settings.display_progress_enabled? && result.progress.present? %>
           <span class="text-small"><%= t(".progress_explanation") %></span>
           <div class="progress">
             <div class="progress-meter" style="width:<%= result.progress %>%">
@@ -34,14 +34,14 @@
     <div class="card__bottom">
       <div class="card__footer">
         <div class="card__support">
-          <%= link_to t(".show_project"), result, class: "card__button button hollow primary" %>
+          <%= link_to t(".show_project"), resource_locator(result).path, class: "card__button button hollow primary" %>
         </div>
       </div>
 
       <div class="card__status">
         <ul class="card-data">
           <li class="card-data__item comments_count_status">
-            <%= link_to result do %>
+            <%= link_to resource_locator(result).path do %>
               <%=
                 with_tooltip t("decidim.accountability.models.result.fields.comments") do
                   icon("comment-square", class: "icon--small") + " " + result.comments.not_hidden.count.to_s

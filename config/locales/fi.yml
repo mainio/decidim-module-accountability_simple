@@ -101,6 +101,9 @@ fi:
           filter: Rajaa
           filter_by: Rajaa hakua
           unfold: Avaa
+        index:
+          results: Seuranta
+      shared:
         result:
           show_project: Näytä hanke
           progress_explanation: Hankkeen edistyminen

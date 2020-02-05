@@ -5,6 +5,10 @@ module Decidim
     class Engine < ::Rails::Engine
       isolate_namespace Decidim::AccountabilitySimple
 
+      routes do
+        resources :results, only: [:index]
+      end
+
       initializer "decidim_accountability_simple.assets" do |app|
         app.config.assets.precompile += %w(decidim/accountability_simple/result.css)
       end
@@ -12,6 +16,12 @@ module Decidim
       initializer "decidim_accountability_simple.admin_assets" do |app|
         app.config.assets.precompile += %w(decidim_accountability_simple_admin_manifest.js
                                            decidim/accountability_simple/admin/results.js)
+      end
+
+      initializer "decidim_accountability_simple.mount_routes", before: :add_routing_paths do
+        Decidim::Core::Engine.routes do
+          mount Decidim::AccountabilitySimple::Engine => "/"
+        end
       end
 
       initializer "decidim_accountability_simple.admin_routes", before: :add_routing_paths do
