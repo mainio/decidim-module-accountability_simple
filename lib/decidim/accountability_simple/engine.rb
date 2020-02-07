@@ -10,12 +10,17 @@ module Decidim
       end
 
       initializer "decidim_accountability_simple.assets" do |app|
-        app.config.assets.precompile += %w(decidim/accountability_simple/result.css)
+        app.config.assets.precompile += %w(
+          decidim/accountability_simple/result.css
+          decidim/accountability_simple/icons.svg
+        )
       end
 
       initializer "decidim_accountability_simple.admin_assets" do |app|
-        app.config.assets.precompile += %w(decidim_accountability_simple_admin_manifest.js
-                                           decidim/accountability_simple/admin/results.js)
+        app.config.assets.precompile += %w(
+          decidim_accountability_simple_admin_manifest.js
+          decidim/accountability_simple/admin/results.js
+        )
       end
 
       initializer "decidim_accountability_simple.mount_routes", before: :add_routing_paths do
