@@ -24,7 +24,11 @@ module Decidim
                     file_size: { less_than_or_equal_to: ->(_record) { Decidim.maximum_attachment_size } },
                     file_content_type: { allow: ["image/jpeg", "image/png"] }
 
+          alias_method :map_model_original, :map_model
+
           def map_model(model)
+            map_model_original(model)
+
             self.result_default_details = model.result_default_details.map do |default_detail|
               default_detail_form = ResultDefaultDetailsForm.from_model(default_detail)
               default_detail_form.description = default_detail.values.find_by(
