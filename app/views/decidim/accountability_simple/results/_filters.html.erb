@@ -14,7 +14,18 @@
 
   <%= scopes_picker_filter form, :scope_id %>
 
-  <% if categories.any? %>
-    <%= form.categories_select :category_id, categories, legend_title: t(".category"), disable_parents: false, include_blank: true, label: false, prompt: t(".category_prompt") %>
+  <% if components.any? %>
+    <div class="filters__section">
+      <fieldset>
+        <legend>
+          <h6 class="heading6"><%= t(".component") %></h6>
+        </legend>
+        <%= form.select :component_id, components.map{ |c| [translated_attribute(c.participatory_space.title, c.participatory_space.organization), c.id] }, label: false, prompt: t(".component_prompt") %>
+      </fieldset>
+    </div>
   <% end %>
+
+  <div id="categories_filter">
+    <%= render partial: "categories_filter", locals: { form: form, categories: categories } %>
+  </div>
 <% end %>

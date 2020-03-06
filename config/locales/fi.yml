@@ -58,7 +58,7 @@ fi:
             other: "%{count} hanketta"
         filters:
           category: Aihepiiri
-          category_prompt: Aihepiiri-ilmoitus
+          category_prompt: Valitse aihepiiri
           open: Avaa
           related_to: Liittyy
           search: Hae
@@ -89,9 +89,12 @@ fi:
             person: Henkilö
             vote: Äänestys
       results:
-        filters:
+        categories_filter:
           category: Aihepiiri
-          category_prompt: Aihepiiri-ilmoitus
+          category_prompt: Valitse aihepiiri
+        filters:
+          component: Alue
+          component_prompt: Valitse alue
           open: Avaa
           related_to: Liittyy
           search: Hae

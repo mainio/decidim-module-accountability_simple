@@ -1,0 +1,20 @@
+var $results = $('#results');
+var $categoryFilter = $('#categories_filter');
+
+$results.html('<%= j(render partial: "decidim/accountability_simple/shared/results_parent", locals: { results: results, total_count: results.total_count }).strip.html_safe %>');
+
+<%
+builder = Decidim::FilterFormBuilder.new(:filter, filter, self, {
+  namespace: filter_form_namespace,
+  url: url_for,
+  method: :get,
+  remote: true,
+  html: { id: nil }
+})
+
+category_filter = capture(builder) do |form|
+  render partial: "categories_filter", locals: { form: form, categories: categories }
+end
+%>
+
+$categoryFilter.html('<%= j(category_filter).strip.html_safe %>');

@@ -58,7 +58,7 @@ sv:
             other: "%{count} projekt"
         filters:
           category: Kategori
-          category_prompt: Kategorifråga
+          category_prompt: Välj kategori
           open: Öppna
           related_to: Relaterade till
           search: Sök
@@ -89,9 +89,12 @@ sv:
             person: Person
             vote: Röstning
       results:
-        filters:
+        categories_filter:
           category: Kategori
-          category_prompt: Kategorifråga
+          category_prompt: Välj kategori
+        filters:
+          component: Område
+          component_prompt: Välj område
           open: Öppna
           related_to: Relaterade till
           search: Sök

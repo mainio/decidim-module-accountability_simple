@@ -24,7 +24,7 @@ module Decidim
 
       # helper Decidim::Accountability::ApplicationHelper
 
-      helper_method :results, :result, :categories, :count_calculator
+      helper_method :results, :result, :components, :categories, :count_calculator
 
       private
 
@@ -38,7 +38,7 @@ module Decidim
       end
 
       def components
-        # TODO
+        @components ||= Decidim::Component.where(manifest_name: :accountability).where.not(published_at: nil)
       end
 
       def search_klass
@@ -49,16 +49,23 @@ module Decidim
         {
           search_text: "",
           scope_id: "",
-          category_id: ""
+          category_id: "",
+          component_id: ""
         }
       end
 
       def categories
+        return selected_component.categories if selected_component
+
         []
       end
 
       def context_params
         { organization: current_organization }
+      end
+
+      def selected_component
+        @selected_component ||= Decidim::Component.find_by(id: filter.component_id)
       end
 
       def count_calculator(scope_id, category_id)

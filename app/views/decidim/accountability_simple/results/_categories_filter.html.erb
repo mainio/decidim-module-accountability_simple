@@ -1,0 +1,3 @@
+<% if categories.any? %>
+  <%= form.categories_select :category_id, categories, legend_title: t(".category"), disable_parents: false, include_blank: true, label: false, prompt: t(".category_prompt") %>
+<% end %>

@@ -8,6 +8,20 @@ module Decidim
       def base_query
         @scope
       end
+
+      # Handle component_id filter
+      def search_component_id
+        component_id = options[:component_id]
+        return query if component_id.blank?
+
+        query.where(decidim_component_id: component_id)
+      end
+
+      private
+
+      def category_ids
+        [category_id.to_i]
+      end
     end
   end
 end
