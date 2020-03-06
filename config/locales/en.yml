@@ -92,6 +92,8 @@ en:
         categories_filter:
           category: Category
           category_prompt: Choose category
+        components_filter:
+          others: Others
         filters:
           component: Area
           component_prompt: Choose area

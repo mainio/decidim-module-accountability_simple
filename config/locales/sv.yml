@@ -92,6 +92,8 @@ sv:
         categories_filter:
           category: Kategori
           category_prompt: Välj kategori
+        components_filter:
+          others: Andra
         filters:
           component: Område
           component_prompt: Välj område

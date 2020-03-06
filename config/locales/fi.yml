@@ -92,6 +92,8 @@ fi:
         categories_filter:
           category: Aihepiiri
           category_prompt: Valitse aihepiiri
+        components_filter:
+          others: Muut
         filters:
           component: Alue
           component_prompt: Valitse alue

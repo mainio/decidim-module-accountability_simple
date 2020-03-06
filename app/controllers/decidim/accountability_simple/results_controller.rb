@@ -26,6 +26,45 @@ module Decidim
 
       helper_method :results, :result, :components, :categories, :count_calculator
 
+      # This is used for "clean" URLs to display results only from a specific
+      # participatory process groups. The group name slug is given to the URL
+      # as the ID parameter and that is used to match the participatory process
+      # group names by replacing special characters from the names and
+      # converting dashes into spaces.
+      #
+      # The following extra characters of the process group's name will be
+      # stripped out:
+      # '.', ',', '-', '!', '¡', '?', '¿', '%', '$', '€', '£', '"', "'"
+      #
+      # Therefore, the user could, for example, request the following URL:
+      #   /results/my-special-process-group
+      #
+      # And they would see all results for the participatory process group with
+      # the following matchin name in any language:
+      # - My Spécîäl Pröcêss Grôûp.
+      def show
+        slug = params[:id]
+        search = slug.gsub(/-/, " ")
+
+        subq_parts = []
+        subq_args = []
+        current_organization.available_locales.each do |locale|
+          subq_parts << "translate(regexp_replace(lower(name->>'#{locale}'), ?, ''), ?, ?) LIKE ?"
+          subq_args << "[\\.\\-,!¡?¿%$€£\"']"
+          subq_args << "á,à,â,ä,å,é,è,ê,ë,í,ì,î,ï,ú,ù,û,ü,ó,ò,ô,ö"
+          subq_args << "a,a,a,a,a,e,e,e,e,i,i,i,i,u,u,u,u,o,o,o,o"
+          subq_args << search
+        end
+
+        @process_group = Decidim::ParticipatoryProcessGroup.where(
+          organization: current_organization
+        ).find_by(subq_parts.join(" OR "), *subq_args)
+
+        raise ActionController::RoutingError, "Not Found" unless @process_group
+
+        render :index
+      end
+
       private
 
       def results
@@ -38,7 +77,23 @@ module Decidim
       end
 
       def components
-        @components ||= Decidim::Component.where(manifest_name: :accountability).where.not(published_at: nil)
+        @components ||= begin
+          if spaces.empty?
+            Decidim::Component.where(manifest_name: :accountability)
+          else
+            Decidim::Component.where(manifest_name: :accountability, participatory_space: spaces)
+          end
+        end.where.not(published_at: nil)
+      end
+
+      def spaces
+        @spaces ||= begin
+          if @process_group
+            @process_group.participatory_processes
+          else
+            []
+          end
+        end
       end
 
       def search_klass
@@ -61,7 +116,7 @@ module Decidim
       end
 
       def context_params
-        { organization: current_organization }
+        { organization: current_organization, included_components: components }
       end
 
       def selected_component

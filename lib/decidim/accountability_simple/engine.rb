@@ -6,7 +6,7 @@ module Decidim
       isolate_namespace Decidim::AccountabilitySimple
 
       routes do
-        resources :results, only: [:index]
+        resources :results, only: [:index, :show]
       end
 
       initializer "decidim_accountability_simple.assets" do |app|
