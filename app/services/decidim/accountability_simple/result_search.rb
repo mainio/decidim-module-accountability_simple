@@ -6,7 +6,7 @@ module Decidim
     class ResultSearch < Decidim::Accountability::ResultSearch
       # Creates the SearchLight base query.
       def base_query
-        unless options[:included_components].empty?
+        unless options[:included_components].try(:empty?)
           @scope = @scope.where(
             component: options[:included_components]
           )
