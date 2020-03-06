@@ -20,7 +20,7 @@
         <legend>
           <h6 class="heading6"><%= t(".component") %></h6>
         </legend>
-        <%= form.select :component_id, components.map{ |c| [translated_attribute(c.participatory_space.title, c.participatory_space.organization), c.id] }, label: false, prompt: t(".component_prompt") %>
+        <%= form.select :component_id, components.map{ |c| [translated_attribute(c.participatory_space.title, c.participatory_space.organization), c.id] }, label: false, include_blank: t(".component_prompt") %>
       </fieldset>
     </div>
   <% end %>
