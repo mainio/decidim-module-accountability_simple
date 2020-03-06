@@ -1,5 +1,13 @@
 <div class="column" id="result_<%= result.id %>">
   <article class="card card--proposal">
+    <div class="card__top" bis_skin_checked="1">
+      <div class="card__content text-small" bis_skin_checked="1">
+        <span class="muted"><%= t ".participatory_space" %>:</span>&nbsp;
+        <%= translated_attribute result.participatory_space.title %>
+      </div>
+    </div>
+
+
     <% if result.list_image && result.list_image.url %>
       <%= link_to resource_locator(result).path do %>
         <%= image_tag result.list_image.url, class: "card__image", alt: translated_attribute(result.title) %>

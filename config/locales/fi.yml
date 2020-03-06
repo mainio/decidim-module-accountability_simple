@@ -109,4 +109,5 @@ fi:
       shared:
         result:
           show_project: Näytä hanke
+          participatory_space: Alue
           progress_explanation: Hankkeen edistyminen
