@@ -1,0 +1,11 @@
+<% if selected_space %>
+  <% if respond_to?(:scopes_picker_filter_simple) %>
+    <%= scopes_picker_filter_simple(
+      form,
+      :scope_id,
+      root: selected_space.scope
+    ) %>
+  <% else %>
+    <%= scopes_picker_filter form, :scope_id %>
+  <% end %>
+<% end %>

@@ -24,7 +24,7 @@ module Decidim
 
       # helper Decidim::Accountability::ApplicationHelper
 
-      helper_method :results, :result, :components, :categories, :count_calculator
+      helper_method :results, :result, :selected_space, :components, :categories, :count_calculator
 
       # This is used for "clean" URLs to display results only from a specific
       # participatory process groups. The group name slug is given to the URL
@@ -44,6 +44,9 @@ module Decidim
       # - My Spécîäl Pröcêss Grôûp.
       def show
         slug = params[:id]
+        @space = Decidim::ParticipatoryProcess.find_by(slug: slug)
+        return render :index if @space
+
         search = slug.gsub(/-/, " ")
 
         subq_parts = []
@@ -90,6 +93,8 @@ module Decidim
         @spaces ||= begin
           if @process_group
             @process_group.participatory_processes
+          elsif @space
+            [@space]
           else
             []
           end
@@ -121,6 +126,10 @@ module Decidim
 
       def selected_component
         @selected_component ||= Decidim::Component.find_by(id: filter.component_id)
+      end
+
+      def selected_space
+        @selected_space ||= @space || selected_component.try(:participatory_space)
       end
 
       def count_calculator(scope_id, category_id)

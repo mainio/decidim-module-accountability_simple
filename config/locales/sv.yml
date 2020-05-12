@@ -95,8 +95,8 @@ sv:
         components_filter:
           others: Andra
         filters:
-          component: Område
-          component_prompt: Välj område
+          component: Process
+          component_prompt: Välj process
           open: Öppna
           related_to: Relaterade till
           search: Sök
@@ -111,5 +111,4 @@ sv:
       shared:
         result:
           show_project: Visa projekt
-          participatory_space: Område
           progress_explanation: Projektets framsteg

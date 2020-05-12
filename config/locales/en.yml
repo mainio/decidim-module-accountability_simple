@@ -95,8 +95,8 @@ en:
         components_filter:
           others: Others
         filters:
-          component: Area
-          component_prompt: Choose area
+          component: Process
+          component_prompt: Choose process
           open: Open
           related_to: Related to
           search: Search
@@ -111,5 +111,4 @@ en:
       shared:
         result:
           show_project: Show project
-          participatory_space: Area
           progress_explanation: Project progress

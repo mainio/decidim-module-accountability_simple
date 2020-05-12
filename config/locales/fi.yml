@@ -95,8 +95,8 @@ fi:
         components_filter:
           others: Muut
         filters:
-          component: Alue
-          component_prompt: Valitse alue
+          component: Prosessi
+          component_prompt: Valitse prosessi
           open: Avaa
           related_to: Liittyy
           search: Hae
@@ -111,5 +111,4 @@ fi:
       shared:
         result:
           show_project: Näytä hanke
-          participatory_space: Alue
           progress_explanation: Hankkeen edistyminen

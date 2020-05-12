@@ -12,11 +12,7 @@
     </div>
   </div>
 
-  <% if false %>
-    <%= scopes_picker_filter form, :scope_id %>
-  <% end %>
-
-  <% if components.any? %>
+  <% if components.count > 1 %>
     <div class="filters__section">
       <fieldset>
         <legend>
@@ -26,6 +22,10 @@
       </fieldset>
     </div>
   <% end %>
+
+  <div id="scopes_filter">
+    <%= render partial: "scopes_filter", locals: { form: form, selected_space: selected_space } %>
+  </div>
 
   <div id="categories_filter">
     <%= render partial: "categories_filter", locals: { form: form, categories: categories } %>
