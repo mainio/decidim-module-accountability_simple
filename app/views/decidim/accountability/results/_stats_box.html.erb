@@ -42,7 +42,11 @@
             <%= result_detail_icon(result) %>
           </span>
           <span class="definition-data__info">
-            <span class="definition-data__title with_description"><%= t("results.show.stats.scope", scope: "decidim.accountability") %></span>
+            <% if result.scope.parent %>
+              <span class="definition-data__title with_description"><%= translated_attribute result.scope.parent.name %></span>
+            <% else %>
+              <span class="definition-data__title with_description"><%= t("results.show.stats.scope", scope: "decidim.accountability") %></span>
+            <% end %>
             <span class="definition-data__description"><%= translated_attribute result.scope.name %></span>
           </span>
         </div>
