@@ -1,7 +1,11 @@
+<%
+root_result = result
+root_result = root_result.parent while root_result.parent
+%>
 <div class="columns section mediumlarge-4 large-3">
 
   <% if component_settings.display_progress_enabled? && result.progress.present? %>
-    <%= result_progress_info(result) do %>
+    <%= result_progress_info(root_result) do %>
       <div class="progress-label">
         <span class="progress-figure">
           <%= display_percentage result.progress %>
@@ -18,8 +22,8 @@
     <% end %>
   <% end %>
 
-  <% if result.result_all_details.any? || !result.scope.nil? || !result.category.nil? %>
-    <%= result_detail_info(result) do %>
+  <% if result.result_all_details.any? || !root_result.scope.nil? || !result.category.nil? %>
+    <%= result_detail_info(root_result) do %>
       <% result.result_all_details.each do |detail| %>
         <div class="definition-data__item result_detail">
           <span class="definition-data__icon">
@@ -36,30 +40,30 @@
         </div>
       <% end %>
 
-      <% if result.scope %>
+      <% if root_result.scope %>
         <div class="definition-data__item result_detail">
           <span class="definition-data__icon">
             <%= result_detail_icon(result) %>
           </span>
           <span class="definition-data__info">
-            <% if result.scope.parent %>
-              <span class="definition-data__title with_description"><%= translated_attribute result.scope.parent.name %></span>
+            <% if root_result.scope.parent %>
+              <span class="definition-data__title with_description"><%= translated_attribute root_result.scope.parent.name %></span>
             <% else %>
               <span class="definition-data__title with_description"><%= t("results.show.stats.scope", scope: "decidim.accountability") %></span>
             <% end %>
-            <span class="definition-data__description"><%= translated_attribute result.scope.name %></span>
+            <span class="definition-data__description"><%= translated_attribute root_result.scope.name %></span>
           </span>
         </div>
       <% end %>
 
-      <% if result.category %>
+      <% if root_result.category %>
         <div class="definition-data__item result_detail">
           <span class="definition-data__icon">
             <%= result_detail_icon(result) %>
           </span>
           <span class="definition-data__info">
             <span class="definition-data__title with_description"><%= t("results.show.stats.category", scope: "decidim.accountability") %></span>
-            <span class="definition-data__description"><%= translated_attribute result.category.name %></span>
+            <span class="definition-data__description"><%= translated_attribute root_result.category.name %></span>
           </span>
         </div>
       <% end %>
