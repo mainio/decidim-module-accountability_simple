@@ -2,25 +2,28 @@
 
 source "https://rubygems.org"
 
+ruby RUBY_VERSION
+
 # Inside the development app, the relative require has to be one level up, as
 # the Gemfile is copied to the development_app folder (almost) as is.
 base_path = ""
 base_path = "../" if File.basename(__dir__) == "development_app"
 require_relative "#{base_path}lib/decidim/accountability_simple/version"
 
-ruby RUBY_VERSION
+#DECIDIM_VERSION = Decidim::AccountabilitySimple::DECIDIM_VERSION
+DECIDIM_VERSION = { github: "decidim/decidim", branch: "release/0.22-stable" }
 
-gem "decidim", Decidim::AccountabilitySimple::DECIDIM_VERSION
+gem "decidim", DECIDIM_VERSION
 gem "decidim-accountability_simple", path: "."
 
 gem "bootsnap", "~> 1.4"
-gem "puma", "~> 3.12"
+gem "puma", "~> 4.3.3"
 gem "uglifier", "~> 4.1"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
-  gem "decidim-dev", Decidim::AccountabilitySimple::DECIDIM_VERSION
+  gem "decidim-dev", DECIDIM_VERSION
 end
 
 group :development do
