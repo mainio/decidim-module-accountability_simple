@@ -63,7 +63,10 @@ module Decidim
       def result_detail_icon(result, detail = nil)
         return accountability_icon(detail.icon) if detail && !detail.icon.empty?
 
-        color = result.theme_color || default_theme_color
+        color_parent = result
+        color_parent = color_parent.parent while color_parent.parent && color_parent.theme_color.empty?
+
+        color = color_parent.theme_color || default_theme_color
         style = "background-color: #{color};"
 
         content_tag(:span, "", class: "definition-data__icon__marker", style: style).html_safe
