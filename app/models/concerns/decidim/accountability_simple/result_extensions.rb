@@ -7,9 +7,12 @@ module Decidim
 
       include Decidim::HasAttachments
       include Decidim::HasAttachmentCollections
+      include Decidim::HasUploadValidations
 
       included do
+        validates_upload :main_image
         mount_uploader :main_image, Decidim::AccountabilitySimple::MainImageUploader
+        validates_upload :list_image
         mount_uploader :list_image, Decidim::AccountabilitySimple::ListImageUploader
 
         has_many :result_details, -> { order(:position) }, as: :accountability_result_detailable,

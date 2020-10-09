@@ -17,14 +17,11 @@ module Decidim
           attribute :result_default_details, Array[ResultDefaultDetailsForm]
           attribute :result_details, Array[ResultDetailsForm]
 
-          validates :main_image,
-                    file_size: { less_than_or_equal_to: ->(_record) { Decidim.maximum_attachment_size } },
-                    file_content_type: { allow: ["image/jpeg", "image/png"] }
-          validates :list_image,
-                    file_size: { less_than_or_equal_to: ->(_record) { Decidim.maximum_attachment_size } },
-                    file_content_type: { allow: ["image/jpeg", "image/png"] }
+          validates :main_image, passthru: { to: Decidim::Accountability::Result }
+          validates :list_image, passthru: { to: Decidim::Accountability::Result }
 
           alias_method :map_model_original, :map_model
+          alias_method :organization, :current_organization
 
           def map_model(model)
             map_model_original(model)
