@@ -3,6 +3,8 @@
 require "spec_helper"
 
 describe "Admin manages accountability", type: :system do
+  include_context "when managing a component"
+
   let(:organization) { create(:organization) }
   let(:participatory_process) do
     create(:participatory_process, :with_steps, organization: organization)
@@ -15,7 +17,7 @@ describe "Admin manages accountability", type: :system do
   before do
     switch_to_host(organization.host)
     login_as user, scope: :user
-    visit "/admin/participatory_processes/#{participatory_process.slug}/components/#{component.id}/manage"
+    visit_component_admin
   end
 
   describe "result page" do
