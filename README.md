@@ -1,6 +1,6 @@
 # Decidim::AccountabilitySimple
 
-[![Build Status](https://travis-ci.com/mainio/decidim-module-accountability_simple.svg?branch=master)](https://travis-ci.com/mainio/decidim-module-accountability_simple)
+[![Build Status](https://github.com/mainio/decidim-module-accountability_simple/actions/workflows/ci_accountability_simple.yml/badge.svg)](https://github.com/mainio/decidim-module-accountability_simple/actions)
 [![codecov](https://codecov.io/gh/mainio/decidim-module-accountability_simple/branch/master/graph/badge.svg)](https://codecov.io/gh/mainio/decidim-module-accountability_simple)
 
 The gem has been developed by [Mainio Tech](https://www.mainiotech.fi/).
