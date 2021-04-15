@@ -27,6 +27,10 @@ describe "Admin manages accountability", type: :system do
   end
 
   describe "create result" do
+    let(:icon) { "Voting" }
+    let(:detail_title) { ::Faker::Lorem.sentence }
+    let(:detail_description) { ::Faker::Lorem.sentence }
+
     it "creates result" do
       click_link "New Result"
 
@@ -60,12 +64,19 @@ describe "Admin manages accountability", type: :system do
       attach_file(:result_main_image, Decidim::Dev.asset("city.jpeg"))
       attach_file(:result_list_image, Decidim::Dev.asset("city2.jpeg"))
 
+      click_button "Add detail"
+      within ".grid-x" do
+        find("select[id^='result_result_details_']").find(:option, icon).select_option
+        find("input[id$='_title_en']").set(detail_title)
+        find("input[id$='_description_en']").set(detail_title)
+      end
+
       click_button "Create result"
       expect(page).to have_content("Result successfully created")
     end
   end
 
-  context "when there is result" do
+  context "when there is a result" do
     let!(:result) { create(:result, component: component) }
 
     before do

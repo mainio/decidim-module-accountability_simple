@@ -56,6 +56,33 @@ describe "Explore results", versioning: true, type: :system do
       expect(page).to have_content("#{result.progress.to_i}%")
     end
 
+    context "when result has details" do
+      let(:scope) { create :scope, organization: organization }
+      let(:category) { create :category, participatory_space: participatory_process }
+      let(:detail_attributes) do
+        {
+          title: { "en" => "Some title", "ca" => "Sama kataloniaksi", "es" => "Sama espanjaksi" },
+          icon: "budget",
+          position: "0",
+          accountability_result_detailable: result
+        }
+      end
+
+      before do
+        Decidim::AccountabilitySimple::ResultDetail.create(detail_attributes)
+        result.scope = scope
+        result.category = category
+        result.save!
+        visit current_path
+      end
+
+      it "shows details" do
+        expect(page).to have_i18n_content(detail_attributes[:title])
+        expect(page).to have_i18n_content(scope.name)
+        expect(page).to have_i18n_content(category.name)
+      end
+    end
+
     context "when a result has comments" do
       let(:author) { create(:user, :confirmed, organization: component.organization) }
       let!(:comments) { create_list(:comment, 3, commentable: result) }
