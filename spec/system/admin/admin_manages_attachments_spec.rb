@@ -33,7 +33,7 @@ describe "Admin manages accountability attachments", type: :system do
       let(:description) { ::Faker::Lorem.paragraph }
 
       before do
-        click_link "New Attachment"
+        click_link "New attachment"
       end
 
       it "creates attachment" do
@@ -74,7 +74,7 @@ describe "Admin manages accountability attachments", type: :system do
       let(:description) { ::Faker::Lorem.paragraph }
 
       before do
-        click_link "New Folder"
+        click_link "New attachment collection"
       end
 
       it "creates new folder" do
