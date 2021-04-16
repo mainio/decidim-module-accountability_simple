@@ -3,8 +3,7 @@
 module Decidim
   module Accountability
     module Admin
-      # Controller that allows managing all the attachment collections for a budget.
-      #
+      # Controller that allows managing all the attachment collections for a result.
       class AttachmentCollectionsController < Admin::ApplicationController
         include Decidim::Admin::Concerns::HasAttachmentCollections
 

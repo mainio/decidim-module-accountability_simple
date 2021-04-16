@@ -3,7 +3,7 @@
 SimpleCov.start do
   root ENV["ENGINE_ROOT"]
 
-  add_filter "lib/decidim/process_groups_content_block/version.rb"
+  add_filter "lib/decidim/accountability_simple/version.rb"
   add_filter "/spec"
 end
 

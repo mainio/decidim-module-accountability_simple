@@ -39,46 +39,49 @@ module Decidim
         end
       end
 
-      config.to_prepare do
-        # Model extensions
-        Decidim::Accountability::Result.send(
-          :include,
-          Decidim::AccountabilitySimple::ResultExtensions
-        )
+      # HACK, because migrations crash if models exists before they are ran
+      if ENV["accountability_simple"] != "create_app"
+        config.to_prepare do
+          # Model extensions
+          Decidim::Accountability::Result.send(
+            :include,
+            Decidim::AccountabilitySimple::ResultExtensions
+          )
 
-        # Form extensions
-        Decidim::Accountability::Admin::ResultForm.send(
-          :include,
-          Decidim::AccountabilitySimple::Admin::ResultFormExtensions
-        )
-        Decidim::Accountability::Admin::TimelineEntryForm.send(
-          :include,
-          Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
-        )
+          # Form extensions
+          Decidim::Accountability::Admin::ResultForm.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::ResultFormExtensions
+          )
+          Decidim::Accountability::Admin::TimelineEntryForm.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
+          )
 
-        # Command extensions
-        Decidim::Accountability::Admin::CreateResult.send(
-          :include,
-          Decidim::AccountabilitySimple::Admin::CreateResultExtensions
-        )
-        Decidim::Accountability::Admin::UpdateResult.send(
-          :include,
-          Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
-        )
-        Decidim::Accountability::Admin::CreateTimelineEntry.send(
-          :include,
-          Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
-        )
-        Decidim::Accountability::Admin::UpdateTimelineEntry.send(
-          :include,
-          Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
-        )
+          # Command extensions
+          Decidim::Accountability::Admin::CreateResult.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::CreateResultExtensions
+          )
+          Decidim::Accountability::Admin::UpdateResult.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
+          )
+          Decidim::Accountability::Admin::CreateTimelineEntry.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
+          )
+          Decidim::Accountability::Admin::UpdateTimelineEntry.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
+          )
 
-        # Helper extensions
-        Decidim::Accountability::ApplicationHelper.send(
-          :include,
-          Decidim::AccountabilitySimple::ApplicationHelperExtensions
-        )
+          # Helper extensions
+          Decidim::Accountability::ApplicationHelper.send(
+            :include,
+            Decidim::AccountabilitySimple::ApplicationHelperExtensions
+          )
+        end
       end
     end
   end

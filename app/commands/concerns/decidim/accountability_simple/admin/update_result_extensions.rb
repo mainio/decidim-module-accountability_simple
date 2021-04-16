@@ -13,6 +13,15 @@ module Decidim
             Decidim.traceability.update!(
               result,
               @form.current_user,
+              attributes
+            )
+
+            update_result_default_details
+            update_result_details
+          end
+
+          def attributes
+            {
               scope: @form.scope,
               category: @form.category,
               parent_id: @form.parent_id,
@@ -24,14 +33,16 @@ module Decidim
               decidim_accountability_status_id: @form.decidim_accountability_status_id,
               external_id: @form.external_id.presence,
               weight: @form.weight,
-              main_image: @form.main_image,
-              list_image: @form.list_image,
               theme_color: @form.theme_color,
               use_default_details: @form.use_default_details
-            )
+            }.merge(uploader_attributes)
+          end
 
-            update_result_default_details
-            update_result_details
+          def uploader_attributes
+            {
+              main_image: @form.main_image,
+              list_image: @form.list_image
+            }.delete_if { |_k, val| val.is_a?(Decidim::ApplicationUploader) }
           end
         end
 

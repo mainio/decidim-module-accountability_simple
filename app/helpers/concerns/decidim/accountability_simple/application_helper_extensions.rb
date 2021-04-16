@@ -64,7 +64,7 @@ module Decidim
         return accountability_icon(detail.icon) if detail && !detail.icon.empty?
 
         color_parent = result
-        color_parent = color_parent.parent while color_parent.parent && color_parent.theme_color.empty?
+        color_parent = color_parent.parent while color_parent.parent && color_parent.theme_color&.empty?
 
         color = color_parent.theme_color || default_theme_color
         style = "background-color: #{color};"
