@@ -105,8 +105,8 @@ module Decidim
       end
 
       def _icon_asset_path(name)
-        @accountability_icons ||= %w(calendar budget vote)
-        return asset_path("decidim/accountability_simple/icons.svg") if @accountability_icons.include?(name)
+        accountability_icons ||= %w(calendar budget vote)
+        return asset_path("decidim/accountability_simple/icons.svg") if accountability_icons.include?(name)
 
         # Decidim defaults
         asset_path("decidim/icons.svg")

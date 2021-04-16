@@ -43,42 +43,34 @@ module Decidim
       if ENV["accountability_simple"] != "create_app"
         config.to_prepare do
           # Model extensions
-          Decidim::Accountability::Result.send(
-            :include,
+          Decidim::Accountability::Result.include(
             Decidim::AccountabilitySimple::ResultExtensions
           )
 
           # Form extensions
-          Decidim::Accountability::Admin::ResultForm.send(
-            :include,
+          Decidim::Accountability::Admin::ResultForm.include(
             Decidim::AccountabilitySimple::Admin::ResultFormExtensions
           )
-          Decidim::Accountability::Admin::TimelineEntryForm.send(
-            :include,
+          Decidim::Accountability::Admin::TimelineEntryForm.include(
             Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
           )
 
           # Command extensions
-          Decidim::Accountability::Admin::CreateResult.send(
-            :include,
+          Decidim::Accountability::Admin::CreateResult.include(
             Decidim::AccountabilitySimple::Admin::CreateResultExtensions
           )
-          Decidim::Accountability::Admin::UpdateResult.send(
-            :include,
+          Decidim::Accountability::Admin::UpdateResult.include(
             Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
           )
-          Decidim::Accountability::Admin::CreateTimelineEntry.send(
-            :include,
+          Decidim::Accountability::Admin::CreateTimelineEntry.include(
             Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
           )
-          Decidim::Accountability::Admin::UpdateTimelineEntry.send(
-            :include,
+          Decidim::Accountability::Admin::UpdateTimelineEntry.include(
             Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
           )
 
           # Helper extensions
-          Decidim::Accountability::ApplicationHelper.send(
-            :include,
+          Decidim::Accountability::ApplicationHelper.include(
             Decidim::AccountabilitySimple::ApplicationHelperExtensions
           )
         end
