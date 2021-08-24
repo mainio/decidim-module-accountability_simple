@@ -39,6 +39,10 @@ module Decidim
         end
       end
 
+      initializer "decidim_accountability_simple.add_cells_view_paths", before: "decidim_accountability.add_cells_view_paths" do
+        Cell::ViewModel.view_paths << File.expand_path("#{Decidim::AccountabilitySimple::Engine.root}/app/cells")
+      end
+
       # HACK, because migrations crash if models exists before they are ran
       if ENV["accountability_simple"] != "create_app"
         config.to_prepare do

@@ -1,0 +1,13 @@
+<div class="card__status">
+  <ul class="card-data">
+    <li class="card-data__item comments_count_status">
+      <%= link_to resource_path do %>
+        <%=
+          with_tooltip t("decidim.accountability.models.result.fields.comments") do
+            icon("comment-square", class: "icon--small") + " " + model.comments.not_hidden.count.to_s
+          end
+        %>
+      <% end %>
+    </li>
+  </ul>
+</div>
