@@ -8,8 +8,11 @@ module Decidim
       include Decidim::HasAttachments
       include Decidim::HasAttachmentCollections
       include Decidim::HasUploadValidations
+      include Decidim::Coauthorable
 
       included do
+        remove_coauthorships_requirement!
+
         validates_upload :main_image
         mount_uploader :main_image, Decidim::AccountabilitySimple::MainImageUploader
         validates_upload :list_image
@@ -40,6 +43,14 @@ module Decidim
             accountability_result_detailable_type: :desc,
             position: :asc
           )
+        end
+      end
+
+      class_methods do
+        def remove_coauthorships_requirement!
+          validators_on(:coauthorships).each do |v|
+            v.attributes.delete(:coauthorships) if v.is_a?(ActiveRecord::Validations::PresenceValidator)
+          end
         end
       end
     end
