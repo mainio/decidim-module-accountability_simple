@@ -39,10 +39,17 @@ module Decidim
               visibility: "all"
             )
 
+            create_result_authors
             create_result_default_details
             create_result_details
             create_result_links
             update_taggings(@result, @form)
+          end
+        end
+
+        def create_result_authors
+          @form.authors.each do |author|
+            @result.add_coauthor(author)
           end
         end
 
