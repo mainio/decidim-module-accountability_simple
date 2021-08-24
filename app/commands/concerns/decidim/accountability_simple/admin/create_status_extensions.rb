@@ -10,7 +10,7 @@ module Decidim
           private
 
           def create_status
-            @status = Decidim::AccountabilityStatus.create!(
+            @status = Decidim::Accountability::Status.create!(
               component: @form.current_component,
               key: @form.key,
               name: @form.name,
