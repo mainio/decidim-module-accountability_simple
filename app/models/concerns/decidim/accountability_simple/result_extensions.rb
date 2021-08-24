@@ -8,6 +8,7 @@ module Decidim
       include Decidim::HasAttachments
       include Decidim::HasAttachmentCollections
       include Decidim::HasUploadValidations
+      include Decidim::Tags::Taggable
       include Decidim::Coauthorable
 
       included do
