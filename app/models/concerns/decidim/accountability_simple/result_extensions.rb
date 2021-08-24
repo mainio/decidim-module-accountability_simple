@@ -21,6 +21,8 @@ module Decidim
 
         has_many :result_details, -> { order(:position) }, as: :accountability_result_detailable,
                                                            class_name: "Decidim::AccountabilitySimple::ResultDetail"
+        has_many :result_links, -> { order(:position) }, class_name: "Decidim::AccountabilitySimple::ResultLink",
+                                                         foreign_key: "decidim_accountability_result_id"
 
         def result_default_details
           Decidim::AccountabilitySimple::ResultDetail.where(
