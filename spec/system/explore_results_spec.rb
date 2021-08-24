@@ -36,7 +36,7 @@ describe "Explore results", versioning: true, type: :system do
     let(:path) { decidim_participatory_process_accountability.results_path(participatory_process_slug: participatory_process.slug, component_id: component.id) }
 
     it "shows all results for the given process and category" do
-      expect(page).to have_selector(".card--proposal", count: results_count)
+      expect(page).to have_selector(".card--result", count: results_count)
 
       results.each do |result|
         expect(page).to have_content(translated(result.title))

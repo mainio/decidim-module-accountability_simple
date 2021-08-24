@@ -13,8 +13,11 @@ module Decidim::Accountability
     let(:form) do
       double(
         invalid?: invalid,
+        organization: organization,
         title: { en: "title" },
+        summary: { en: "summary" },
         description: { en: "description" },
+        authors: [],
         proposal_ids: [],
         project_ids: [],
         scope: nil,
@@ -31,23 +34,32 @@ module Decidim::Accountability
         use_default_details: "1",
         main_image: nil,
         list_image: nil,
+        taggings: taggings_form,
         result_default_details: result_default_details ? [result_default_details] : [],
-        result_details: result_details ? [result_details] : []
+        result_details: result_details || [],
+        result_links: result_links || []
       )
     end
+    let(:taggings_form) do
+      double(tags: tags || [])
+    end
     let(:invalid) { false }
+    let(:tags) {}
     let(:result_default_details) {}
     let(:result_details) {}
+    let(:result_links) {}
 
     describe "update result and result details" do
       let(:result_details) do
-        double(
-          id: 1337,
-          icon: "person",
-          title: { "en" => "This is a title", "ca" => "This is a title", "es" => "This is a title" },
-          description: { "en" => "This is a description", "ca" => "This is a description", "es" => "This is a description" },
-          position: 0
-        )
+        [
+          double(
+            id: 1337,
+            icon: "person",
+            title: { "en" => "This is a title", "ca" => "This is a title", "es" => "This is a title" },
+            description: { "en" => "This is a description", "ca" => "This is a description", "es" => "This is a description" },
+            position: 0
+          )
+        ]
       end
 
       it "updates the result and details" do
