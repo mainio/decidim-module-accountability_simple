@@ -6,6 +6,8 @@ module Decidim
       module CreateResultExtensions
         extend ActiveSupport::Concern
 
+        include Decidim::Tags::TaggingsCommand
+
         included do
           private
 
@@ -16,6 +18,7 @@ module Decidim
               category: @form.category,
               parent_id: @form.parent_id,
               title: @form.title,
+              summary: @form.summary,
               description: @form.description,
               start_date: @form.start_date,
               end_date: @form.end_date,
@@ -38,6 +41,8 @@ module Decidim
 
             create_result_default_details
             create_result_details
+            create_result_links
+            update_taggings(@result, @form)
           end
         end
 
@@ -93,6 +98,23 @@ module Decidim
           value.save!
 
           record
+        end
+
+        def create_result_links
+          @form.result_links.each do |form_result_link|
+            create_result_link(form_result_link)
+          end
+        end
+
+        def create_result_link(form_result_link)
+          result_link_attributes = {
+            label: form_result_link.label,
+            url: form_result_link.url,
+            position: form_result_link.position,
+            result: @result
+          }
+
+          @result.result_links.create!(result_link_attributes)
         end
       end
     end

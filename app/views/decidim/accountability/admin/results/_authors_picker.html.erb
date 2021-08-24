@@ -1,0 +1,10 @@
+<div class="js-authors-input input-field" data-input-name="<%= "#{form.object_name}[author_ids][]" %>">
+  <label for="authors_filter"><%= t(".label") %></label>
+  <input type="text" name="authors-filter" id="authors_filter" class="authors-filter" placeholder="<%= t(".search_placeholder", collection: t(".collection_name")) %>">
+
+  <div class="values">
+    <% form.object.authors.each do |author| %>
+      <input type="hidden" value="<%= author.id %>" data-author-name="<%= "#{author.name} (#{author.nickname})" %>">
+    <% end %>
+  </div>
+</div>

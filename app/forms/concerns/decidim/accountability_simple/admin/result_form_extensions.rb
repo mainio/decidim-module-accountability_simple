@@ -6,16 +6,22 @@ module Decidim
       module ResultFormExtensions
         extend ActiveSupport::Concern
 
+        include Decidim::Tags::TaggableForm
+
         included do
+          translatable_attribute :summary, String
+
           attribute :main_image
           attribute :list_image
           attribute :remove_main_image
           attribute :remove_list_image
           attribute :theme_color, String, default: "#ffffff"
           attribute :use_default_details, ::Decidim::Form::Boolean, default: true
+          attribute :author_ids, Array[Integer]
 
           attribute :result_default_details, Array[ResultDefaultDetailsForm]
           attribute :result_details, Array[ResultDetailsForm]
+          attribute :result_links, Array[ResultLinkForm]
 
           validates :main_image, passthru: { to: Decidim::Accountability::Result }
           validates :list_image, passthru: { to: Decidim::Accountability::Result }
@@ -26,6 +32,7 @@ module Decidim
           def map_model(model)
             map_model_original(model)
 
+            self.author_ids = model.coauthorships.pluck(:decidim_author_id)
             self.result_default_details = model.result_default_details.map do |default_detail|
               default_detail_form = ResultDefaultDetailsForm.from_model(default_detail)
               default_detail_form.description = default_detail.values.find_by(
@@ -37,6 +44,10 @@ module Decidim
             self.result_details = model.result_details.map do |result_detail|
               ResultDetailsForm.from_model(result_detail)
             end
+          end
+
+          def authors
+            @authors ||= Decidim::UserBaseEntity.where(id: author_ids)
           end
         end
       end
