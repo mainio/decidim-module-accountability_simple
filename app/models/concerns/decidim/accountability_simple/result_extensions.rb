@@ -8,8 +8,12 @@ module Decidim
       include Decidim::HasAttachments
       include Decidim::HasAttachmentCollections
       include Decidim::HasUploadValidations
+      include Decidim::Tags::Taggable
+      include Decidim::Coauthorable
 
       included do
+        remove_coauthorships_requirement!
+
         validates_upload :main_image
         mount_uploader :main_image, Decidim::AccountabilitySimple::MainImageUploader
         validates_upload :list_image
@@ -17,6 +21,8 @@ module Decidim
 
         has_many :result_details, -> { order(:position) }, as: :accountability_result_detailable,
                                                            class_name: "Decidim::AccountabilitySimple::ResultDetail"
+        has_many :result_links, -> { order(:position) }, class_name: "Decidim::AccountabilitySimple::ResultLink",
+                                                         foreign_key: "decidim_accountability_result_id"
 
         def result_default_details
           Decidim::AccountabilitySimple::ResultDetail.where(
@@ -40,6 +46,14 @@ module Decidim
             accountability_result_detailable_type: :desc,
             position: :asc
           )
+        end
+      end
+
+      class_methods do
+        def remove_coauthorships_requirement!
+          validators_on(:coauthorships).each do |v|
+            v.attributes.delete(:coauthorships) if v.is_a?(ActiveRecord::Validations::PresenceValidator)
+          end
         end
       end
     end

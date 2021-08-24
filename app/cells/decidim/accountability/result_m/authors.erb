@@ -1,0 +1,13 @@
+<div class="author">
+  <%= cell(
+    "decidim/collapsible_list",
+    presenters_for_identities,
+    cell_name: "decidim/author",
+    cell_options: {
+      from: model,
+      has_actions: false,
+      skip_profile_link: true
+    },
+    size: 2
+    ) %>
+</div>

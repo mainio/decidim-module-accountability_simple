@@ -6,6 +6,8 @@ module Decidim
       module UpdateResultExtensions
         extend ActiveSupport::Concern
 
+        include Decidim::Tags::TaggingsCommand
+
         included do
           private
 
@@ -16,8 +18,11 @@ module Decidim
               attributes
             )
 
+            update_result_authors
             update_result_default_details
             update_result_details
+            update_result_links
+            update_taggings(result, @form)
           end
 
           def attributes
@@ -27,6 +32,7 @@ module Decidim
               parent_id: @form.parent_id,
               title: @form.title,
               description: @form.description,
+              summary: @form.summary,
               start_date: @form.start_date,
               end_date: @form.end_date,
               progress: @form.progress,
@@ -43,6 +49,13 @@ module Decidim
               main_image: @form.main_image,
               list_image: @form.list_image
             }.delete_if { |_k, val| val.is_a?(Decidim::ApplicationUploader) }
+          end
+        end
+
+        def update_result_authors
+          result.coauthorships.destroy_all
+          @form.authors.each do |author|
+            result.add_coauthor(author)
           end
         end
 
@@ -91,6 +104,35 @@ module Decidim
           value = record.value_for(@result) || record.values.build(result: @result)
           value.attributes = { description: form_result_detail.description }
           value.save!
+
+          record
+        end
+
+        def update_result_links
+          @form.result_links.each do |form_result_link|
+            update_result_link(form_result_link)
+          end
+        end
+
+        def update_result_link(form_result_link)
+          result_link_attributes = {
+            label: form_result_link.label,
+            url: form_result_link.url,
+            position: form_result_link.position
+          }
+
+          record = @result.result_links.find_by(id: form_result_link.id) ||
+                   @result.result_links.build(result_link_attributes)
+
+          if record.persisted?
+            if form_result_link.deleted?
+              record.destroy!
+            else
+              record.update!(result_link_attributes)
+            end
+          else
+            record.save!
+          end
 
           record
         end

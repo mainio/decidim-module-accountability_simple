@@ -39,6 +39,10 @@ module Decidim
         end
       end
 
+      initializer "decidim_accountability_simple.add_cells_view_paths", before: "decidim_accountability.add_cells_view_paths" do
+        Cell::ViewModel.view_paths << File.expand_path("#{Decidim::AccountabilitySimple::Engine.root}/app/cells")
+      end
+
       # HACK, because migrations crash if models exists before they are ran
       if ENV["accountability_simple"] != "create_app"
         config.to_prepare do
@@ -48,7 +52,12 @@ module Decidim
           )
 
           # Form extensions
-          Decidim::Accountability::Admin::ResultForm.include(
+          Decidim::Accountability::Admin::StatusForm.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::StatusFormExtensions
+          )
+          Decidim::Accountability::Admin::ResultForm.send(
+            :include,
             Decidim::AccountabilitySimple::Admin::ResultFormExtensions
           )
           Decidim::Accountability::Admin::TimelineEntryForm.include(
@@ -56,7 +65,16 @@ module Decidim
           )
 
           # Command extensions
-          Decidim::Accountability::Admin::CreateResult.include(
+          Decidim::Accountability::Admin::CreateStatus.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::CreateStatusExtensions
+          )
+          Decidim::Accountability::Admin::UpdateStatus.send(
+            :include,
+            Decidim::AccountabilitySimple::Admin::UpdateStatusExtensions
+          )
+          Decidim::Accountability::Admin::CreateResult.send(
+            :include,
             Decidim::AccountabilitySimple::Admin::CreateResultExtensions
           )
           Decidim::Accountability::Admin::UpdateResult.include(

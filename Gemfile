@@ -14,6 +14,8 @@ DECIDIM_VERSION = Decidim::AccountabilitySimple::DECIDIM_VERSION
 # DECIDIM_VERSION = { github: "decidim/decidim", branch: "develop" }
 
 gem "decidim", DECIDIM_VERSION
+gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "main"
+
 gem "decidim-accountability_simple", path: "."
 
 gem "bootsnap", "~> 1.4"

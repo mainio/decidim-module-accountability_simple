@@ -9,7 +9,7 @@ module Decidim
         include Decidim::SanitizeHelper
         include Decidim::Proposals::Admin::Picker
 
-        helper_method :results, :parent_result, :parent_results, :statuses, :present, :blank_result_detail
+        helper_method :results, :parent_result, :parent_results, :statuses, :present, :blank_result_detail, :blank_result_link
 
         def new
           enforce_permission_to :create, :result
@@ -98,6 +98,10 @@ module Decidim
 
         def blank_result_detail
           @blank_result_detail ||= Decidim::AccountabilitySimple::Admin::ResultDetailsForm.new
+        end
+
+        def blank_result_link
+          @blank_result_link ||= Decidim::AccountabilitySimple::Admin::ResultLinkForm.new
         end
       end
     end

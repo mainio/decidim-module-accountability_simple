@@ -32,17 +32,28 @@ sv:
             invalid: Det gick inte att uppdatera standardin detaljer
             success: Standard detaljer har uppdaterats
         results:
+          authors_picker:
+            collection_name: Projekt
+            label: Författare
+            search_placeholder: Sök författare
           default_detail:
             default_detail: Standard detailj
           form:
             add_result_detail: Lägg till detaljer
+            add_result_link: Lägg till länk
             images: Bilder
             result_default_details: Standard detaljer
             result_details: Detaljer
+            result_links: Länkar
           result_detail:
             down: Ner
             remove: Ta bort
             result_detail: Detalj
+            up: Upp
+          result_link:
+            down: Ner
+            remove: Ta bort
+            result_link: Länk
             up: Upp
       models:
         result:
@@ -51,6 +62,9 @@ sv:
         timeline_entry:
           fields:
             title: Rubrik
+      result_m:
+        progress_explanation: Projektets framsteg
+        view: Visa projekt
       results:
         count:
           results_count:
@@ -70,8 +84,6 @@ sv:
         nav_breadcrumb:
           all_projects: Alla projekt
         result:
-          show_project: Visa projekt
-          progress_explanation: Projektets framsteg
           project_info: Projektinfo
         show:
           stats:

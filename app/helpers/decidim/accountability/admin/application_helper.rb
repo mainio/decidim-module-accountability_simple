@@ -38,6 +38,10 @@ module Decidim
             ]
           ]
         end
+
+        def tabs_id_for_result_link(result_link)
+          "result_link_item_#{result_link.to_param}"
+        end
       end
     end
   end
