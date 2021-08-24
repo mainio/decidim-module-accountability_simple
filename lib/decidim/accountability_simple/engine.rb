@@ -52,12 +52,10 @@ module Decidim
           )
 
           # Form extensions
-          Decidim::Accountability::Admin::StatusForm.send(
-            :include,
+          Decidim::Accountability::Admin::StatusForm.include(
             Decidim::AccountabilitySimple::Admin::StatusFormExtensions
           )
-          Decidim::Accountability::Admin::ResultForm.send(
-            :include,
+          Decidim::Accountability::Admin::ResultForm.include(
             Decidim::AccountabilitySimple::Admin::ResultFormExtensions
           )
           Decidim::Accountability::Admin::TimelineEntryForm.include(
@@ -65,16 +63,13 @@ module Decidim
           )
 
           # Command extensions
-          Decidim::Accountability::Admin::CreateStatus.send(
-            :include,
+          Decidim::Accountability::Admin::CreateStatus.include(
             Decidim::AccountabilitySimple::Admin::CreateStatusExtensions
           )
-          Decidim::Accountability::Admin::UpdateStatus.send(
-            :include,
+          Decidim::Accountability::Admin::UpdateStatus.include(
             Decidim::AccountabilitySimple::Admin::UpdateStatusExtensions
           )
-          Decidim::Accountability::Admin::CreateResult.send(
-            :include,
+          Decidim::Accountability::Admin::CreateResult.include(
             Decidim::AccountabilitySimple::Admin::CreateResultExtensions
           )
           Decidim::Accountability::Admin::UpdateResult.include(

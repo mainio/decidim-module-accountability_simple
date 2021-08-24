@@ -57,9 +57,10 @@ module Decidim
             "#{model.class.module_parent}::OfficialAuthorPresenter".constantize.new
           else
             presenter_class =
-              if identity.is_a?(Decidim::User)
+              case identity
+              when Decidim::User
                 Decidim::AccountabilitySimple::UserCardPresenter
-              elsif identity.is_a?(Decidim::UserGroup)
+              when Decidim::UserGroup
                 Decidim::AccountabilitySimple::UserGroupCardPresenter
               end
             present(identity, presenter_class: presenter_class)
