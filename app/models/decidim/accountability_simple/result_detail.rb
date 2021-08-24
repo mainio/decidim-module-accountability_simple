@@ -2,8 +2,7 @@
 
 module Decidim
   module AccountabilitySimple
-    # The data store for a Result in the Decidim::Accountability component. It stores a
-    # title, description and any other useful information to render a custom result.
+    # The data store for accountability result details.
     class ResultDetail < Accountability::ApplicationRecord
       belongs_to :accountability_result_detailable, foreign_key: "accountability_result_detailable_id",
                                                     foreign_type: "accountability_result_detailable_type",
