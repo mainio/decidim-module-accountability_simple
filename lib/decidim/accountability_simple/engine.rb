@@ -5,10 +5,6 @@ module Decidim
     class Engine < ::Rails::Engine
       isolate_namespace Decidim::AccountabilitySimple
 
-      routes do
-        resources :results, only: [:index, :show]
-      end
-
       initializer "decidim_accountability_simple.assets" do |app|
         app.config.assets.precompile += %w(
           decidim/accountability_simple/result.css
