@@ -68,7 +68,13 @@ module Decidim
       end
 
       def description
-        decidim_sanitize(translated_attribute(model.summary))
+        summary = translated_attribute(model.summary)
+        unless summary
+          desc = strip_tags(translated_attribute(model.description))
+          summary = truncate(desc, length: 100)
+        end
+
+        decidim_sanitize(translated_attribute(summary))
       end
 
       def display_progress?
