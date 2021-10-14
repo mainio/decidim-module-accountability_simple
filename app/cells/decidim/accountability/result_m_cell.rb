@@ -21,7 +21,7 @@ module Decidim
       end
 
       def has_image?
-        model.list_image.present?
+        model.list_image && model.list_image.url.present?
       end
 
       def resource_image_path
