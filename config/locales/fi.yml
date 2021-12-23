@@ -3,8 +3,12 @@ fi:
   activemodel:
     attributes:
       result:
-        main_image: Pääkuva
         list_image: Listauksen kuva
+        main_image: Pääkuva
+        summary: Tiivistelmä
+      timeline_entry:
+        end_date: Päättymispäivä
+        title: Otsake (päivämäärien tilalla)
   activerecord:
     models:
       decidim/accountability/result:
@@ -42,6 +46,7 @@ fi:
             add_result_detail: Lisää lisätieto
             add_result_link: Lisää linkki
             images: Kuvat
+            locations: Sijainnit
             result_default_details: Oletustiedot
             result_details: Lisätiedot
             result_links: Linkit
@@ -61,6 +66,7 @@ fi:
             comments: Kommentit
         timeline_entry:
           fields:
+            end_date: Päättymispäivä
             title: Otsikko
       result_m:
         progress_explanation: Hankkeen edistyminen
@@ -124,3 +130,8 @@ fi:
         result:
           show_project: Näytä hanke
           progress_explanation: Hankkeen edistyminen
+    components:
+      accountability:
+        settings:
+          global:
+            geocoding_enabled: Paikkatieto sallittu

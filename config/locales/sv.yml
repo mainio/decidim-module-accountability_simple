@@ -3,8 +3,12 @@ sv:
   activemodel:
     attributes:
       result:
-        main_image: Huvudbild
         list_image: Lista bild
+        main_image: Huvudbild
+        summary: Sammanfattning
+      timeline_entry:
+        end_date: Slutdatum
+        title: Titel (ersätter datumen)
   activerecord:
     models:
       decidim/accountability/result:
@@ -42,6 +46,7 @@ sv:
             add_result_detail: Lägg till detaljer
             add_result_link: Lägg till länk
             images: Bilder
+            locations: Plats
             result_default_details: Standard detaljer
             result_details: Detaljer
             result_links: Länkar
@@ -61,6 +66,7 @@ sv:
             comments: Bilder
         timeline_entry:
           fields:
+            end_date: Slutdatum
             title: Rubrik
       result_m:
         progress_explanation: Projektets framsteg
@@ -124,3 +130,8 @@ sv:
         result:
           show_project: Visa projekt
           progress_explanation: Projektets framsteg
+    components:
+      accountability:
+        settings:
+          global:
+            geocoding_enabled: Geokodning aktiverad

@@ -3,8 +3,12 @@ en:
   activemodel:
     attributes:
       result:
-        main_image: Main image
         list_image: List image
+        main_image: Main image
+        summary: Summary
+      timeline_entry:
+        end_date: End date
+        title: Title (replaces the dates)
   activerecord:
     models:
       decidim/accountability/result:
@@ -42,6 +46,7 @@ en:
             add_result_detail: Add detail
             add_result_link: Add link
             images: Images
+            locations: Locations
             result_default_details: Default details
             result_details: Details
             result_links: Links
@@ -61,6 +66,7 @@ en:
             comments: Comments
         timeline_entry:
           fields:
+            end_date: End date
             title: Title
       result_m:
         progress_explanation: Project progress
@@ -124,3 +130,8 @@ en:
         result:
           show_project: Show project
           progress_explanation: Project progress
+    components:
+      accountability:
+        settings:
+          global:
+            geocoding_enabled: Geocoding enabled
