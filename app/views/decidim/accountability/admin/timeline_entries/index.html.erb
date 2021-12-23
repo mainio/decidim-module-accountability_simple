@@ -13,6 +13,7 @@
         <thead>
           <tr>
             <th><%= t("models.timeline_entry.fields.entry_date", scope: "decidim.accountability") %></th>
+            <th><%= t("models.timeline_entry.fields.end_date", scope: "decidim.accountability") %></th>
             <th><%= t("models.timeline_entry.fields.title", scope: "decidim.accountability") %></th>
             <th><%= t("models.timeline_entry.fields.description", scope: "decidim.accountability") %></th>
             <th class="actions"><%= t("actions.title", scope: "decidim.accountability") %></th>
@@ -22,6 +23,7 @@
           <% timeline_entries.each do |timeline_entry| %>
             <tr data-id="<%= timeline_entry.id %>">
               <td><%= timeline_entry.entry_date %><br></td>
+              <td><%= timeline_entry.end_date %><br></td>
               <td><%= translated_attribute(timeline_entry.title) %></td>
               <td><%= translated_attribute(timeline_entry.description) %></td>
               <td class="table-list__actions">

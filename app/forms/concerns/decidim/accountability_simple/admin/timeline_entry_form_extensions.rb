@@ -8,6 +8,7 @@ module Decidim
 
         included do
           translatable_attribute :title, String
+          attribute :end_date, Decidim::Attributes::LocalizedDate
 
           # Remove the entry date presence validation
           _validators.reject! { |key, _| key == :entry_date }
