@@ -47,6 +47,70 @@ module Decidim
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::AccountabilitySimple::Engine.root}/app/cells")
       end
 
+      initializer "decidim_accountability_simple.api_extensions" do
+        # TODO: Update to 0.24+
+        Decidim::Accountability::ResultType.define do
+          # Decidim::AccountabilitySimple::DetailableTypeExtension.define(self)
+
+          field :locations, !types[Decidim::Locations::LocationType], "The locations for this result"
+          field :details, !types[Decidim::AccountabilitySimple::ResultDetailType], "The details for this result", property: :result_details
+        end
+        Decidim::Accountability::AccountabilityType.define do
+          Decidim::AccountabilitySimple::DetailableTypeExtension.define(self)
+        end
+      end
+
+      initializer "decidim_accountability_simple.mutation_extensions", after: "decidim-api.graphiql" do
+        Decidim::Api::MutationType.define do
+          MutationExtensions.define(self)
+        end
+      end
+
+      # TODO: Update to 0.24+ (see plans for example)
+      # initializer "decidim_accountability_simple.api_linked_resources", before: :finisher_hook do
+      initializer "decidim_accountability_simple.api_linked_resources" do
+        # Mark the possible types for accountability result linked resources
+        has_linked_types = false
+        if Decidim.const_defined?("Proposals")
+          has_linked_types = true
+          Decidim::Proposals::ProposalType.implements(
+            [-> { Decidim::AccountabilitySimple::ResourceLinkInterface }]
+          )
+        end
+        if Decidim.const_defined?("Ideas")
+          has_linked_types = true
+          Decidim::Ideas::IdeaType.implements(Decidim::AccountabilitySimple::ResourceLinkInterface)
+        end
+        if Decidim.const_defined?("Plans")
+          has_linked_types = true
+          Decidim::Plans::PlanType.implements(Decidim::AccountabilitySimple::ResourceLinkInterface)
+        end
+        if Decidim.const_defined?("Budgets")
+          has_linked_types = true
+          Decidim::Budgets::ProjectType.implements(
+            [-> { Decidim::AccountabilitySimple::ResourceLinkInterface }]
+          )
+        end
+        next unless has_linked_types
+
+        # Add the extra fields to the result and result timeline entry types
+        Decidim::Accountability::ResultType.define do
+          interfaces [
+            # Default (core)
+            -> { Decidim::Core::ComponentInterface },
+            -> { Decidim::Core::CategorizableInterface },
+            -> { Decidim::Comments::CommentableInterface },
+            -> { Decidim::Core::ScopableInterface },
+            # Extra
+            -> { Decidim::AccountabilitySimple::ResourceLinkableInterface }
+          ]
+        end
+        Decidim::Accountability::TimelineEntryType.define do
+          field :endDate, Decidim::Core::DateType, "The end date for this timeline entry", property: :end_date
+          field :title, Decidim::Core::TranslatedFieldType, "The title for this timeline entry (that overrides the dates)"
+        end
+      end
+
       # HACK, because migrations crash if models exists before they are ran
       if ENV["accountability_simple"] != "create_app"
         config.to_prepare do
