@@ -49,9 +49,14 @@ module Decidim
 
       initializer "decidim_accountability_simple.api_extensions" do
         # TODO: Update to 0.24+
+        Decidim::Accountability::AccountabilityType.define do
+          field :statuses, !types[Decidim::Accountability::StatusType] do
+            resolve lambda { |component, _args, _ctx|
+              Decidim::Accountability::Status.where(component: component)
+            }
+          end
+        end
         Decidim::Accountability::ResultType.define do
-          # Decidim::AccountabilitySimple::DetailableTypeExtension.define(self)
-
           field :locations, !types[Decidim::Locations::LocationType], "The locations for this result"
           field :details, !types[Decidim::AccountabilitySimple::ResultDetailType], "The details for this result", property: :result_details
         end
