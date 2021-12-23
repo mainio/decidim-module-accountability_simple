@@ -26,8 +26,22 @@ module Decidim
         end
       end
 
+      def result_theme_color(result)
+        return default_theme_color unless result.category.respond_to?(:color)
+
+        if result.category.color.present?
+          result.category.color
+        elsif result.category.parent && result.category.parent.color.present?
+          result.category.parent.color
+        elsif result.parent
+          result_theme_color(result.parent)
+        else
+          default_theme_color
+        end
+      end
+
       def result_progress_info(result)
-        color = result.theme_color || default_theme_color
+        color = result_theme_color(result)
         style = "border-color: #{color};"
         title_style = "background-color: #{color};"
 
@@ -44,7 +58,7 @@ module Decidim
       end
 
       def result_detail_info(result)
-        color = result.theme_color || default_theme_color
+        color = result_theme_color(result)
         style = "border-color: #{color};"
         title_style = "background-color: #{color};"
 
@@ -63,10 +77,7 @@ module Decidim
       def result_detail_icon(result, detail = nil)
         return accountability_icon(detail.icon) if detail && !detail.icon.empty?
 
-        color_parent = result
-        color_parent = color_parent.parent while color_parent.parent && color_parent.theme_color&.empty?
-
-        color = color_parent.theme_color || default_theme_color
+        color = result_theme_color(result)
         style = "background-color: #{color};"
 
         content_tag(:span, "", class: "definition-data__icon__marker", style: style).html_safe
