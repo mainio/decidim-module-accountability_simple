@@ -7,6 +7,7 @@ module Decidim
         extend ActiveSupport::Concern
 
         include Decidim::Tags::TaggingsCommand
+        include Decidim::Locations::LocationsCommand
 
         included do
           private
@@ -23,6 +24,10 @@ module Decidim
             update_result_details
             update_result_links
             update_taggings(result, @form)
+            update_locations(result, @form)
+
+            link_ideas
+            link_plans
           end
 
           def attributes
@@ -39,7 +44,6 @@ module Decidim
               decidim_accountability_status_id: @form.decidim_accountability_status_id,
               external_id: @form.external_id.presence,
               weight: @form.weight,
-              theme_color: @form.theme_color,
               use_default_details: @form.use_default_details
             }.merge(uploader_attributes)
           end
@@ -135,6 +139,26 @@ module Decidim
           end
 
           record
+        end
+
+        def link_ideas
+          return unless @form.idea_ids
+
+          result.link_resources(ideas, "included_ideas")
+        end
+
+        def link_plans
+          return unless @form.plan_ids
+
+          result.link_resources(plans, "included_plans")
+        end
+
+        def ideas
+          @ideas ||= result.sibling_scope(:ideas).where(id: @form.idea_ids)
+        end
+
+        def plans
+          @plans ||= result.sibling_scope(:plans).where(id: @form.plan_ids)
         end
       end
     end

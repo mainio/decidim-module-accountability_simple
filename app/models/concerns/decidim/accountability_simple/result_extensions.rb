@@ -9,6 +9,7 @@ module Decidim
       include Decidim::HasAttachmentCollections
       include Decidim::HasUploadValidations
       include Decidim::Tags::Taggable
+      include Decidim::Locations::Locatable
       include Decidim::Coauthorable
 
       included do
