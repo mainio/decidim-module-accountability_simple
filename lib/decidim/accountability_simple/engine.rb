@@ -57,7 +57,11 @@ module Decidim
           end
         end
         Decidim::Accountability::ResultType.define do
+          field :summary, Decidim::Core::TranslatedFieldType, "The summary for this result"
+          field :mainImage, types.String, "The main image URL for this result", property: :main_image
+          field :listImage, types.String, "The list image (thumbnail) URL for this result", property: :list_image
           field :locations, !types[Decidim::Locations::LocationType], "The locations for this result"
+          field :defaultDetails, !types[Decidim::AccountabilitySimple::ResultDetailType], "The default details for this result", property: :result_default_details
           field :details, !types[Decidim::AccountabilitySimple::ResultDetailType], "The details for this result", property: :result_details
         end
         Decidim::Accountability::AccountabilityType.define do
