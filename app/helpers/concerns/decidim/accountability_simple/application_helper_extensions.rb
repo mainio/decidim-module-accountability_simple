@@ -87,6 +87,25 @@ module Decidim
         "#abb2bd"
       end
 
+      def human_range_time(start_date, end_date)
+        if start_date && end_date
+          return human_range_time(start_date, nil) if start_date.year == end_date.year && start_date.month == end_date.month
+
+          start_date_format =
+            if start_date.year != end_date.year
+              "%b %Y"
+            else
+              "%b"
+            end
+
+          "#{I18n.l(start_date, format: start_date_format)} - #{I18n.l(end_date, format: "%b %Y")}"
+        elsif start_date
+          I18n.l(start_date, format: "%b %Y")
+        elsif end_date
+          I18n.l(end_date, format: "%b %Y")
+        end
+      end
+
       # Outputs an SVG-based icon.
       #
       # name    - The String with the icon name.

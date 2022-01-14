@@ -1,9 +1,9 @@
 <div class="small-12 columns">
   <div class="section">
-    <h4 class="section-heading"><%= t(".title") %></h4>
+    <h3 class="section-heading"><%= t(".title") %></h3>
     <ol class="timeline">
       <% result.timeline_entries.each_with_index do |timeline_entry, i| %>
-        <li class="timeline__item ">
+        <li class="timeline__item<%= " timeline__item--active" if timeline_entry.active? %>">
           <div class="timeline__phase">
             <span class="timeline__phase__number"><%= i + 1 %></span>
           </div>
@@ -11,9 +11,9 @@
             <div class="timeline__description">
               <span class="timeline__date text-small">
                 <% if translated_attribute(timeline_entry.title).empty? %>
-                  <%= timeline_entry.entry_date %>
+                  <%= human_range_time(timeline_entry.entry_date, timeline_entry.end_date) %>
                 <% else %>
-                  <%= translated_attribute(timeline_entry.title) || timeline_entry.entry_date %>
+                  <%= translated_attribute(timeline_entry.title) %>
                 <% end %>
               </span>
               <h6 class="timeline__title">

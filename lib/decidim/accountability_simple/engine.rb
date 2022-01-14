@@ -133,6 +133,9 @@ module Decidim
             :include,
             Decidim::AccountabilitySimple::ResultExtensions
           )
+          Decidim::Accountability::TimelineEntry.include(
+            Decidim::AccountabilitySimple::TimelineEntryExtensions
+          )
 
           # Form extensions
           Decidim::Accountability::Admin::StatusForm.send(
