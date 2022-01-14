@@ -29,6 +29,8 @@ module Decidim
           validates :main_image, passthru: { to: Decidim::Accountability::Result }
           validates :list_image, passthru: { to: Decidim::Accountability::Result }
 
+          validates_locations_for Decidim::Accountability::Result
+
           alias_method :map_model_original, :map_model
           alias_method :organization, :current_organization
 

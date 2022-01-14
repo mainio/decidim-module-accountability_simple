@@ -101,6 +101,7 @@ module Decidim
 
       def result_params(**args)
         params = {
+          "id" => object.id,
           "weight" => args[:weight] || object.weight,
           "title" => args[:title],
           "decidim_category_id" => args[:category_id],
