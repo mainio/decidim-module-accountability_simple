@@ -73,6 +73,36 @@ module Decidim
           end
         end
 
+        def publish
+          enforce_permission_to :update, :result, result: result
+
+          PublishResult.call(result, current_user) do
+            on(:ok) do
+              flash[:notice] = I18n.t("results.publish.success", scope: "decidim.accountability.admin")
+              redirect_to action: :index
+            end
+            on(:invalid) do
+              flash[:alert] = I18n.t("results.publish.invalid", scope: "decidim.accountability.admin")
+              redirect_to action: :index
+            end
+          end
+        end
+
+        def unpublish
+          enforce_permission_to :update, :result, result: result
+
+          UnpublishResult.call(result, current_user) do
+            on(:ok) do
+              flash[:notice] = I18n.t("results.unpublish.success", scope: "decidim.accountability.admin")
+              redirect_to action: :index
+            end
+            on(:invalid) do
+              flash[:alert] = I18n.t("results.unpublish.invalid", scope: "decidim.accountability.admin")
+              redirect_to action: :index
+            end
+          end
+        end
+
         private
 
         def results

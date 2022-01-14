@@ -45,7 +45,7 @@ module Decidim
               external_id: @form.external_id.presence,
               weight: @form.weight,
               use_default_details: @form.use_default_details
-            }.merge(uploader_attributes)
+            }.merge(extra_attributes).merge(uploader_attributes)
           end
 
           def uploader_attributes
@@ -54,6 +54,12 @@ module Decidim
               list_image: @form.list_image
             }.delete_if { |_k, val| val.is_a?(Decidim::ApplicationUploader) }
           end
+        end
+
+        # Allows customizing extra attributes to the results outside of this
+        # module.
+        def extra_attributes
+          {}
         end
 
         def update_result_authors

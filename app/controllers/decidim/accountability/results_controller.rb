@@ -13,14 +13,20 @@ module Decidim
       helper_method :results, :result, :first_class_categories, :count_calculator
 
       def show
-        raise ActionController::RoutingError, "Not Found" unless result
+        raise ActionController::RoutingError, "Not Found" if result.blank? || !can_show_result?
       end
 
       private
 
+      def can_show_result?
+        return true if current_user&.admin?
+
+        result.published?
+      end
+
       def results
         parent_id = params[:parent_id].presence
-        @results ||= search.results.where(parent_id: parent_id).page(params[:page]).per(12)
+        @results ||= search.results.published.where(parent_id: parent_id).page(params[:page]).per(12)
       end
 
       def result

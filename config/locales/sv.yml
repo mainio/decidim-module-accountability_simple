@@ -50,6 +50,9 @@ sv:
             result_default_details: Standard detaljer
             result_details: Detaljer
             result_links: Länkar
+          publish:
+            invalid: Det gick inte att publicera det här resultatet.
+            success: Resultatet har publicerats.
           result_detail:
             down: Ner
             remove: Ta bort
@@ -60,6 +63,9 @@ sv:
             remove: Ta bort
             result_link: Länk
             up: Upp
+          unpublish:
+            invalid: Det gick inte att avpublicera det här resultatet.
+            success: Resultatet har avpublicerats.
       models:
         result:
           fields:

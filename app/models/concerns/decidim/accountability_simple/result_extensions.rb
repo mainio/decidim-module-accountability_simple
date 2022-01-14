@@ -11,6 +11,7 @@ module Decidim
       include Decidim::Tags::Taggable
       include Decidim::Locations::Locatable
       include Decidim::Coauthorable
+      include Decidim::Publicable
 
       included do
         remove_coauthorships_requirement!

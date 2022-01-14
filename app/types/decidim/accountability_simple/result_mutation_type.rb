@@ -37,6 +37,12 @@ module Decidim
         argument :project_ids, [GraphQL::Types::Int], description: "The linked project IDs for the result", required: false
       end
 
+      field :publicity, Decidim::Accountability::ResultType, null: true do
+        description "The publicity mutation to set the record published or unpublished."
+
+        argument :published, GraphQL::Types::Boolean, description: "Set the record published (true) or unpublished (false)", required: true
+      end
+
       def update(**args)
         enforce_permission_to :update, :result, result: object
 
@@ -63,6 +69,32 @@ module Decidim
         GraphQL::ExecutionError.new(
           I18n.t("decidim.accountability.admin.results.update.invalid")
         )
+      end
+
+      def publicity(published:)
+        enforce_permission_to :update, :result, result: object
+
+        if published
+          Decidim::Accountability::Admin::PublishResult.call(object, current_user) do
+            on(:ok) do
+              return result
+            end
+          end
+
+          GraphQL::ExecutionError.new(
+            I18n.t("decidim.accountability.admin.results.publish.invalid")
+          )
+        else
+          Decidim::Accountability::Admin::UnpublishResult.call(object, current_user) do
+            on(:ok) do
+              return result
+            end
+          end
+
+          GraphQL::ExecutionError.new(
+            I18n.t("decidim.accountability.admin.results.unpublish.invalid")
+          )
+        end
       end
 
       protected

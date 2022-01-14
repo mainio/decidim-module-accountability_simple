@@ -50,6 +50,9 @@ en:
             result_default_details: Default details
             result_details: Details
             result_links: Links
+          publish:
+            invalid: There was a problem publishing this result.
+            success: The result has been successfully published.
           result_detail:
             down: Down
             remove: Remove
@@ -60,6 +63,9 @@ en:
             remove: Remove
             result_link: Link
             up: Up
+          unpublish:
+            invalid: There was a problem unpublishing this result.
+            success: The result has been successfully unpublished.
       models:
         result:
           fields:

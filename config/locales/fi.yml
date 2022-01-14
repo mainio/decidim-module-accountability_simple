@@ -50,6 +50,9 @@ fi:
             result_default_details: Oletustiedot
             result_details: Lisätiedot
             result_links: Linkit
+          publish:
+            invalid: Tuloksen julkaisu epäonnistui.
+            success: Tuloksen julkaisu onnistui.
           result_detail:
             down: Alas
             remove: Poista
@@ -60,6 +63,9 @@ fi:
             remove: Poista
             result_link: Linkki
             up: Ylös
+          unpublish:
+            invalid: Tuloksen julkaisun lopetus epäonnistui.
+            success: Tuloksen julkaisun lopetus onnistui.
       models:
         result:
           fields:

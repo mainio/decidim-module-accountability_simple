@@ -30,6 +30,10 @@ module Decidim
           resources :results, only: [] do
             resources :attachment_collections
             resources :attachments
+            member do
+              put :publish
+              put :unpublish
+            end
           end
           resource :details, only: [:index, :show, :update]
         end
@@ -57,6 +61,7 @@ module Decidim
           end
         end
         Decidim::Accountability::ResultType.define do
+          field :publishedAt, Decidim::Core::DateTimeType, "The date and time this result was published at", property: :published_at
           field :summary, Decidim::Core::TranslatedFieldType, "The summary for this result"
           field :mainImage, types.String, "The main image URL for this result", property: :main_image
           field :listImage, types.String, "The list image (thumbnail) URL for this result", property: :list_image

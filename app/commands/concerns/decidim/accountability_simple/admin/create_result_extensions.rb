@@ -30,7 +30,7 @@ module Decidim
               main_image: @form.main_image,
               list_image: @form.list_image,
               use_default_details: @form.use_default_details
-            }
+            }.merge(extra_attributes)
 
             @result = Decidim.traceability.create!(
               Decidim::Accountability::Result,
@@ -49,6 +49,12 @@ module Decidim
             link_ideas
             link_plans
           end
+        end
+
+        # Allows customizing extra attributes to the results outside of this
+        # module.
+        def extra_attributes
+          {}
         end
 
         def create_result_authors
