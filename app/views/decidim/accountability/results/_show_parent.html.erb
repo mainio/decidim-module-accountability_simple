@@ -9,10 +9,6 @@
 
           <%= render partial: "show_result_body", locals: { result: result } %>
 
-          <div class="row">
-            <%= render partial: "timeline", locals: { result: result } if result.timeline_entries.any? %>
-          </div>
-
           <% if result.children.any? %>
             <%= render partial: "results_leaf", locals: {
               title: t(".subresults"),

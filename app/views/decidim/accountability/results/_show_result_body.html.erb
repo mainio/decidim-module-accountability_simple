@@ -8,3 +8,7 @@
 
 <%== cell("decidim/tags/tags", result) %>
 <%= cell "decidim/tags", result, context: { extra_classes: ["tags--result"] } %>
+
+<div class="row">
+  <%= render partial: "timeline", locals: { result: result } if result.timeline_entries.any? %>
+</div>
