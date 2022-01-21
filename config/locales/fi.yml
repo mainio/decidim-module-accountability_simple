@@ -107,6 +107,7 @@ fi:
             category: Kategoria
         show_parent:
           locations: Hanke kartalla
+          subresults: Alihankkeet
         stats_box:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
           location: Sijainti

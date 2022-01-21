@@ -1,12 +1,12 @@
 <div class="title-action">
   <h2 id="results-count" class="title-action__title section-heading">
-    <%= heading_parent_level_results(total_count) %>
+    <%= defined?(title) && title.present? ? title : heading_parent_level_results(total_count) %>
   </h2>
 </div>
 
 <div class="row">
   <div id="results" class="columns">
-    <div class="row small-up-1 medium-up-3 card-grid">
+    <div class="row <%= defined?(grid_classes) && grid_classes.present? ? grid_classes : "small-up-1 medium-up-3" %> card-grid">
       <%= render partial: "decidim/accountability_simple/shared/result", collection: results %>
     </div>
     <%= decidim_paginate results, order_start_time: params[:order_start_time], scope_id: params[:scope_id] %>

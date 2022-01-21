@@ -107,6 +107,7 @@ en:
             category: Category
         show_parent:
           locations: Project on a map
+          subresults: Sub projects
         stats_box:
           average_progress: Average progress on all projects %{progress}.
           location: Location

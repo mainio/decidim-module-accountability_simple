@@ -18,7 +18,12 @@
           </div>
 
           <% if result.children.any? %>
-            <%= render partial: "results_leaf", locals: { results: result.children.page(1).per(result.children_count), total_count: result.children_count } %>
+            <%= render partial: "results_leaf", locals: {
+              title: t(".subresults"),
+              grid_classes: "small-up-1 medium-up-2",
+              results: result.children.page(1).per(result.children_count),
+              total_count: result.children_count
+            } %>
           <% end %>
         </div>
       </div>

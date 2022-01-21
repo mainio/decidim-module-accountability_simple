@@ -107,6 +107,7 @@ sv:
             category: Kategori
         show_parent:
           locations: Projekt på kartan
+          subresults: Delprojekt
         stats_box:
           average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
           location: Plats
