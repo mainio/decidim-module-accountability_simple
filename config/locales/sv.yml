@@ -75,19 +75,23 @@ sv:
             end_date: Slutdatum
             title: Rubrik
       result_m:
+        card_label: "Projekt: %{title}"
         progress_explanation: Projektets framsteg
         view: Visa projekt
       results:
         count:
           results_count:
-            one: 1 projekt
-            other: "%{count} projekt"
+            one: Hittade 1 projekt
+            other: "Hittade %{count} projekt"
         filters:
           category: Kategori
           category_prompt: Välj kategori
           open: Öppna
           related_to: Relaterade till
+          reset: Rensa filter
+          scope: Område
           search: Sök
+          title: Sök projekt
         filters_small_view:
           close_modal: Stäng fönster
           filter: Filtrera
@@ -101,8 +105,12 @@ sv:
           stats:
             scope: Tema
             category: Kategori
+        show_parent:
+          locations: Projekt på kartan
         stats_box:
           average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
+          location: Plats
+          show_on_map: Visa på kartan
     accountability_simple:
       models:
         result_detail:
@@ -141,3 +149,12 @@ sv:
         settings:
           global:
             geocoding_enabled: Geokodning aktiverad
+    resource_links:
+      included_ideas:
+        result_idea: Idéer relaterade till detta projekt
+      included_plans:
+        result_plan: Samskapande förslag relaterade till detta projekt
+      included_projects:
+        result_project: Förslag relaterade till detta projekt
+      included_proposals:
+        result_proposal: Förslag relaterade till detta projekt

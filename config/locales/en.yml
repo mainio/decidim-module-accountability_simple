@@ -75,19 +75,23 @@ en:
             end_date: End date
             title: Title
       result_m:
+        card_label: "Project: %{title}"
         progress_explanation: Project progress
         view: Show project
       results:
         count:
           results_count:
-            one: 1 project
-            other: "%{count} projects"
+            one: Found 1 project
+            other: "Found %{count} projects"
         filters:
           category: Category
           category_prompt: Choose category
           open: Open
           related_to: Related to
+          reset: Clear filters
+          scope: Area
           search: Search
+          title: Search projects
         filters_small_view:
           close_modal: Close modal
           filter: Filter
@@ -101,8 +105,12 @@ en:
           stats:
             scope: Scope
             category: Category
+        show_parent:
+          locations: Project on a map
         stats_box:
           average_progress: Average progress on all projects %{progress}.
+          location: Location
+          show_on_map: Show on a map
     accountability_simple:
       models:
         result_detail:
@@ -141,3 +149,12 @@ en:
         settings:
           global:
             geocoding_enabled: Geocoding enabled
+    resource_links:
+      included_ideas:
+        result_idea: Ideas related to this project
+      included_plans:
+        result_plan: Co-creation proposals related to this project
+      included_projects:
+        result_project: Proposals related to this project
+      included_proposals:
+        result_proposal: Proposals related to this project

@@ -6,7 +6,7 @@
 
 <div class="row">
   <div id="results" class="columns">
-    <div class="row small-up-1 medium-up-2 card-grid">
+    <div class="row small-up-1 medium-up-3 card-grid">
       <%= render partial: "decidim/accountability_simple/shared/result", collection: results %>
     </div>
     <%= decidim_paginate results, order_start_time: params[:order_start_time], scope_id: params[:scope_id] %>

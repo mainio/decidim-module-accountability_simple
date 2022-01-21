@@ -26,6 +26,18 @@ module Decidim
         end
       end
 
+      def filter_categories_values
+        organization = current_component.participatory_space.organization
+
+        sorted_main_categories = current_component.participatory_space.categories.first_class.includes(:subcategories).sort_by do |category|
+          [category.weight, translated_attribute(category.name, organization)]
+        end
+
+        sorted_main_categories.map do |category|
+          [translated_attribute(category.name, organization), category.id]
+        end
+      end
+
       def result_theme_color(result)
         return default_theme_color unless result.category.respond_to?(:color)
 

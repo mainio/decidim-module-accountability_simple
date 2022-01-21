@@ -13,7 +13,7 @@ fi:
     models:
       decidim/accountability/result:
         one: Hanke
-        other: Hanketta
+        other: Hankkeet
   decidim:
     accountability:
       actions:
@@ -75,19 +75,23 @@ fi:
             end_date: Päättymispäivä
             title: Otsikko
       result_m:
+        card_label: "Hanke: %{title}"
         progress_explanation: Hankkeen edistyminen
         view: Näytä hanke
       results:
         count:
           results_count:
-            one: 1 hanke
-            other: "%{count} hanketta"
+            one: Löytyi 1 hanke
+            other: "Löytyi %{count} hanketta"
         filters:
           category: Aihepiiri
           category_prompt: Valitse aihepiiri
           open: Avaa
           related_to: Liittyy
+          reset: Tyhjennä rajaukset
+          scope: Alue
           search: Hae
+          title: Etsi hankkeista
         filters_small_view:
           close_modal: Sulje ikkuna
           filter: Rajaa
@@ -101,8 +105,12 @@ fi:
           stats:
             scope: Teema
             category: Kategoria
+        show_parent:
+          locations: Hanke kartalla
         stats_box:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
+          location: Sijainti
+          show_on_map: Näytä kartalla
     accountability_simple:
       models:
         result_detail:
@@ -141,3 +149,12 @@ fi:
         settings:
           global:
             geocoding_enabled: Paikkatieto sallittu
+    resource_links:
+      included_ideas:
+        result_idea: Tähän hankkeeseen liittyvät ideat
+      included_plans:
+        result_plan: Tähän hankkeeseen liittyvät yhteiskehittämisehdotukset
+      included_projects:
+        result_project: Tähän hankkeeseen liittyvät ehdotukset
+      included_proposals:
+        result_proposal: Tähän hankkeeseen liittyvät ehdotukset

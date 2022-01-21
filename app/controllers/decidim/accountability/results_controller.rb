@@ -10,7 +10,7 @@ module Decidim
       helper Decidim::Accountability::BreadcrumbHelper
       helper Decidim::TooltipHelper
 
-      helper_method :results, :result, :first_class_categories, :count_calculator
+      helper_method :results, :geocoded_results, :result, :geocoded_result, :first_class_categories, :count_calculator
 
       def show
         raise ActionController::RoutingError, "Not Found" if result.blank? || !can_show_result?
@@ -25,8 +25,21 @@ module Decidim
       end
 
       def results
-        parent_id = params[:parent_id].presence
-        @results ||= search.results.published.where(parent_id: parent_id).page(params[:page]).per(12)
+        @results ||= begin
+          orders = %W(title->>'#{current_locale}')
+          orders << "title->>'#{current_organization.default_locale}'" if current_organization.default_locale != current_locale
+
+          parent_id = params[:parent_id].presence
+          search.results.published.where(parent_id: parent_id).order(*orders).page(params[:page]).per(12)
+        end
+      end
+
+      def geocoded_results
+        @geocoded_results ||= search.results.geocoded_data
+      end
+
+      def geocoded_result
+        @geocoded_result ||= Result.where(id: params[:id]).geocoded_data
       end
 
       def result

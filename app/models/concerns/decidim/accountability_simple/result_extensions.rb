@@ -12,6 +12,7 @@ module Decidim
       include Decidim::Locations::Locatable
       include Decidim::Coauthorable
       include Decidim::Publicable
+      include Decidim::Favorites::Favoritable
 
       included do
         remove_coauthorships_requirement!
@@ -56,6 +57,47 @@ module Decidim
           validators_on(:coauthorships).each do |v|
             v.attributes.delete(:coauthorships) if v.is_a?(ActiveRecord::Validations::PresenceValidator)
           end
+        end
+
+        def geocoded_data
+          joins(
+            <<~SQLJOIN.squish
+              LEFT JOIN decidim_locations_locations
+                ON decidim_locations_locations.decidim_locations_locatable_id = decidim_accountability_results.id
+                AND decidim_locations_locations.decidim_locations_locatable_type = '#{Arel.sql(name)}'
+            SQLJOIN
+          ).where.not(
+            decidim_locations_locations: { decidim_locations_locatable_id: nil }
+          ).pluck(
+            :id,
+            "CASE #{locale_case("decidim_accountability_results.title")} END AS geotitle",
+            "CASE #{locale_case("decidim_accountability_results.summary")} END AS geosummary",
+            "CASE #{locale_case("decidim_accountability_results.description")} END AS geodescription",
+            Arel.sql(
+              <<~SQLCASE.squish
+                CASE
+                  WHEN CHAR_LENGTH(decidim_locations_locations.address::text) > 0 THEN decidim_locations_locations.address
+                  #{locale_case("decidim_accountability_results.title")}
+                END AS geoaddress
+              SQLCASE
+            ),
+            "decidim_locations_locations.latitude",
+            "decidim_locations_locations.longitude"
+          )
+        end
+
+        private
+
+        def locale_case(column)
+          locale = Arel::Nodes.build_quoted(I18n.locale.to_s).to_sql
+          default_locale = Arel::Nodes.build_quoted(I18n.default_locale.to_s).to_sql
+
+          return "WHEN true THEN #{column}->>#{locale}" if locale == default_locale
+
+          <<~SQLCASE.squish
+            WHEN CHAR_LENGTH((#{column}->>#{locale})::text) > 0 THEN #{column}->>#{locale}
+            ELSE #{column}->>#{default_locale}
+          SQLCASE
         end
       end
     end
