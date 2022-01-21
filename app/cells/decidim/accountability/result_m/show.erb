@@ -1,9 +1,11 @@
 <div class="column" id="<%= dom_id(model) %>">
-  <div class="card <%= card_classes %>">
-    <%= render :label if has_label? %>
+  <div class="card <%= card_classes %>" role="region" aria-label="<%= t(".card_label", title: title) %>">
     <%= render :top if render_top? %>
-    <%= render :image if has_image? %>
+    <%= render :image %>
+    <%= render :category if has_category? %>
+    <%= render :details %>
     <div class="card__content">
+      <%= render :label if has_label? %>
       <%= render :header if has_header? %>
 
       <div class="card__text">
@@ -12,16 +14,12 @@
           <%= description %>
         </div>
         <%= render :progress if display_progress? %>
+        <%= render :tags %>
+        <%= render :authors %>
       </div>
-
-      <%= render :authors %>
-      <%= render :tags %>
     </div>
 
-    <div class="card__bottom">
-      <%= render :footer %>
-      <%= render :data if display_data? %>
-      <%= render :status %>
-    </div>
+    <%= render :status %>
+    <%= render :footer %>
   </div>
 </div>
