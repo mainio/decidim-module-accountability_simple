@@ -1,6 +1,14 @@
 GIT
+  remote: https://github.com/mainio/decidim-module-favorites.git
+  revision: 8d7eb325ac21f1e1dc9d1ba842365e6bec6af910
+  branch: release/0.23-stable
+  specs:
+    decidim-favorites (0.23.0)
+      decidim-core (~> 0.23.0)
+
+GIT
   remote: https://github.com/mainio/decidim-module-locations.git
-  revision: 0230f45422d8cdf08b77de2916c09d026dbbccab
+  revision: b1b1bca42741f150046f624eea92992cba05c9bf
   branch: main
   specs:
     decidim-locations (0.23.0)
@@ -21,6 +29,7 @@ PATH
       decidim-accountability (~> 0.23.0)
       decidim-admin (~> 0.23.0)
       decidim-core (~> 0.23.0)
+      decidim-favorites (~> 0.23.0)
       decidim-locations (~> 0.23.0)
       decidim-participatory_processes (~> 0.23.0)
       decidim-tags (~> 0.23.0)
@@ -808,6 +817,7 @@ DEPENDENCIES
   decidim (~> 0.23.0)
   decidim-accountability_simple!
   decidim-dev (~> 0.23.0)
+  decidim-favorites!
   decidim-locations!
   decidim-tags!
   faker (~> 1.9)

@@ -14,6 +14,7 @@ DECIDIM_VERSION = Decidim::AccountabilitySimple::DECIDIM_VERSION
 # DECIDIM_VERSION = { github: "decidim/decidim", branch: "develop" }
 
 gem "decidim", DECIDIM_VERSION
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.23-stable"
 gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.23-stable"
 gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "main"
 
