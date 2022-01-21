@@ -1,0 +1,8 @@
+var $results = $('#results');
+
+$results.html('<%= j(render partial: "decidim/accountability_simple/shared/results_parent", locals: { results: results, total_count: results.total_count }).strip.html_safe %>');
+
+var $dropdownMenu = $('.dropdown.menu', $results);
+$dropdownMenu.foundation();
+
+<%== render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_results } if current_component.settings.geocoding_enabled %>

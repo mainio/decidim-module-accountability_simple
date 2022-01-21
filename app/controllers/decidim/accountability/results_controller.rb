@@ -39,6 +39,8 @@ module Decidim
       end
 
       def geocoded_result
+        return [] unless current_component.settings.geocoding_enabled
+
         @geocoded_result ||= Result.where(id: params[:id]).geocoded_data
       end
 

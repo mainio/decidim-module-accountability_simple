@@ -1,4 +1,6 @@
-<%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_results } %>
+<% if current_component.settings.geocoding_enabled %>
+  <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_results } %>
+<% end %>
 
 <div class="row accountability">
   <div class="small-12 columns">
