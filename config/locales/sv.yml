@@ -112,6 +112,8 @@ sv:
           average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
           location: Plats
           show_on_map: Visa på kartan
+        timeline:
+          title: Implementeringstidslinje
     accountability_simple:
       models:
         result_detail:

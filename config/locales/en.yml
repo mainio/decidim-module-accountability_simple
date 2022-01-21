@@ -112,6 +112,8 @@ en:
           average_progress: Average progress on all projects %{progress}.
           location: Location
           show_on_map: Show on a map
+        timeline:
+          title: Implementation timeline
     accountability_simple:
       models:
         result_detail:

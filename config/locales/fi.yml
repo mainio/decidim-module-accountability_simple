@@ -112,6 +112,8 @@ fi:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
           location: Sijainti
           show_on_map: Näytä kartalla
+        timeline:
+          title: Toteutuksen aikajana
     accountability_simple:
       models:
         result_detail:
