@@ -18,7 +18,7 @@ module Decidim
           parent_ctx = ctx.parent&.parent
           if parent_ctx && parent_ctx.object.is_a?(Decidim::Accountability::Result)
             result = parent_ctx.object
-            return [obj.value_for(result)]
+            return [obj.value_for(result)].compact
           end
 
           # Default e.g. for component context, return all values
@@ -42,7 +42,7 @@ module Decidim
     #     parent_ctx = context.parent&.parent
     #     if parent_ctx && parent_ctx.object.is_a?(Decidim::Accountability::Result)
     #       result = parent_ctx.object
-    #       return [object.value_for(result)]
+    #       return [object.value_for(result)].compact
     #     end
     #
     #     # Default e.g. for component context, return all values
