@@ -72,6 +72,15 @@ module Decidim
               latitude: nil,
               longitude: nil
             }
+          ).where(
+            # Define the latitude/longitude bounds to only return valid lat/long
+            # data to the map within the world bounds.
+            <<~SQLLOC.squish
+              decidim_locations_locations.latitude >= -85
+              AND decidim_locations_locations.latitude <= 85
+              AND decidim_locations_locations.longitude >= -180
+              AND decidim_locations_locations.longitude <= 180
+            SQLLOC
           ).pluck(
             :id,
             "CASE #{locale_case("decidim_accountability_results.title")} END AS geotitle",
