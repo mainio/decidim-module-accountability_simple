@@ -154,10 +154,10 @@ sv:
             geocoding_enabled: Geokodning aktiverad
     resource_links:
       included_ideas:
-        result_idea: Idéer relaterade till detta projekt
+        result_idea: Relaterade idéer
       included_plans:
-        result_plan: Samskapande förslag relaterade till detta projekt
+        result_plan: Relaterade samutveckling förslag
       included_projects:
-        result_project: Förslag relaterade till detta projekt
+        result_project: Relaterade förslag
       included_proposals:
-        result_proposal: Förslag relaterade till detta projekt
+        result_proposal: Relaterade förslag

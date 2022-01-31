@@ -154,10 +154,10 @@ fi:
             geocoding_enabled: Paikkatieto sallittu
     resource_links:
       included_ideas:
-        result_idea: Tähän hankkeeseen liittyvät ideat
+        result_idea: Liitetyt ideat
       included_plans:
-        result_plan: Tähän hankkeeseen liittyvät yhteiskehittämisehdotukset
+        result_plan: Liitetyt yhteiskehittämisehdotukset
       included_projects:
-        result_project: Tähän hankkeeseen liittyvät ehdotukset
+        result_project: Liitetyt ehdotukset
       included_proposals:
-        result_proposal: Tähän hankkeeseen liittyvät ehdotukset
+        result_proposal: Liitetyt ehdotukset

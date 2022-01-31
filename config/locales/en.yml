@@ -154,10 +154,10 @@ en:
             geocoding_enabled: Geocoding enabled
     resource_links:
       included_ideas:
-        result_idea: Ideas related to this project
+        result_idea: Related ideas
       included_plans:
-        result_plan: Co-creation proposals related to this project
+        result_plan: Related co-creation proposals
       included_projects:
-        result_project: Proposals related to this project
+        result_project: Related proposals
       included_proposals:
-        result_proposal: Proposals related to this project
+        result_proposal: Related proposals
