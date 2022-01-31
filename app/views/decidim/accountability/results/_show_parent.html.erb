@@ -31,7 +31,7 @@
   <%= comments_for result %>
 </div>
 
-<% if geocoded_result.any? %>
+<% if show_map? %>
   <div class="row column" id="result_map">
     <h2><%= t(".locations") %><h2>
   </div>

@@ -10,7 +10,7 @@ module Decidim
       helper Decidim::Accountability::BreadcrumbHelper
       helper Decidim::TooltipHelper
 
-      helper_method :results, :geocoded_results, :result, :geocoded_result, :first_class_categories, :count_calculator
+      helper_method :results, :geocoded_results, :result, :geocoded_result, :show_map?, :first_class_categories, :count_calculator
 
       def show
         raise ActionController::RoutingError, "Not Found" if result.blank? || !can_show_result?
@@ -39,9 +39,26 @@ module Decidim
       end
 
       def geocoded_result
-        return [] unless current_component.settings.geocoding_enabled
-
         @geocoded_result ||= Result.where(id: params[:id]).geocoded_data
+      end
+
+      def show_map?
+        return false unless current_component.settings.geocoding_enabled
+
+        @show_map ||=
+          if action_name == "show"
+            geocoded_result.any?
+          else
+            # Search through all the results so that we are not hiding the map
+            # in case the current search parameters do not contain any results
+            # but overall there are results. E.g. if the current filter is
+            # filtering the results by text, we might hide the map even when
+            # there are results available in the database.
+            Result.where(
+              component: current_component,
+              parent_id: params[:parent_id].presence
+            ).published.geocoded_data.any?
+          end
       end
 
       def result

@@ -1,6 +1,6 @@
 <%= render partial: "listing_intro" %>
 
-<% if current_component.settings.geocoding_enabled %>
+<% if show_map? %>
   <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_results } %>
 <% end %>
 
