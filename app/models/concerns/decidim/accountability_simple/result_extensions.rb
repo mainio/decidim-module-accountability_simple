@@ -67,7 +67,11 @@ module Decidim
                 AND decidim_locations_locations.decidim_locations_locatable_type = '#{Arel.sql(name)}'
             SQLJOIN
           ).where.not(
-            decidim_locations_locations: { decidim_locations_locatable_id: nil }
+            decidim_locations_locations: {
+              decidim_locations_locatable_id: nil,
+              latitude: nil,
+              longitude: nil
+            }
           ).pluck(
             :id,
             "CASE #{locale_case("decidim_accountability_results.title")} END AS geotitle",
