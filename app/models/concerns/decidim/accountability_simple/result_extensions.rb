@@ -80,6 +80,7 @@ module Decidim
               AND decidim_locations_locations.latitude <= 85
               AND decidim_locations_locations.longitude >= -180
               AND decidim_locations_locations.longitude <= 180
+              AND (decidim_locations_locations.latitude != 0 OR decidim_locations_locations.longitude != 0)
             SQLLOC
           ).pluck(
             :id,
