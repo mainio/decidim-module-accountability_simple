@@ -20,6 +20,10 @@ module Decidim
         resource_locator(model).path
       end
 
+      def render_column?
+        !context[:no_column].presence
+      end
+
       def has_image?
         model.list_image && model.list_image.url.present?
       end
