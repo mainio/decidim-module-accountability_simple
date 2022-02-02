@@ -17,7 +17,35 @@ module Decidim
       private
 
       def resource_path
-        resource_locator(model).path
+        resource_locator(model).path + request_params_query(resource_utm_params)
+      end
+
+      def request_params_query(extra_params = {}, exclude_params = [])
+        final_params = request_params(extra_params, exclude_params)
+        return "" unless final_params.any?
+
+        "?#{final_params.to_query}"
+      end
+
+      def request_params(extra_params = {}, exclude_params = [])
+        request.params.except(
+          *(exclude_params + [
+            :action,
+            :component_id,
+            :controller,
+            :assembly_slug,
+            :participatory_process_slug,
+            :id
+          ])
+        ).merge(extra_params)
+      end
+
+      def resource_utm_params
+        return {} unless context[:utm_params]
+
+        context[:utm_params].map do |key, value|
+          ["utm_#{key}", value]
+        end.to_h
       end
 
       def render_column?
