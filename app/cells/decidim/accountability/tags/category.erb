@@ -1,0 +1,8 @@
+<%= link_to category_path, class: "label primary" do %>
+  <span class="show-for-sr">
+    <%= t("decidim.tags.filter_results_for_category", resource: category_name) %>
+  </span>
+  <span aria-hidden="true">
+    <%= category_name %>
+  </span>
+<% end %>
