@@ -77,6 +77,7 @@ sv:
       result_m:
         card_label: "Projekt: %{title}"
         progress_explanation: Projektets framsteg
+        tags_title: Taggar
         view: Visa projekt
       results:
         count:
