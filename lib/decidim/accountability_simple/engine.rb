@@ -68,6 +68,7 @@ module Decidim
           field :locations, !types[Decidim::Locations::LocationType], "The locations for this result"
           field :defaultDetails, !types[Decidim::AccountabilitySimple::ResultDetailType], "The default details for this result", property: :result_default_details
           field :details, !types[Decidim::AccountabilitySimple::ResultDetailType], "The details for this result", property: :result_details
+          field :links, !types[Decidim::AccountabilitySimple::ResultLinkType], "The links for this resource", property: :result_links
         end
         Decidim::Accountability::AccountabilityType.define do
           Decidim::AccountabilitySimple::DetailableTypeExtension.define(self)
@@ -115,6 +116,8 @@ module Decidim
             -> { Decidim::Core::CategorizableInterface },
             -> { Decidim::Comments::CommentableInterface },
             -> { Decidim::Core::ScopableInterface },
+            -> { Decidim::Core::CoauthorableInterface },
+            -> { Decidim::Core::AttachableInterface },
             # Extra
             -> { Decidim::AccountabilitySimple::ResourceLinkableInterface }
           ]
