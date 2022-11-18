@@ -109,6 +109,25 @@ module Decidim
         next unless has_linked_types
 
         # Add the extra fields to the result and result timeline entry types
+        # NOTE: The tags module contains the new definition types for the
+        #       records. But accountability module is still using the legacy
+        #       definitions which is why we need to define these with the legacy
+        #       style. These can be removed once upgraded.
+        ResultTagType = GraphQL::ObjectType.define do
+          name "ResultTag"
+          description "A tag"
+
+          field :id, !types.ID, "The tag ID"
+          field :name, Decidim::Core::TranslatedFieldType, "The name fpr for this tag."
+        end
+        ResultTagsInterface = GraphQL::InterfaceType.define do
+          name "ResultTagsInterface"
+          description "This interface is implemented by any object that can have tags."
+
+          field :tags, !types[ResultTagType] do
+            description "The tags for this record"
+          end
+        end
         Decidim::Accountability::ResultType.define do
           interfaces [
             # Default (core)
@@ -118,6 +137,9 @@ module Decidim
             -> { Decidim::Core::ScopableInterface },
             -> { Decidim::Core::CoauthorableInterface },
             -> { Decidim::Core::AttachableInterface },
+            # Modules
+            -> { ResultTagsInterface },
+            # -> { Decidim::Tags::TagsInterface }, # in newer versions
             # Extra
             -> { Decidim::AccountabilitySimple::ResourceLinkableInterface }
           ]
