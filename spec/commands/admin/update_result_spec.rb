@@ -30,7 +30,6 @@ module Decidim::Accountability
         parent_id: nil,
         external_id: nil,
         weight: 0.3,
-        theme_color: "#000000",
         use_default_details: "1",
         main_image: nil,
         list_image: nil,

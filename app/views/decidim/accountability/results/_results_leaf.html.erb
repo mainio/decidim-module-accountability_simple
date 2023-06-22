@@ -1,1 +1,6 @@
-<%= render partial: "decidim/accountability_simple/shared/results_parent", locals: { results: results, total_count: results.total_count } %>
+<%= render partial: "decidim/accountability_simple/shared/results_parent", locals: {
+  title: defined?(title) ? title : nil,
+  grid_classes: defined?(grid_classes) ? grid_classes : nil,
+  results: results,
+  total_count: results.total_count
+} %>

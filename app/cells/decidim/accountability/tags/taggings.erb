@@ -1,0 +1,10 @@
+<% model.tags.each do |tag| %>
+  <%= link_to tag_path(tag), class: "label primary" do %>
+    <span class="show-for-sr">
+      <%= t("decidim.tags.filter_results_for_tag", tag: tag_name(tag)) %>
+    </span>
+    <span aria-hidden="true">
+      <%= tag_name(tag) %>
+    </span>
+  <% end %>
+<% end %>

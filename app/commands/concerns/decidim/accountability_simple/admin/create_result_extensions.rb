@@ -7,6 +7,7 @@ module Decidim
         extend ActiveSupport::Concern
 
         include Decidim::Tags::TaggingsCommand
+        include Decidim::Locations::LocationsCommand
 
         included do
           private
@@ -28,9 +29,8 @@ module Decidim
               weight: @form.weight,
               main_image: @form.main_image,
               list_image: @form.list_image,
-              theme_color: @form.theme_color,
               use_default_details: @form.use_default_details
-            }
+            }.merge(extra_attributes)
 
             @result = Decidim.traceability.create!(
               Decidim::Accountability::Result,
@@ -44,7 +44,17 @@ module Decidim
             create_result_details
             create_result_links
             update_taggings(@result, @form)
+            update_locations(@result, @form)
+
+            link_ideas
+            link_plans
           end
+        end
+
+        # Allows customizing extra attributes to the results outside of this
+        # module.
+        def extra_attributes
+          {}
         end
 
         def create_result_authors
@@ -122,6 +132,26 @@ module Decidim
           }
 
           @result.result_links.create!(result_link_attributes)
+        end
+
+        def link_ideas
+          return unless @form.idea_ids
+
+          result.link_resources(ideas, "included_ideas")
+        end
+
+        def link_plans
+          return unless @form.plan_ids
+
+          result.link_resources(plans, "included_plans")
+        end
+
+        def ideas
+          @ideas ||= result.sibling_scope(:ideas).where(id: @form.idea_ids)
+        end
+
+        def plans
+          @plans ||= result.sibling_scope(:plans).where(id: @form.plan_ids)
         end
       end
     end

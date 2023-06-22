@@ -1,0 +1,23 @@
+<div class="card <%= card_classes %>" role="region" aria-label="<%= t(".card_label", title: title) %>">
+  <%= render :top if render_top? %>
+  <%= render :image %>
+  <%= render :category if has_category? %>
+  <%= render :details %>
+  <div class="card__content">
+    <%= render :label if has_label? %>
+    <%= render :header if has_header? %>
+
+    <div class="card__text">
+      <div class="card__text--paragraph">
+        <%= render :badge if has_badge? %>
+        <%= description %>
+      </div>
+      <%= render :progress if display_progress? %>
+      <%= render :tags %>
+      <%= render :authors %>
+    </div>
+  </div>
+
+  <%= render :status %>
+  <%= render :footer %>
+</div>

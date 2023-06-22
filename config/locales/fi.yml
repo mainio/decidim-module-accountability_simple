@@ -3,13 +3,17 @@ fi:
   activemodel:
     attributes:
       result:
-        main_image: Pääkuva
         list_image: Listauksen kuva
+        main_image: Pääkuva
+        summary: Tiivistelmä
+      timeline_entry:
+        end_date: Päättymispäivä
+        title: Otsake (päivämäärien tilalla)
   activerecord:
     models:
       decidim/accountability/result:
         one: Hanke
-        other: Hanketta
+        other: Hankkeet
   decidim:
     accountability:
       actions:
@@ -42,9 +46,13 @@ fi:
             add_result_detail: Lisää lisätieto
             add_result_link: Lisää linkki
             images: Kuvat
+            locations: Sijainnit
             result_default_details: Oletustiedot
             result_details: Lisätiedot
             result_links: Linkit
+          publish:
+            invalid: Tuloksen julkaisu epäonnistui.
+            success: Tuloksen julkaisu onnistui.
           result_detail:
             down: Alas
             remove: Poista
@@ -55,27 +63,36 @@ fi:
             remove: Poista
             result_link: Linkki
             up: Ylös
+          unpublish:
+            invalid: Tuloksen julkaisun lopetus epäonnistui.
+            success: Tuloksen julkaisun lopetus onnistui.
       models:
         result:
           fields:
             comments: Kommentit
         timeline_entry:
           fields:
+            end_date: Päättymispäivä
             title: Otsikko
       result_m:
+        card_label: "Hanke: %{title}"
         progress_explanation: Hankkeen edistyminen
+        tags_title: Tunnisteet
         view: Näytä hanke
       results:
         count:
           results_count:
-            one: 1 hanke
-            other: "%{count} hanketta"
+            one: Löytyi 1 hanke
+            other: "Löytyi %{count} hanketta"
         filters:
           category: Aihepiiri
           category_prompt: Valitse aihepiiri
           open: Avaa
           related_to: Liittyy
+          reset: Tyhjennä rajaukset
+          scope: Alue
           search: Hae
+          title: Etsi hankkeista
         filters_small_view:
           close_modal: Sulje ikkuna
           filter: Rajaa
@@ -89,8 +106,15 @@ fi:
           stats:
             scope: Teema
             category: Kategoria
+        show_parent:
+          locations: Hanke kartalla
+          subresults: Alihankkeet
         stats_box:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
+          location: Sijainti
+          show_on_map: Näytä kartalla
+        timeline:
+          title: Toteutuksen aikajana
     accountability_simple:
       models:
         result_detail:
@@ -124,3 +148,17 @@ fi:
         result:
           show_project: Näytä hanke
           progress_explanation: Hankkeen edistyminen
+    components:
+      accountability:
+        settings:
+          global:
+            geocoding_enabled: Paikkatieto sallittu
+    resource_links:
+      included_ideas:
+        result_idea: Liitetyt ideat
+      included_plans:
+        result_plan: Liitetyt yhteiskehittämisehdotukset
+      included_projects:
+        result_project: Liitetyt ehdotukset
+      included_proposals:
+        result_proposal: Liitetyt ehdotukset

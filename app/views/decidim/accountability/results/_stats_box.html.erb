@@ -22,7 +22,7 @@ root_result = root_result.parent while root_result.parent
     <% end %>
   <% end %>
 
-  <% if result.result_all_details.any? || !root_result.scope.nil? || !result.category.nil? %>
+  <% if result.result_all_details.any? || !root_result.scope.nil? || !result.category.nil? || result.locations.any? %>
     <%= result_detail_info(root_result) do %>
       <% result.result_all_details.each do |detail| %>
         <div class="definition-data__item result_detail">
@@ -64,6 +64,24 @@ root_result = root_result.parent while root_result.parent
           <span class="definition-data__info">
             <span class="definition-data__title with_description"><%= t("results.show.stats.category", scope: "decidim.accountability") %></span>
             <span class="definition-data__description"><%= translated_attribute root_result.category.name %></span>
+          </span>
+        </div>
+      <% end %>
+
+      <% if result.locations.any? %>
+        <div class="definition-data__item result_detail">
+          <span class="definition-data__icon">
+            <%= accountability_icon("map-marker") %>
+          </span>
+          <span class="definition-data__info">
+            <span class="definition-data__title with_description"><%= t ".location" %></span>
+            <span class="definition-data__description">
+              <%= result.locations.map(&:address).join(", ") %>
+              <% if geocoded_result.any? %>
+                <br>
+                <a href="#result_map"><%= t(".show_on_map") %></a>
+              <% end %>
+            </span>
           </span>
         </div>
       <% end %>

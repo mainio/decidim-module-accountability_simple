@@ -26,8 +26,34 @@ module Decidim
         end
       end
 
+      def filter_categories_values
+        organization = current_component.participatory_space.organization
+
+        sorted_main_categories = current_component.participatory_space.categories.first_class.includes(:subcategories).sort_by do |category|
+          [category.weight, translated_attribute(category.name, organization)]
+        end
+
+        sorted_main_categories.map do |category|
+          [translated_attribute(category.name, organization), category.id]
+        end
+      end
+
+      def result_theme_color(result)
+        return default_theme_color unless result.category.respond_to?(:color)
+
+        if result.category.color.present?
+          result.category.color
+        elsif result.category.parent && result.category.parent.color.present?
+          result.category.parent.color
+        elsif result.parent
+          result_theme_color(result.parent)
+        else
+          default_theme_color
+        end
+      end
+
       def result_progress_info(result)
-        color = result.theme_color || default_theme_color
+        color = result_theme_color(result)
         style = "border-color: #{color};"
         title_style = "background-color: #{color};"
 
@@ -44,7 +70,7 @@ module Decidim
       end
 
       def result_detail_info(result)
-        color = result.theme_color || default_theme_color
+        color = result_theme_color(result)
         style = "border-color: #{color};"
         title_style = "background-color: #{color};"
 
@@ -63,10 +89,7 @@ module Decidim
       def result_detail_icon(result, detail = nil)
         return accountability_icon(detail.icon) if detail && !detail.icon.empty?
 
-        color_parent = result
-        color_parent = color_parent.parent while color_parent.parent && color_parent.theme_color&.empty?
-
-        color = color_parent.theme_color || default_theme_color
+        color = result_theme_color(result)
         style = "background-color: #{color};"
 
         content_tag(:span, "", class: "definition-data__icon__marker", style: style).html_safe
@@ -74,6 +97,25 @@ module Decidim
 
       def default_theme_color
         "#abb2bd"
+      end
+
+      def human_range_time(start_date, end_date)
+        if start_date && end_date
+          return human_range_time(start_date, nil) if start_date.year == end_date.year && start_date.month == end_date.month
+
+          start_date_format =
+            if start_date.year != end_date.year
+              "%b %Y"
+            else
+              "%b"
+            end
+
+          "#{I18n.l(start_date, format: start_date_format)} - #{I18n.l(end_date, format: "%b %Y")}"
+        elsif start_date
+          I18n.l(start_date, format: "%b %Y")
+        elsif end_date
+          I18n.l(end_date, format: "%b %Y")
+        end
       end
 
       # Outputs an SVG-based icon.

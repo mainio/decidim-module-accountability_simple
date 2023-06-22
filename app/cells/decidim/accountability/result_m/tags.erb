@@ -1,4 +1,7 @@
-<%= status_label %>
+<div>
+  <div class="show-for-sr"><%= t(".tags_title") %></div>
 
-<%= cell "decidim/tags", model, context: { extra_classes: ["tags--result"] } %>
-<%= cell "decidim/tags/tags", model, context: { extra_classes: ["tags--result"] } %>
+  <%= status_label %>
+
+  <%= cell "decidim/tags/tags", model, context: { extra_classes: ["tags--result"] } %>
+</div>

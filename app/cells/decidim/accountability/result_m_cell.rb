@@ -17,11 +17,47 @@ module Decidim
       private
 
       def resource_path
-        resource_locator(model).path
+        resource_locator(model).path + request_params_query(resource_utm_params)
+      end
+
+      def request_params_query(extra_params = {}, exclude_params = [])
+        final_params = request_params(extra_params, exclude_params)
+        return "" unless final_params.any?
+
+        "?#{final_params.to_query}"
+      end
+
+      def request_params(extra_params = {}, exclude_params = [])
+        request.params.except(
+          *(exclude_params + [
+            :action,
+            :component_id,
+            :controller,
+            :assembly_slug,
+            :participatory_process_slug,
+            :id
+          ])
+        ).merge(extra_params)
+      end
+
+      def resource_utm_params
+        return {} unless context[:utm_params]
+
+        context[:utm_params].map do |key, value|
+          ["utm_#{key}", value]
+        end.to_h
+      end
+
+      def render_column?
+        !context[:no_column].presence
       end
 
       def has_image?
         model.list_image && model.list_image.url.present?
+      end
+
+      def has_category?
+        model.category.present?
       end
 
       def resource_image_path
@@ -70,12 +106,33 @@ module Decidim
 
       def description
         summary = translated_attribute(model.summary)
-        unless summary
-          desc = strip_tags(translated_attribute(model.description))
-          summary = truncate(desc, length: 100)
+        if summary.blank?
+          desc = translated_attribute(model.description)
+          doc = Nokogiri::HTML(desc)
+          doc.css("h1, h2, h3, h4, h5, h6").remove
+          summary = truncate(strip_tags(doc.at("body")&.inner_html), length: 100)
         end
 
         decidim_sanitize(translated_attribute(summary))
+      end
+
+      # Generates a project summary either based on the translated summary field
+      # or when that is empty, by stripping the relevant parts from the project
+      # description and truncating that to the defined length.
+      #
+      # The result is a plain text string without any HTML markup.
+      #
+      # Returns a String.
+      def project_summary_for(project)
+        text = translated_attribute(project.summary)
+        return decidim_sanitize(text) if text.present?
+
+        # Strip the headings off the description text
+        text = translated_attribute(project.description)
+        doc = Nokogiri::HTML(text)
+        doc.css("h1, h2, h3, h4, h5, h6").remove
+
+        truncate(strip_tags(doc.at("body")&.inner_html), length: 100)
       end
 
       def display_progress?
@@ -84,6 +141,10 @@ module Decidim
 
       def display_data?
         true
+      end
+
+      def show_favorite_button?
+        !context[:disable_favorite].presence
       end
 
       def display_percentage(number)
@@ -99,11 +160,65 @@ module Decidim
       end
 
       def statuses
-        []
+        [:favoriting_count, :comments_count]
+      end
+
+      def favoriting_count_status
+        cell("decidim/favorites/favoriting_count", model)
       end
 
       def has_dates?
         start_date.present? && end_date.present?
+      end
+
+      def category
+        translated_attribute(model.category.name) if has_category?
+      end
+
+      def category_class
+        "card__category--#{model.category.id}" if has_category?
+      end
+
+      def category_style
+        cat = color_category
+        return unless cat
+
+        "background-color:#{cat.color};"
+      end
+
+      def category_icon
+        cat = icon_category
+        return unless cat
+
+        full_category = []
+        full_category << translated_attribute(cat.parent.name) if cat.parent
+        full_category << translated_attribute(cat.name)
+
+        content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
+          image_tag(cat.category_icon.url, alt: full_category.join(" - "))
+        end
+      end
+
+      def icon_category(cat = nil)
+        return unless has_category?
+
+        cat ||= model.category
+        return unless cat.respond_to?(:category_icon)
+        return cat if cat.category_icon && cat.category_icon.url
+        return unless cat.parent
+
+        icon_category(cat.parent)
+      end
+
+      def color_category(cat = nil)
+        return unless has_category?
+
+        cat ||= model.category
+        return unless cat.respond_to?(:color)
+        return cat if cat.color
+        return unless cat.parent
+
+        color_category(cat.parent)
       end
     end
   end

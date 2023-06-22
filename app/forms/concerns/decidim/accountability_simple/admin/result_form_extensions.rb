@@ -7,6 +7,7 @@ module Decidim
         extend ActiveSupport::Concern
 
         include Decidim::Tags::TaggableForm
+        include Decidim::Locations::LocatableForm
 
         included do
           translatable_attribute :summary, String
@@ -15,9 +16,11 @@ module Decidim
           attribute :list_image
           attribute :remove_main_image
           attribute :remove_list_image
-          attribute :theme_color, String, default: "#ffffff"
           attribute :use_default_details, ::Decidim::Form::Boolean, default: true
           attribute :author_ids, Array[Integer]
+
+          attribute :idea_ids, Array[Integer]
+          attribute :plan_ids, Array[Integer]
 
           attribute :result_default_details, Array[ResultDefaultDetailsForm]
           attribute :result_details, Array[ResultDetailsForm]
@@ -25,6 +28,8 @@ module Decidim
 
           validates :main_image, passthru: { to: Decidim::Accountability::Result }
           validates :list_image, passthru: { to: Decidim::Accountability::Result }
+
+          validates_locations_for Decidim::Accountability::Result
 
           alias_method :map_model_original, :map_model
           alias_method :organization, :current_organization
@@ -44,11 +49,32 @@ module Decidim
             self.result_details = model.result_details.map do |result_detail|
               ResultDetailsForm.from_model(result_detail)
             end
+
+            self.idea_ids = model.linked_resources(:ideas, "included_ideas").pluck(:id)
+            self.plan_ids = model.linked_resources(:plans, "included_plans").pluck(:id)
+
+            map_locations(model.locations)
           end
 
           def authors
             @authors ||= Decidim::UserBaseEntity.where(id: author_ids)
           end
+        end
+
+        def ideas
+          return [] unless defined?(Decidim::Ideas::Idea)
+
+          @ideas ||= Decidim.find_resource_manifest(:ideas).try(:resource_scope, current_component)
+                         &.where(id: idea_ids)
+                         &.order(title: :asc)
+        end
+
+        def plans
+          return [] unless defined?(Decidim::Plans::Plan)
+
+          @plans ||= Decidim.find_resource_manifest(:plans).try(:resource_scope, current_component)
+                         &.where(id: plan_ids)
+                         &.order(title: :asc)
         end
       end
     end

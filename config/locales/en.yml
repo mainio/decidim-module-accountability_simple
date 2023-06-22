@@ -3,8 +3,12 @@ en:
   activemodel:
     attributes:
       result:
-        main_image: Main image
         list_image: List image
+        main_image: Main image
+        summary: Summary
+      timeline_entry:
+        end_date: End date
+        title: Title (replaces the dates)
   activerecord:
     models:
       decidim/accountability/result:
@@ -42,9 +46,13 @@ en:
             add_result_detail: Add detail
             add_result_link: Add link
             images: Images
+            locations: Locations
             result_default_details: Default details
             result_details: Details
             result_links: Links
+          publish:
+            invalid: There was a problem publishing this result.
+            success: The result has been successfully published.
           result_detail:
             down: Down
             remove: Remove
@@ -55,27 +63,36 @@ en:
             remove: Remove
             result_link: Link
             up: Up
+          unpublish:
+            invalid: There was a problem unpublishing this result.
+            success: The result has been successfully unpublished.
       models:
         result:
           fields:
             comments: Comments
         timeline_entry:
           fields:
+            end_date: End date
             title: Title
       result_m:
+        card_label: "Project: %{title}"
         progress_explanation: Project progress
+        tags_title: Tags
         view: Show project
       results:
         count:
           results_count:
-            one: 1 project
-            other: "%{count} projects"
+            one: Found 1 project
+            other: "Found %{count} projects"
         filters:
           category: Category
           category_prompt: Choose category
           open: Open
           related_to: Related to
+          reset: Clear filters
+          scope: Area
           search: Search
+          title: Search projects
         filters_small_view:
           close_modal: Close modal
           filter: Filter
@@ -89,8 +106,15 @@ en:
           stats:
             scope: Scope
             category: Category
+        show_parent:
+          locations: Project on a map
+          subresults: Sub projects
         stats_box:
           average_progress: Average progress on all projects %{progress}.
+          location: Location
+          show_on_map: Show on a map
+        timeline:
+          title: Implementation timeline
     accountability_simple:
       models:
         result_detail:
@@ -124,3 +148,17 @@ en:
         result:
           show_project: Show project
           progress_explanation: Project progress
+    components:
+      accountability:
+        settings:
+          global:
+            geocoding_enabled: Geocoding enabled
+    resource_links:
+      included_ideas:
+        result_idea: Related ideas
+      included_plans:
+        result_plan: Related co-creation proposals
+      included_projects:
+        result_project: Related proposals
+      included_proposals:
+        result_proposal: Related proposals

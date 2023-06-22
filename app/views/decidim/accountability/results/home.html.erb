@@ -1,16 +1,23 @@
+<%= render partial: "listing_intro" %>
+
+<% if show_map? %>
+  <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_results } %>
+<% end %>
+
 <div class="row accountability">
-  <div class="small-12 columns end">
-    <div class="row">
-      <div class="columns mediumlarge-4 large-3">
-        <%= render partial: "filters_small_view" %>
-        <div class="card card--secondary show-for-mediumlarge">
-          <%= render partial: "filters" %>
-        </div>
-      </div>
-      <div id="results" class="columns mediumlarge-8 large-9">
-        <%= render partial: "decidim/accountability_simple/shared/results_parent", locals: { results: results, total_count: results.total_count } %>
+  <div class="small-12 columns">
+    <%= render partial: "filters_small_view" %>
+    <div class="card card--secondary show-for-mediumlarge">
+      <div class="record-filters">
+        <%= render partial: "filters" %>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row accountability">
+  <div id="results" class="small-12 columns">
+    <%= render partial: "decidim/accountability_simple/shared/results_parent", locals: { results: results, total_count: results.total_count } %>
   </div>
 </div>
 

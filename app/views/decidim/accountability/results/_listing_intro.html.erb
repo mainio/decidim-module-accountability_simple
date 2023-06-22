@@ -1,0 +1,11 @@
+<% intro = translated_attribute component_settings.intro %>
+
+<% if intro.present? %>
+  <div class="row mb-3">
+    <div class="columns small-centered mediumlarge-10 large-8">
+      <div class="static__content text-center">
+        <%== translated_attribute component_settings.intro %>
+      </div>
+    </div>
+  </div>
+<% end %>

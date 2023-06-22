@@ -23,6 +23,7 @@ And then execute:
 
 ```bash
 $ bundle
+$ bundle exec rails decidim_locations:install:migrations
 $ bundle exec rails decidim_accountability_simple:install:migrations
 $ bundle exec rails db:migrate
 ```

@@ -1,6 +1,6 @@
 <span class="text-small"><%= t(".progress_explanation") %></span>
 <div class="progress">
-  <div class="progress-meter" style="width:<%= model.progress %>%">
+  <div class="progress-meter<%= " progress-meter--low" if model.progress < 5 %>" style="width:<%= model.progress %>%">
     <p class="progress-meter-text"><%= display_percentage model.progress %></p>
   </div>
 </div>

@@ -1,9 +1,5 @@
 <div class="row accountability result-view">
   <div class="small-12 columns">
-    <%= render partial: "decidim/accountability/results/nav_breadcrumb", locals: { category: result.try(:category) } %>
-  </div>
-
-  <div class="small-12 columns">
     <div class="row">
       <div class="mediumlarge-8 columns">
         <div class="section">
@@ -11,31 +7,33 @@
             <%= image_tag result.main_image.url, alt: translated_attribute(result.title), class: "hero-heading" %>
           <% end %>
 
-          <h2 class="heading2"><%= translated_attribute result.title %></h2>
-
-          <div class="description">
-            <%== translated_attribute result.description %>
-          </div>
-          <%== cell("decidim/tags/tags", result) %>
-          <%= cell "decidim/tags", result, context: { extra_classes: ["tags--result"] } %>
-
-          <div class="row">
-            <%= render partial: "timeline", locals: { result: result } if result.timeline_entries.any? %>
-          </div>
+          <%= render partial: "show_result_body", locals: { result: result } %>
 
           <% if result.children.any? %>
-            <%= render partial: "results_leaf", locals: { results: result.children.page(1).per(result.children_count), total_count: result.children_count } %>
+            <%= render partial: "results_leaf", locals: {
+              title: t(".subresults"),
+              grid_classes: "small-up-1 medium-up-2",
+              results: result.children.page(1).per(result.children_count),
+              total_count: result.children_count
+            } %>
           <% end %>
         </div>
       </div>
-      <%= render partial: "stats_box" %>
+      <%= render partial: "stats_box", locals: { geocoded_results: geocoded_result } %>
     </div>
 
   </div>
 
-  <%= render partial: "stats" %>
+  <%= render partial: "linked_resources" %>
 
   <%= attachments_for result %>
 
   <%= comments_for result %>
 </div>
+
+<% if show_map? %>
+  <div class="row column" id="result_map">
+    <h2><%= t(".locations") %><h2>
+  </div>
+  <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_result } %>
+<% end %>

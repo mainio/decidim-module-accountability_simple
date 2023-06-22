@@ -1,4 +1,20 @@
 GIT
+  remote: https://github.com/mainio/decidim-module-favorites.git
+  revision: 8d7eb325ac21f1e1dc9d1ba842365e6bec6af910
+  branch: release/0.23-stable
+  specs:
+    decidim-favorites (0.23.0)
+      decidim-core (~> 0.23.0)
+
+GIT
+  remote: https://github.com/mainio/decidim-module-locations.git
+  revision: b1b1bca42741f150046f624eea92992cba05c9bf
+  branch: main
+  specs:
+    decidim-locations (0.23.0)
+      decidim-core (~> 0.23.0)
+
+GIT
   remote: https://github.com/mainio/decidim-module-tags.git
   revision: a8b3ba65b909881fd337cc7461d9743f3ee4c293
   branch: main
@@ -9,12 +25,14 @@ GIT
 PATH
   remote: .
   specs:
-    decidim-accountability_simple (0.24.0)
-      decidim-accountability (~> 0.24.0)
-      decidim-admin (~> 0.24.0)
-      decidim-core (~> 0.24.0)
-      decidim-participatory_processes (~> 0.24.0)
-      decidim-tags (~> 0.24.0)
+    decidim-accountability_simple (0.23.0)
+      decidim-accountability (~> 0.23.0)
+      decidim-admin (~> 0.23.0)
+      decidim-core (~> 0.23.0)
+      decidim-favorites (~> 0.23.0)
+      decidim-locations (~> 0.23.0)
+      decidim-participatory_processes (~> 0.23.0)
+      decidim-tags (~> 0.23.0)
 
 GEM
   remote: https://rubygems.org/
@@ -839,7 +857,9 @@ DEPENDENCIES
   codecov
   decidim (~> 0.24.0)
   decidim-accountability_simple!
-  decidim-dev (~> 0.24.0)
+  decidim-dev (~> 0.23.0)
+  decidim-favorites!
+  decidim-locations!
   decidim-tags!
   faker (~> 2.14)
   letter_opener_web (~> 1.3)

@@ -1,0 +1,31 @@
+<div class="small-12 columns section">
+  <div class="row">
+    <div class="small-12 medium-9 columns">
+      <%= linked_resources_for result, :proposals, "included_proposals" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-9 columns">
+      <%= linked_resources_for result, :meetings, "meetings_through_proposals" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-9 columns">
+      <%= linked_resources_for result, :ideas, "included_ideas" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-9 columns">
+      <%= linked_resources_for result, :plans, "included_plans" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-9 columns">
+      <%= linked_resources_for result, :projects, "included_projects" %>
+    </div>
+  </div>
+</div>

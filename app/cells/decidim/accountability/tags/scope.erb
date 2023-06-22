@@ -1,0 +1,8 @@
+<%= link_to category_path, class: "label primary" do %>
+  <span class="show-for-sr">
+    <%= t("decidim.tags.filter_results_for_scope", resource: scope_name) %>
+  </span>
+  <span aria-hidden="true">
+    <%= scope_name %>
+  </span>
+<% end %>
