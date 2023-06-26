@@ -5,6 +5,8 @@ require "decidim/dev/common_rake"
 def install_module(path)
   ENV["accountability_simple"] = ""
   Dir.chdir(path) do
+    system("bundle exec rails decidim_favorites:install:migrations")
+    system("bundle exec rails decidim_locations:install:migrations")
     system("bundle exec rails decidim_tags:install:migrations")
     system("bundle exec rails decidim_accountability_simple:install:migrations")
     system("bundle exec rails db:migrate")
