@@ -162,3 +162,7 @@ en:
         result_project: Related proposals
       included_proposals:
         result_proposal: Related proposals
+  forms:
+    scopes_picker:
+      others: Others
+      prompt: Choose %{item_name}

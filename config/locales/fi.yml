@@ -162,3 +162,7 @@ fi:
         result_project: Liitetyt ehdotukset
       included_proposals:
         result_proposal: Liitetyt ehdotukset
+  forms:
+    scopes_picker:
+      others: Muut
+      prompt: Valitse %{item_name}

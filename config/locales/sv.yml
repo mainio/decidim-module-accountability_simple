@@ -162,3 +162,7 @@ sv:
         result_project: Relaterade förslag
       included_proposals:
         result_proposal: Relaterade förslag
+  forms:
+    scopes_picker:
+      others: Andra
+      prompt: Välj %{item_name}
