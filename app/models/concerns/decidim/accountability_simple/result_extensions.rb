@@ -86,9 +86,9 @@ module Decidim
             SQLLOC
           ).pluck(
             :id,
-            "CASE #{locale_case("decidim_accountability_results.title")} END AS geotitle",
-            "CASE #{locale_case("decidim_accountability_results.summary")} END AS geosummary",
-            "CASE #{locale_case("decidim_accountability_results.description")} END AS geodescription",
+            Arel.sql("CASE #{locale_case("decidim_accountability_results.title")} END AS geotitle"),
+            Arel.sql("CASE #{locale_case("decidim_accountability_results.summary")} END AS geosummary"),
+            Arel.sql("CASE #{locale_case("decidim_accountability_results.description")} END AS geodescription"),
             Arel.sql(
               <<~SQLCASE.squish
                 CASE

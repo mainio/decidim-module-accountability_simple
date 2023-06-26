@@ -26,8 +26,8 @@ module Decidim
 
       def results
         @results ||= begin
-          orders = %W(title->>'#{current_locale}')
-          orders << "title->>'#{current_organization.default_locale}'" if current_organization.default_locale != current_locale
+          orders = [Arel.sql("title->>'#{current_locale}'")]
+          orders << Arel.sql("title->>'#{current_organization.default_locale}'") if current_organization.default_locale != current_locale
 
           parent_id = params[:parent_id].presence
           search.results.published.where(parent_id: parent_id).order(*orders).page(params[:page]).per(12)
