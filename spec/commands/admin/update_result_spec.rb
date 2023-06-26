@@ -20,6 +20,8 @@ module Decidim::Accountability
         authors: [],
         proposal_ids: [],
         project_ids: [],
+        idea_ids: [],
+        plan_ids: [],
         scope: nil,
         category: nil,
         start_date: Date.yesterday,
@@ -34,7 +36,8 @@ module Decidim::Accountability
         main_image: nil,
         list_image: nil,
         taggings: taggings_form,
-        result_default_details: result_default_details ? [result_default_details] : [],
+        locations: locations || [],
+        result_default_details: result_default_details || [],
         result_details: result_details || [],
         result_links: result_links || []
       )
@@ -44,6 +47,7 @@ module Decidim::Accountability
     end
     let(:invalid) { false }
     let(:tags) {}
+    let(:locations) {}
     let(:result_default_details) {}
     let(:result_details) {}
     let(:result_links) {}
@@ -86,12 +90,14 @@ module Decidim::Accountability
       describe "update result and default detail description" do
         let(:description) { ::Faker::Lorem.paragraph }
         let(:result_default_details) do
-          double(
-            id: default_detail.id,
-            icon: "budget",
-            title: detail_attributes[:title],
-            description: { "en" => description, "ca" => description, "es" => description }
-          )
+          [
+            double(
+              id: default_detail.id,
+              icon: "budget",
+              title: detail_attributes[:title],
+              description: { "en" => description, "ca" => description, "es" => description }
+            )
+          ]
         end
 
         it "updates the result and default details description" do

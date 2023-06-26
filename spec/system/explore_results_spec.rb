@@ -7,14 +7,17 @@ describe "Explore results", versioning: true, type: :system do
 
   let(:manifest_name) { "accountability" }
   let(:results_count) { 5 }
-  let!(:scope) { create :scope, organization: organization }
+  let!(:scope) { create :scope, organization: component.organization }
   let!(:results) do
     create_list(
       :result,
       results_count,
-      component: component
+      component: component,
+      published_at: Time.current
     )
   end
+
+  let(:decidim_accountability) { Decidim::EngineRouter.main_proxy(component) }
 
   before do
     component.update(settings: { scopes_enabled: true })
@@ -22,7 +25,7 @@ describe "Explore results", versioning: true, type: :system do
   end
 
   describe "home" do
-    let(:path) { decidim_participatory_process_accountability.root_path(participatory_process_slug: participatory_process.slug, component_id: component.id) }
+    let(:path) { decidim_accountability.root_path }
 
     it "shows categories and subcategories with results" do
       participatory_process.categories.each do |category|
@@ -33,7 +36,7 @@ describe "Explore results", versioning: true, type: :system do
   end
 
   describe "index" do
-    let(:path) { decidim_participatory_process_accountability.results_path(participatory_process_slug: participatory_process.slug, component_id: component.id) }
+    let(:path) { decidim_accountability.results_path }
 
     it "shows all results for the given process and category" do
       expect(page).to have_selector(".card--result", count: results_count)
@@ -45,7 +48,7 @@ describe "Explore results", versioning: true, type: :system do
   end
 
   describe "show" do
-    let(:path) { decidim_participatory_process_accountability.result_path(id: result.id, participatory_process_slug: participatory_process.slug, component_id: component.id) }
+    let(:path) { decidim_accountability.result_path(id: result.id) }
     let(:results_count) { 1 }
     let(:result) { results.first }
 
@@ -61,7 +64,7 @@ describe "Explore results", versioning: true, type: :system do
       let(:category) { create :category, participatory_space: participatory_process }
       let(:detail_attributes) do
         {
-          title: { "en" => "Some title", "ca" => "Sama kataloniaksi", "es" => "Sama espanjaksi" },
+          title: { "en" => "Some title", "ca" => "Sama katalaaniksi", "es" => "Sama espanjaksi" },
           icon: "budget",
           position: "0",
           accountability_result_detailable: result
@@ -69,7 +72,9 @@ describe "Explore results", versioning: true, type: :system do
       end
 
       before do
-        Decidim::AccountabilitySimple::ResultDetail.create(detail_attributes)
+        expect(page).to have_i18n_content(result.title)
+        detail = Decidim::AccountabilitySimple::ResultDetail.create(detail_attributes)
+        detail.values.build(result: result).update!(description: { "en" => "Some value" })
         result.scope = scope
         result.category = category
         result.save!
@@ -77,9 +82,13 @@ describe "Explore results", versioning: true, type: :system do
       end
 
       it "shows details" do
-        expect(page).to have_i18n_content(detail_attributes[:title])
-        expect(page).to have_i18n_content(scope.name)
-        expect(page).to have_i18n_content(category.name)
+        page.scroll_to find(".line-stats-project")
+        within ".line-stats-project" do
+          expect(page).to have_content(translated(detail_attributes[:title]).upcase)
+          expect(page).to have_content("Some value")
+          expect(page).to have_i18n_content(scope.name)
+          expect(page).to have_i18n_content(category.name)
+        end
       end
     end
 
