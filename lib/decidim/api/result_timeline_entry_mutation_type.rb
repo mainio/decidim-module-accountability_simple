@@ -8,7 +8,7 @@ module Decidim
       graphql_name "ResultTimelineEntryMutation"
       description "A result timeline entry which includes its available mutations"
 
-      field :result_id, ID, null: false
+      field :result_id, GraphQL::Types::ID, null: false
 
       field :create, Decidim::Accountability::TimelineEntryType, null: true do
         description "Add a new timeline entry to a result"

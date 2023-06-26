@@ -8,7 +8,7 @@ module Decidim
       graphql_name "ResultMutation"
       description "A result which includes its available mutations"
 
-      field :id, ID, null: false
+      field :id, GraphQL::Types::ID, null: false
 
       field :update, Decidim::Accountability::ResultType, null: true do
         description "The content mutations to be updated."
@@ -99,6 +99,7 @@ module Decidim
 
       protected
 
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def result_params(**args)
         params = {
           "id" => object.id,
@@ -176,6 +177,7 @@ module Decidim
 
         params
       end
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       private
 

@@ -6,7 +6,7 @@ module Decidim
       graphql_name "ResultDetailAttributes"
       description "A result detail attributes"
 
-      argument :detail_id, ID, required: false
+      argument :detail_id, GraphQL::Types::ID, required: false
       argument :position, GraphQL::Types::Int, required: true
       argument :icon, GraphQL::Types::String, required: true
       argument :title, GraphQL::Types::JSON, required: true

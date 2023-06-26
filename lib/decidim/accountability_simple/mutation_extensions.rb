@@ -10,26 +10,22 @@ module Decidim
       # type - A GraphQL::BaseType to extend.
       #
       # Returns nothing.
-      def self.define(type)
-        type.field :result, Decidim::AccountabilitySimple::ResultMutationType do
-          description "A result"
-
-          argument :id, !types.ID, description: "The result's id"
-
-          resolve lambda { |_obj, args, _ctx|
-            Decidim::Accountability::Result.find(args[:id])
-          }
+      def self.included(type)
+        type.field :result, Decidim::AccountabilitySimple::ResultMutationType, "A result", null: false do
+          argument :id, GraphQL::Types::ID, "The result's id", required: true
         end
 
-        type.field :resultTimelineEntry, Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
-          description "A result timeline entry"
-
-          argument :resultId, !types.ID, description: "The result's id"
-
-          resolve lambda { |_obj, args, _ctx|
-            Decidim::Accountability::Result.find(args[:resultId])
-          }
+        type.field :result_timeline_entry, Decidim::AccountabilitySimple::ResultTimelineEntryMutationType, "A result timeline entry" do
+          argument :result_id, GraphQL::Types::ID, "The result's id", required: true
         end
+      end
+
+      def result(id:)
+        Decidim::Accountability::Result.find(id)
+      end
+
+      def result_timeline_entry(result_id:)
+        Decidim::Accountability::Result.find(result_id)
       end
     end
   end

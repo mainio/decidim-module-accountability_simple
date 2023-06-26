@@ -52,151 +52,70 @@ module Decidim
       end
 
       initializer "decidim_accountability_simple.api_extensions" do
-        # TODO: Update to 0.24+
-        Decidim::Accountability::AccountabilityType.define do
-          field :statuses, !types[Decidim::Accountability::StatusType] do
-            resolve lambda { |component, _args, _ctx|
-              Decidim::Accountability::Status.where(component: component)
-            }
-          end
-        end
-        Decidim::Accountability::ResultType.define do
-          field :publishedAt, Decidim::Core::DateTimeType, "The date and time this result was published at", property: :published_at
-          field :summary, Decidim::Core::TranslatedFieldType, "The summary for this result"
-          field :mainImage, types.String, "The main image URL for this result", property: :main_image
-          field :listImage, types.String, "The list image (thumbnail) URL for this result", property: :list_image
-          field :locations, !types[Decidim::Locations::LocationType], "The locations for this result"
-          field :defaultDetails, !types[Decidim::AccountabilitySimple::ResultDetailType], "The default details for this result", property: :result_default_details
-          field :details, !types[Decidim::AccountabilitySimple::ResultDetailType], "The details for this result", property: :result_details
-          field :links, !types[Decidim::AccountabilitySimple::ResultLinkType], "The links for this resource", property: :result_links
-        end
-        Decidim::Accountability::AccountabilityType.define do
-          Decidim::AccountabilitySimple::DetailableTypeExtension.define(self)
-        end
+        Decidim::Accountability::AccountabilityType.include Decidim::AccountabilitySimple::Api::AccountabilityTypeExtensions
+        Decidim::Accountability::ResultType.include Decidim::AccountabilitySimple::Api::ResultTypeExtensions
+        Decidim::Accountability::TimelineEntryType.include Decidim::AccountabilitySimple::Api::TimelineEntryTypeExtensions
+
+        Decidim::Proposals::ProposalType.include Decidim::AccountabilitySimple::Api::ResourceLinkTypeExtensions if Decidim.const_defined?("Proposals")
+        Decidim::Budgets::ProjectType.include Decidim::AccountabilitySimple::Api::ResourceLinkTypeExtensions if Decidim.const_defined?("Budgets")
+        Decidim::Ideas::IdeaType.include Decidim::AccountabilitySimple::Api::ResourceLinkTypeExtensions if Decidim.const_defined?("Ideas")
+        Decidim::Plans::PlanType.include Decidim::AccountabilitySimple::Api::ResourceLinkTypeExtensions if Decidim.const_defined?("Plans")
       end
 
       initializer "decidim_accountability_simple.mutation_extensions", after: "decidim-api.graphiql" do
-        Decidim::Api::MutationType.define do
-          MutationExtensions.define(self)
-        end
-      end
-
-      # TODO: Update to 0.24+ (see plans for example)
-      # initializer "decidim_accountability_simple.api_linked_resources", before: :finisher_hook do
-      initializer "decidim_accountability_simple.api_linked_resources" do
-        # Mark the possible types for accountability result linked resources
-        has_linked_types = false
-        if Decidim.const_defined?("Proposals")
-          has_linked_types = true
-          Decidim::Proposals::ProposalType.implements(
-            [-> { Decidim::AccountabilitySimple::ResourceLinkInterface }]
-          )
-        end
-        if Decidim.const_defined?("Ideas")
-          has_linked_types = true
-          Decidim::Ideas::IdeaType.implements(Decidim::AccountabilitySimple::ResourceLinkInterface)
-        end
-        if Decidim.const_defined?("Plans")
-          has_linked_types = true
-          Decidim::Plans::PlanType.implements(Decidim::AccountabilitySimple::ResourceLinkInterface)
-        end
-        if Decidim.const_defined?("Budgets")
-          has_linked_types = true
-          Decidim::Budgets::ProjectType.implements(
-            [-> { Decidim::AccountabilitySimple::ResourceLinkInterface }]
-          )
-        end
-        next unless has_linked_types
-
-        # Add the extra fields to the result and result timeline entry types
-        # NOTE: The tags module contains the new definition types for the
-        #       records. But accountability module is still using the legacy
-        #       definitions which is why we need to define these with the legacy
-        #       style. These can be removed once upgraded.
-        ResultTagType = GraphQL::ObjectType.define do
-          name "ResultTag"
-          description "A tag"
-
-          field :id, !types.ID, "The tag ID"
-          field :name, Decidim::Core::TranslatedFieldType, "The name fpr for this tag."
-        end
-        ResultTagsInterface = GraphQL::InterfaceType.define do
-          name "ResultTagsInterface"
-          description "This interface is implemented by any object that can have tags."
-
-          field :tags, !types[ResultTagType] do
-            description "The tags for this record"
-          end
-        end
-        Decidim::Accountability::ResultType.define do
-          interfaces [
-            # Default (core)
-            -> { Decidim::Core::ComponentInterface },
-            -> { Decidim::Core::CategorizableInterface },
-            -> { Decidim::Comments::CommentableInterface },
-            -> { Decidim::Core::ScopableInterface },
-            -> { Decidim::Core::CoauthorableInterface },
-            -> { Decidim::Core::AttachableInterface },
-            # Modules
-            -> { ResultTagsInterface },
-            # -> { Decidim::Tags::TagsInterface }, # in newer versions
-            # Extra
-            -> { Decidim::AccountabilitySimple::ResourceLinkableInterface }
-          ]
-        end
-        Decidim::Accountability::TimelineEntryType.define do
-          field :endDate, Decidim::Core::DateType, "The end date for this timeline entry", property: :end_date
-          field :title, Decidim::Core::TranslatedFieldType, "The title for this timeline entry (that overrides the dates)"
-        end
+        Decidim::Api::MutationType.include Decidim::AccountabilitySimple::MutationExtensions
       end
 
       # HACK, because migrations crash if models exists before they are ran
-      if ENV["accountability_simple"] != "create_app"
-        config.to_prepare do
-          # Model extensions
-          Decidim::Accountability::Result.include(
-            Decidim::AccountabilitySimple::ResultExtensions
-          )
-          Decidim::Accountability::TimelineEntry.include(
-            Decidim::AccountabilitySimple::TimelineEntryExtensions
-          )
+      config.to_prepare do
+        next if ENV["accountability_simple"] == "create_app"
 
-          # Form extensions
-          Decidim::Accountability::Admin::StatusForm.include(
-            Decidim::AccountabilitySimple::Admin::StatusFormExtensions
-          )
-          Decidim::Accountability::Admin::ResultForm.include(
-            Decidim::AccountabilitySimple::Admin::ResultFormExtensions
-          )
-          Decidim::Accountability::Admin::TimelineEntryForm.include(
-            Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
-          )
+        # Model extensions
+        Decidim::Accountability::Result.include(
+          Decidim::AccountabilitySimple::ResultExtensions
+        )
+        Decidim::Accountability::TimelineEntry.include(
+          Decidim::AccountabilitySimple::TimelineEntryExtensions
+        )
 
-          # Command extensions
-          Decidim::Accountability::Admin::CreateStatus.include(
-            Decidim::AccountabilitySimple::Admin::CreateStatusExtensions
-          )
-          Decidim::Accountability::Admin::UpdateStatus.include(
-            Decidim::AccountabilitySimple::Admin::UpdateStatusExtensions
-          )
-          Decidim::Accountability::Admin::CreateResult.include(
-            Decidim::AccountabilitySimple::Admin::CreateResultExtensions
-          )
-          Decidim::Accountability::Admin::UpdateResult.include(
-            Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
-          )
-          Decidim::Accountability::Admin::CreateTimelineEntry.include(
-            Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
-          )
-          Decidim::Accountability::Admin::UpdateTimelineEntry.include(
-            Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
-          )
+        # Form extensions
+        Decidim::Accountability::Admin::StatusForm.include(
+          Decidim::AccountabilitySimple::Admin::StatusFormExtensions
+        )
+        Decidim::Accountability::Admin::ResultForm.include(
+          Decidim::AccountabilitySimple::Admin::ResultFormExtensions
+        )
+        Decidim::Accountability::Admin::TimelineEntryForm.include(
+          Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
+        )
 
-          # Helper extensions
-          Decidim::Accountability::ApplicationHelper.include(
-            Decidim::AccountabilitySimple::ApplicationHelperExtensions
-          )
-        end
+        # Command extensions
+        Decidim::Accountability::Admin::CreateStatus.include(
+          Decidim::AccountabilitySimple::Admin::CreateStatusExtensions
+        )
+        Decidim::Accountability::Admin::UpdateStatus.include(
+          Decidim::AccountabilitySimple::Admin::UpdateStatusExtensions
+        )
+        Decidim::Accountability::Admin::CreateResult.include(
+          Decidim::AccountabilitySimple::Admin::CreateResultExtensions
+        )
+        Decidim::Accountability::Admin::UpdateResult.include(
+          Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
+        )
+        Decidim::Accountability::Admin::CreateTimelineEntry.include(
+          Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
+        )
+        Decidim::Accountability::Admin::UpdateTimelineEntry.include(
+          Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
+        )
+
+        # Helper extensions
+        Decidim::Accountability::ApplicationHelper.include(
+          Decidim::AccountabilitySimple::ApplicationHelperExtensions
+        )
+        Decidim::ScopesHelper.include(
+          Decidim::AccountabilitySimple::ScopesHelperExtensions
+        )
       end
     end
   end
