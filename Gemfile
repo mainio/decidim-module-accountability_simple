@@ -14,26 +14,27 @@ DECIDIM_VERSION = Decidim::AccountabilitySimple::DECIDIM_VERSION
 # DECIDIM_VERSION = { github: "decidim/decidim", branch: "develop" }
 
 gem "decidim", DECIDIM_VERSION
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.23-stable"
-gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.23-stable"
-gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "main"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.24-stable"
+gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "release/0.24-stable"
+gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.24-stable"
 
 gem "decidim-accountability_simple", path: "."
 
-gem "bootsnap", "~> 1.4"
-gem "puma", ">= 5.0.0"
+gem "bootsnap", "~> 1.4.9"
+gem "puma", ">= 5.3.1"
 gem "uglifier", "~> 4.1"
+
+gem "faker", "~> 2.14"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
   gem "decidim-dev", DECIDIM_VERSION
-  gem "rubocop-faker"
 end
 
 group :development do
-  gem "faker", "~> 2.14"
   gem "letter_opener_web", "~> 1.3"
   gem "listen", "~> 3.1"
+  gem "rubocop-faker"
   gem "spring", "~> 2.0"
   gem "spring-watcher-listen", "~> 2.0"
   gem "web-console", "~> 3.5"
