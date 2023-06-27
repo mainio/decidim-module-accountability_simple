@@ -56,56 +56,58 @@ module Decidim
         Decidim::Api::MutationType.include Decidim::AccountabilitySimple::MutationExtensions
       end
 
-      # HACK, because migrations crash if models exists before they are ran
-      config.to_prepare do
-        next if ENV["accountability_simple"] == "create_app"
+      initializer "decidim_accountability_simple.overrides", after: "decidim.action_controller" do |app|
+        app.config.to_prepare do
+          # HACK, because migrations crash if models exists before they are ran
+          next if ENV["accountability_simple"] == "create_app"
 
-        # Model extensions
-        Decidim::Accountability::Result.include(
-          Decidim::AccountabilitySimple::ResultExtensions
-        )
-        Decidim::Accountability::TimelineEntry.include(
-          Decidim::AccountabilitySimple::TimelineEntryExtensions
-        )
+          # Model extensions
+          Decidim::Accountability::Result.include(
+            Decidim::AccountabilitySimple::ResultExtensions
+          )
+          Decidim::Accountability::TimelineEntry.include(
+            Decidim::AccountabilitySimple::TimelineEntryExtensions
+          )
 
-        # Form extensions
-        Decidim::Accountability::Admin::StatusForm.include(
-          Decidim::AccountabilitySimple::Admin::StatusFormExtensions
-        )
-        Decidim::Accountability::Admin::ResultForm.include(
-          Decidim::AccountabilitySimple::Admin::ResultFormExtensions
-        )
-        Decidim::Accountability::Admin::TimelineEntryForm.include(
-          Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
-        )
+          # Form extensions
+          Decidim::Accountability::Admin::StatusForm.include(
+            Decidim::AccountabilitySimple::Admin::StatusFormExtensions
+          )
+          Decidim::Accountability::Admin::ResultForm.include(
+            Decidim::AccountabilitySimple::Admin::ResultFormExtensions
+          )
+          Decidim::Accountability::Admin::TimelineEntryForm.include(
+            Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
+          )
 
-        # Command extensions
-        Decidim::Accountability::Admin::CreateStatus.include(
-          Decidim::AccountabilitySimple::Admin::CreateStatusExtensions
-        )
-        Decidim::Accountability::Admin::UpdateStatus.include(
-          Decidim::AccountabilitySimple::Admin::UpdateStatusExtensions
-        )
-        Decidim::Accountability::Admin::CreateResult.include(
-          Decidim::AccountabilitySimple::Admin::CreateResultExtensions
-        )
-        Decidim::Accountability::Admin::UpdateResult.include(
-          Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
-        )
-        Decidim::Accountability::Admin::CreateTimelineEntry.include(
-          Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
-        )
-        Decidim::Accountability::Admin::UpdateTimelineEntry.include(
-          Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
-        )
+          # Command extensions
+          Decidim::Accountability::Admin::CreateStatus.include(
+            Decidim::AccountabilitySimple::Admin::CreateStatusExtensions
+          )
+          Decidim::Accountability::Admin::UpdateStatus.include(
+            Decidim::AccountabilitySimple::Admin::UpdateStatusExtensions
+          )
+          Decidim::Accountability::Admin::CreateResult.include(
+            Decidim::AccountabilitySimple::Admin::CreateResultExtensions
+          )
+          Decidim::Accountability::Admin::UpdateResult.include(
+            Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
+          )
+          Decidim::Accountability::Admin::CreateTimelineEntry.include(
+            Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
+          )
+          Decidim::Accountability::Admin::UpdateTimelineEntry.include(
+            Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
+          )
 
-        # Helper extensions
-        Decidim::Accountability::ApplicationHelper.include(
-          Decidim::AccountabilitySimple::ApplicationHelperExtensions
-        )
-        Decidim::ScopesHelper.include(
-          Decidim::AccountabilitySimple::ScopesHelperExtensions
-        )
+          # Helper extensions
+          Decidim::Accountability::ApplicationHelper.include(
+            Decidim::AccountabilitySimple::ApplicationHelperExtensions
+          )
+          Decidim::ScopesHelper.include(
+            Decidim::AccountabilitySimple::ScopesHelperExtensions
+          )
+        end
       end
     end
   end
