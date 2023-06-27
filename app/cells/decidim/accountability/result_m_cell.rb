@@ -53,7 +53,7 @@ module Decidim
       end
 
       def has_image?
-        model.list_image && model.list_image.url.present?
+        model.list_image && model.list_image.attached?
       end
 
       def has_category?
@@ -61,9 +61,9 @@ module Decidim
       end
 
       def resource_image_path
-        return unless model.list_image
+        return unless has_image?
 
-        model.list_image.url
+        model.attached_uploader(:list_image).path
       end
 
       def status_label

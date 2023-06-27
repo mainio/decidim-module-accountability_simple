@@ -5,8 +5,8 @@
 
 The gem has been developed by [Mainio Tech](https://www.mainiotech.fi/).
 
-Simplifies the user interface of the accountability module for clearer
-display of the results.
+Simplifies the user interface of the accountability module for clearer display
+of the results.
 
 Development of this gem has been sponsored by the
 [City of Helsinki](https://www.hel.fi/).
@@ -23,7 +23,9 @@ And then execute:
 
 ```bash
 $ bundle
+$ bundle exec rails decidim_favorites:install:migrations
 $ bundle exec rails decidim_locations:install:migrations
+$ bundle exec rails decidim_tags:install:migrations
 $ bundle exec rails decidim_accountability_simple:install:migrations
 $ bundle exec rails db:migrate
 ```
@@ -95,7 +97,6 @@ $ bundle exec rubocop
 To ease up following the style guide, you should install the plugin to your
 favorite editor, such as:
 
-- Atom - [linter-rubocop](https://atom.io/packages/linter-rubocop)
 - Sublime Text - [Sublime RuboCop](https://github.com/pderichs/sublime_rubocop)
 - Visual Studio Code - [Rubocop for Visual Studio Code](https://github.com/misogi/vscode-ruby-rubocop)
 

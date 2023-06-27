@@ -17,10 +17,10 @@ module Decidim
       included do
         remove_coauthorships_requirement!
 
-        validates_upload :main_image
-        mount_uploader :main_image, Decidim::AccountabilitySimple::MainImageUploader
-        validates_upload :list_image
-        mount_uploader :list_image, Decidim::AccountabilitySimple::ListImageUploader
+        has_one_attached :main_image
+        validates_upload :main_image, uploader: Decidim::AccountabilitySimple::MainImageUploader
+        has_one_attached :list_image
+        validates_upload :list_image, uploader: Decidim::AccountabilitySimple::ListImageUploader
 
         has_many :result_details, -> { order(:position) }, as: :accountability_result_detailable,
                                                            class_name: "Decidim::AccountabilitySimple::ResultDetail"
@@ -69,11 +69,11 @@ module Decidim
                 AND decidim_locations_locations.decidim_locations_locatable_type = '#{Arel.sql(name)}'
             SQLJOIN
           ).where.not(
-            decidim_locations_locations: {
-              decidim_locations_locatable_id: nil,
-              latitude: nil,
-              longitude: nil
-            }
+            decidim_locations_locations: { decidim_locations_locatable_id: nil }
+          ).where.not(
+            decidim_locations_locations: { latitude: nil }
+          ).where.not(
+            decidim_locations_locations: { longitude: nil }
           ).where(
             # Define the latitude/longitude bounds to only return valid lat/long
             # data to the map within the world bounds.

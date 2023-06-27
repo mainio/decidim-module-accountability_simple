@@ -5,18 +5,8 @@ module Decidim
     class Engine < ::Rails::Engine
       isolate_namespace Decidim::AccountabilitySimple
 
-      initializer "decidim_accountability_simple.assets" do |app|
-        app.config.assets.precompile += %w(
-          decidim/accountability_simple/result.css
-          decidim/accountability_simple/icons.svg
-        )
-      end
-
-      initializer "decidim_accountability_simple.admin_assets" do |app|
-        app.config.assets.precompile += %w(
-          decidim_accountability_simple_admin_manifest.js
-          decidim/accountability_simple/admin/results.js
-        )
+      initializer "decidim_accountability_simple.webpacker.assets_path" do
+        Decidim.register_assets_path File.expand_path("app/packs", root)
       end
 
       initializer "decidim_accountability_simple.mount_routes", before: :add_routing_paths do

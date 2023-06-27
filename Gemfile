@@ -10,19 +10,17 @@ base_path = ""
 base_path = "../" if File.basename(__dir__) == "development_app"
 require_relative "#{base_path}lib/decidim/accountability_simple/version"
 
-DECIDIM_VERSION = Decidim::AccountabilitySimple::DECIDIM_VERSION
-# DECIDIM_VERSION = { github: "decidim/decidim", branch: "develop" }
+DECIDIM_VERSION = Decidim::AccountabilitySimple.decidim_version
 
 gem "decidim", DECIDIM_VERSION
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.24-stable"
-gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "release/0.24-stable"
-gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.24-stable"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.25-stable"
+gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "release/0.25-stable"
+gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.25-stable"
 
 gem "decidim-accountability_simple", path: "."
 
-gem "bootsnap", "~> 1.4.9"
-gem "puma", ">= 5.3.1"
-gem "uglifier", "~> 4.1"
+gem "bootsnap", "~> 1.4"
+gem "puma", ">= 5.5.1"
 
 gem "faker", "~> 2.14"
 
@@ -37,9 +35,11 @@ group :development do
   gem "rubocop-faker"
   gem "spring", "~> 2.0"
   gem "spring-watcher-listen", "~> 2.0"
-  gem "web-console", "~> 3.5"
+  gem "web-console", "~> 4.0.4"
 end
 
 group :test do
   gem "codecov", require: false
 end
+
+gem "rails", "6.0.6.1"

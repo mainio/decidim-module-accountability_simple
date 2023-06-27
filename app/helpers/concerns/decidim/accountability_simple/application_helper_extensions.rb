@@ -147,11 +147,13 @@ module Decidim
       end
 
       def _icon_asset_path(name)
+        return "" if Decidim.cors_enabled
+
         accountability_icons ||= %w(calendar budget vote)
-        return asset_path("decidim/accountability_simple/icons.svg") if accountability_icons.include?(name)
+        return asset_pack_path("media/images/decidim_accountability_simple.svg") if accountability_icons.include?(name)
 
         # Decidim defaults
-        asset_path("decidim/icons.svg")
+        asset_pack_path("media/images/icons.svg")
       end
     end
   end

@@ -6,6 +6,7 @@ module Decidim
       module ResultFormExtensions
         extend ActiveSupport::Concern
 
+        include Decidim::HasUploadValidations
         include Decidim::Tags::TaggableForm
         include Decidim::Locations::LocatableForm
 
@@ -14,8 +15,8 @@ module Decidim
 
           attribute :main_image
           attribute :list_image
-          attribute :remove_main_image
-          attribute :remove_list_image
+          attribute :remove_main_image, ::Decidim::Form::Boolean, default: false
+          attribute :remove_list_image, ::Decidim::Form::Boolean, default: false
           attribute :use_default_details, ::Decidim::Form::Boolean, default: true
           attribute :author_ids, Array[Integer]
 
@@ -26,8 +27,14 @@ module Decidim
           attribute :result_details, Array[ResultDetailsForm]
           attribute :result_links, Array[ResultLinkForm]
 
-          validates :main_image, passthru: { to: Decidim::Accountability::Result }
-          validates :list_image, passthru: { to: Decidim::Accountability::Result }
+          validates :main_image, passthru: {
+            to: Decidim::Accountability::Result,
+            with: { component: ->(form) { form.current_component } }
+          }
+          validates :list_image, passthru: {
+            to: Decidim::Accountability::Result,
+            with: { component: ->(form) { form.current_component } }
+          }
 
           validates_locations_for Decidim::Accountability::Result
 

@@ -3,7 +3,11 @@
 module Decidim
   module AccountabilitySimple
     class ListImageUploader < ::Decidim::ImageUploader
-      process resize_to_limit: [850, 320]
+      set_variants do
+        {
+          default: { resize_to_limit: [850, 320] }
+        }
+      end
 
       def max_image_height_or_width
         8000

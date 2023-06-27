@@ -84,7 +84,7 @@ describe "Explore results", versioning: true, type: :system do
       it "shows details" do
         page.scroll_to find(".line-stats-project")
         within ".line-stats-project" do
-          expect(page).to have_content(translated(detail_attributes[:title]).upcase)
+          expect(page).to have_content(translated(detail_attributes[:title]))
           expect(page).to have_content("Some value")
           expect(page).to have_i18n_content(scope.name)
           expect(page).to have_i18n_content(category.name)

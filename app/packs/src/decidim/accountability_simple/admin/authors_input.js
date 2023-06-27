@@ -1,6 +1,7 @@
+import Tribute from "src/decidim/vendor/tribute"
+
 ((exports) => {
   const $ = exports.$; // eslint-disable-line id-length
-  const Tribute = exports.Tribute;
 
   $(() => {
     $(".js-authors-input").each((_i, authorsEl) => {
