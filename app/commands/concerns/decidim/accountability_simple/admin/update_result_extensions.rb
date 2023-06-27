@@ -8,9 +8,12 @@ module Decidim
 
         include Decidim::Tags::TaggingsCommand
         include Decidim::Locations::LocationsCommand
+        include Decidim::AttachmentAttributesMethods
 
         included do
           private
+
+          attr_reader :form # Needed for attachment_attributes
 
           def update_result
             Decidim.traceability.update!(
@@ -45,14 +48,7 @@ module Decidim
               external_id: @form.external_id.presence,
               weight: @form.weight,
               use_default_details: @form.use_default_details
-            }.merge(extra_attributes).merge(uploader_attributes)
-          end
-
-          def uploader_attributes
-            {
-              main_image: @form.main_image,
-              list_image: @form.list_image
-            }.delete_if { |_k, val| val.is_a?(Decidim::ApplicationUploader) }
+            }.merge(attachment_attributes(:main_image, :list_image)).merge(extra_attributes)
           end
         end
 

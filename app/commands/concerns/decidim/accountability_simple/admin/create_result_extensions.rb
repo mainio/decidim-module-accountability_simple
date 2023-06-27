@@ -8,9 +8,12 @@ module Decidim
 
         include Decidim::Tags::TaggingsCommand
         include Decidim::Locations::LocationsCommand
+        include Decidim::AttachmentAttributesMethods
 
         included do
           private
+
+          attr_reader :form # Needed for attachment_attributes
 
           def create_result
             params = {
@@ -27,10 +30,8 @@ module Decidim
               decidim_accountability_status_id: @form.decidim_accountability_status_id,
               external_id: @form.external_id.presence,
               weight: @form.weight,
-              main_image: @form.main_image,
-              list_image: @form.list_image,
               use_default_details: @form.use_default_details
-            }.merge(extra_attributes)
+            }.merge(attachment_attributes(:main_image, :list_image)).merge(extra_attributes)
 
             @result = Decidim.traceability.create!(
               Decidim::Accountability::Result,
