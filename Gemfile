@@ -41,5 +41,3 @@ end
 group :test do
   gem "codecov", require: false
 end
-
-gem "rails", "6.0.6.1"
