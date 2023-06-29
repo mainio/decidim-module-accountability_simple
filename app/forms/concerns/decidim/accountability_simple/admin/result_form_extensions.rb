@@ -15,9 +15,9 @@ module Decidim
 
           attribute :main_image
           attribute :list_image
-          attribute :remove_main_image, ::Decidim::Form::Boolean, default: false
-          attribute :remove_list_image, ::Decidim::Form::Boolean, default: false
-          attribute :use_default_details, ::Decidim::Form::Boolean, default: true
+          attribute :remove_main_image, Decidim::AttributeObject::Model::Boolean, default: false
+          attribute :remove_list_image, Decidim::AttributeObject::Model::Boolean, default: false
+          attribute :use_default_details, Decidim::AttributeObject::Model::Boolean, default: true
           attribute :author_ids, Array[Integer]
 
           attribute :idea_ids, Array[Integer]

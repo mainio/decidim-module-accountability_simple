@@ -5,7 +5,7 @@ require "spec_helper"
 describe "Admin manages accountability", type: :system do
   include_context "when managing a component"
 
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, available_locales: [:en, :ca, :es]) }
   let(:participatory_process) do
     create(:participatory_process, :with_steps, organization: organization)
   end
@@ -61,8 +61,8 @@ describe "Admin manages accountability", type: :system do
       scope_pick(select_data_picker(:result_decidim_scope_id), scope)
       select translated(category.name), from: :result_decidim_category_id
 
-      attach_file(:result_main_image, Decidim::Dev.asset("city.jpeg"))
-      attach_file(:result_list_image, Decidim::Dev.asset("city2.jpeg"))
+      dynamically_attach_file(:result_main_image, Decidim::Dev.asset("city.jpeg"))
+      dynamically_attach_file(:result_list_image, Decidim::Dev.asset("city2.jpeg"))
 
       click_button "Add detail"
       within ".grid-x" do
@@ -114,8 +114,8 @@ describe "Admin manages accountability", type: :system do
         scope_pick(select_data_picker(:result_decidim_scope_id), scope)
         select translated(category.name), from: :result_decidim_category_id
 
-        attach_file(:result_main_image, Decidim::Dev.asset("city.jpeg"))
-        attach_file(:result_list_image, Decidim::Dev.asset("city2.jpeg"))
+        dynamically_attach_file(:result_main_image, Decidim::Dev.asset("city.jpeg"))
+        dynamically_attach_file(:result_list_image, Decidim::Dev.asset("city2.jpeg"))
 
         click_button "Update result"
         expect(page).to have_content("Result successfully updated")

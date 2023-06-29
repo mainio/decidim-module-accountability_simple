@@ -5,7 +5,7 @@ module Decidim
     module Admin
       # This command gets called when a result is published from the admin
       # panel.
-      class PublishResult < Rectify::Command
+      class PublishResult < Decidim::Command
         # Public: Initializes the command.
         #
         # result - The result to publish.

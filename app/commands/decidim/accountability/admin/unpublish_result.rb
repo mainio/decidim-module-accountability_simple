@@ -5,7 +5,7 @@ module Decidim
     module Admin
       # This command gets called when a result is unpublished from the admin
       # panel.
-      class UnpublishResult < Rectify::Command
+      class UnpublishResult < Decidim::Command
         # Public: Initializes the command.
         #
         # result - The result to unpublish.

@@ -92,7 +92,7 @@ module Decidim
           current_user: current_user
         )
 
-        Decidim::Accountability::Admin::UpdateTimelineEntry.call(form, entry) do
+        Decidim::Accountability::Admin::UpdateTimelineEntry.call(form, entry, current_user) do
           on(:ok) do
             return entry
           end

@@ -30,7 +30,7 @@ module Decidim
           orders << Arel.sql("title->>'#{current_organization.default_locale}'") if current_organization.default_locale != current_locale
 
           parent_id = params[:parent_id].presence
-          search.results.published.where(parent_id: parent_id).order(*orders).page(params[:page]).per(12)
+          search.result.published.where(parent_id: parent_id).order(*orders).page(params[:page]).per(12)
         end
       end
 
@@ -65,20 +65,16 @@ module Decidim
         @result ||= Result.includes(:timeline_entries).where(component: current_component).find(params[:id])
       end
 
-      def search_klass
-        ResultSearch
+      def search_collection
+        Result.where(component: current_component)
       end
 
       def default_filter_params
         {
-          search_text: "",
-          scope_id: "",
-          category_id: ""
+          search_text_cont: "",
+          with_scope: "",
+          with_category: ""
         }
-      end
-
-      def context_params
-        { component: current_component, organization: current_organization }
       end
 
       def first_class_categories

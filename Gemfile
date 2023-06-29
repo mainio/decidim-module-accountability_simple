@@ -13,14 +13,14 @@ require_relative "#{base_path}lib/decidim/accountability_simple/version"
 DECIDIM_VERSION = Decidim::AccountabilitySimple.decidim_version
 
 gem "decidim", DECIDIM_VERSION
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.26-stable"
-gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "release/0.26-stable"
-gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.26-stable"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "master"
+gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "main"
+gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "main"
 
 gem "decidim-accountability_simple", path: "."
 
 gem "bootsnap", "~> 1.4"
-gem "puma", ">= 5.5.1"
+gem "puma", ">= 5.6.2"
 
 gem "faker", "~> 2.14"
 
@@ -30,12 +30,12 @@ group :development, :test do
 end
 
 group :development do
-  gem "letter_opener_web", "~> 1.3"
+  gem "letter_opener_web", "~> 2.0"
   gem "listen", "~> 3.1"
   gem "rubocop-faker"
   gem "spring", "~> 2.0"
   gem "spring-watcher-listen", "~> 2.0"
-  gem "web-console", "~> 4.0.4"
+  gem "web-console", "~> 4.2"
 end
 
 group :test do

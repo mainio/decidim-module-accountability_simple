@@ -5,7 +5,7 @@ require "spec_helper"
 describe "Admin manages accountability details", type: :system do
   include_context "when managing a component"
 
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, available_locales: [:en, :ca, :es]) }
   let(:participatory_process) do
     create(:participatory_process, :with_steps, organization: organization)
   end

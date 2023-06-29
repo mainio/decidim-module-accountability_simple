@@ -59,7 +59,7 @@ module Decidim
       initializer "decidim_accountability_simple.overrides", after: "decidim.action_controller" do |app|
         app.config.to_prepare do
           # HACK, because migrations crash if models exists before they are ran
-          next if ENV["accountability_simple"] == "create_app"
+          next if ENV.fetch("accountability_simple", nil) == "create_app"
 
           # Model extensions
           Decidim::Accountability::Result.include(

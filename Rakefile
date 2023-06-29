@@ -10,6 +10,20 @@ def install_module(path)
     system("bundle exec rails decidim_tags:install:migrations")
     system("bundle exec rails decidim_accountability_simple:install:migrations")
     system("bundle exec rails db:migrate")
+
+    # Temporary fix to overcome the issue with sass-embedded, see:
+    # https://github.com/decidim/decidim/pull/11074
+    system("npm i sass-embedded@~1.62.0")
+  end
+end
+
+# Temporary fix to overcome the issue with babel plugin updates, see:
+# https://github.com/decidim/decidim/pull/10916
+def fix_babel_config(path)
+  Dir.chdir(path) do
+    babel_config = "#{Dir.pwd}/babel.config.json"
+    File.delete(babel_config) if File.exist?(babel_config)
+    FileUtils.cp("#{__dir__}/babel.config.json", Dir.pwd)
   end
 end
 
@@ -33,6 +47,7 @@ task :test_app do
     "--skip_gemfile",
     "--demo"
   )
+  fix_babel_config("spec/decidim_dummy_app")
   install_module("spec/decidim_dummy_app")
 end
 
@@ -48,7 +63,7 @@ task :development_app do
     "--recreate_db",
     "--demo"
   )
+  fix_babel_config("development_app")
   install_module("development_app")
-  Dir.chdir("development_app") { system("bundle exec rails assets:precompile") }
   seed_db("development_app")
 end

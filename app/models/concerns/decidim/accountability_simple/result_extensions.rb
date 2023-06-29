@@ -52,6 +52,10 @@ module Decidim
             position: :asc
           )
         end
+
+        # Create i18n ransackers for :title and :description.
+        # Create the :search_text ransacker alias for searching from both of these.
+        ransacker_i18n_multi :search_text, [:title, :description]
       end
 
       class_methods do

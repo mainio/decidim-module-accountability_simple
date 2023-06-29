@@ -97,12 +97,13 @@ describe "Explore results", versioning: true, type: :system do
       let!(:comments) { create_list(:comment, 3, commentable: result) }
 
       before do
+        expect(page).to have_i18n_content(result.title)
         visit current_path
       end
 
       it "shows the comments" do
         comments.each do |comment|
-          expect(page).to have_content(comment.body.values.first)
+          expect(page).to have_i18n_content(comment.body)
         end
       end
     end

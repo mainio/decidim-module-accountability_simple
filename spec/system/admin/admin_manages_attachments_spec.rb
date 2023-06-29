@@ -5,7 +5,7 @@ require "spec_helper"
 describe "Admin manages accountability attachments", type: :system do
   include_context "when managing a component"
 
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, available_locales: [:en, :ca, :es]) }
   let(:participatory_process) do
     create(:participatory_process, :with_steps, organization: organization)
   end
@@ -53,7 +53,7 @@ describe "Admin manages accountability attachments", type: :system do
           ca: description
         )
 
-        attach_file(:attachment_file, Decidim::Dev.asset("city.jpeg"))
+        dynamically_attach_file(:attachment_file, Decidim::Dev.asset("city.jpeg"))
         click_button "Create attachment"
         expect(page).to have_content("Attachment created successfully")
       end
