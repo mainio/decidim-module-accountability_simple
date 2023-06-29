@@ -11,7 +11,7 @@ module Decidim
       graphql_name "ResultResourceLinkInterface"
       description "An interface that represents a linked resource"
 
-      field :id, GraphQL::Types::ID, "ID of this entity"
+      field :id, GraphQL::Types::ID, "ID of this entity", null: false
 
       def self.resolve_type(obj, _ctx)
         "#{obj.class.name}Type".constantize

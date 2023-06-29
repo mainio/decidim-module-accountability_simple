@@ -13,9 +13,9 @@ require_relative "#{base_path}lib/decidim/accountability_simple/version"
 DECIDIM_VERSION = Decidim::AccountabilitySimple.decidim_version
 
 gem "decidim", DECIDIM_VERSION
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.25-stable"
-gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "release/0.25-stable"
-gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.25-stable"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.26-stable"
+gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "release/0.26-stable"
+gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.26-stable"
 
 gem "decidim-accountability_simple", path: "."
 
