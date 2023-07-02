@@ -13,8 +13,8 @@ module Decidim
         included do
           translatable_attribute :summary, String
 
-          attribute :main_image
-          attribute :list_image
+          attribute :main_image, Decidim::Attributes::Blob
+          attribute :list_image, Decidim::Attributes::Blob
           attribute :remove_main_image, Decidim::AttributeObject::Model::Boolean, default: false
           attribute :remove_list_image, Decidim::AttributeObject::Model::Boolean, default: false
           attribute :use_default_details, Decidim::AttributeObject::Model::Boolean, default: true
