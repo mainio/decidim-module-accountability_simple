@@ -78,7 +78,7 @@ module Decidim
 
           style = {
             "background-color": model.status.color,
-            "color": color_hex < 0xFFFFFF / 2 ? "#fff" : "#000"
+            color: color_hex < 0xFFFFFF / 2 ? "#fff" : "#000"
           }.map { |key, val| "#{key}:#{val}" }.join(";")
         end
 

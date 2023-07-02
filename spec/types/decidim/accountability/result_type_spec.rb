@@ -114,7 +114,7 @@ describe Decidim::Accountability::ResultType, type: :graphql do
 
     context "without any linked resources" do
       it "returns nil" do
-        expect(response["linkedResources"]).to be(nil)
+        expect(response["linkedResources"]).to be_nil
       end
     end
 

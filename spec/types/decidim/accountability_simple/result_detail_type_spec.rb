@@ -28,7 +28,7 @@ describe Decidim::AccountabilitySimple::ResultDetailType, type: :graphql do
     let(:query) { "{ title { translations { locale text } } }" }
 
     it "returns the result detail's title" do
-      title = model.title.reject { |locale, _text| locale == "machine_translations" }
+      title = model.title.except("machine_translations")
       expect(response["title"]["translations"]).to include(
         *title.map { |locale, text| { "locale" => locale, "text" => text } }
       )

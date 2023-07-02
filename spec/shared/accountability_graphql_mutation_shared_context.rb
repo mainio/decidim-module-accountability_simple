@@ -3,7 +3,7 @@
 shared_context "with accountability graphql mutation" do
   def generate_localized_title
     title = super
-    title.reject { |k, _v| k == "machine_translations" }
+    title.except("machine_translations")
   end
 
   def convert_value(value)

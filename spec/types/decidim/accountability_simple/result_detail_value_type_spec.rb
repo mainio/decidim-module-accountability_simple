@@ -28,7 +28,7 @@ describe Decidim::AccountabilitySimple::ResultDetailValueType, type: :graphql do
     let(:query) { "{ description { translations { locale text } } }" }
 
     it "returns the value's description" do
-      description = model.description.reject { |locale, _text| locale == "machine_translations" }
+      description = model.description.except("machine_translations")
       expect(response["description"]["translations"]).to include(
         *description.map { |locale, text| { "locale" => locale, "text" => text } }
       )

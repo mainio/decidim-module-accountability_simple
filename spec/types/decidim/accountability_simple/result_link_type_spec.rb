@@ -28,7 +28,7 @@ describe Decidim::AccountabilitySimple::ResultLinkType, type: :graphql do
     let(:query) { "{ label { translations { locale text } } }" }
 
     it "returns the link's label" do
-      label = model.label.reject { |locale, _text| locale == "machine_translations" }
+      label = model.label.except("machine_translations")
       expect(response["label"]["translations"]).to include(
         *label.map { |locale, text| { "locale" => locale, "text" => text } }
       )
@@ -39,7 +39,7 @@ describe Decidim::AccountabilitySimple::ResultLinkType, type: :graphql do
     let(:query) { "{ url { translations { locale text } } }" }
 
     it "returns the link's url" do
-      url = model.url.reject { |locale, _text| locale == "machine_translations" }
+      url = model.url.except("machine_translations")
       expect(response["url"]["translations"]).to include(
         *url.map { |locale, text| { "locale" => locale, "text" => text } }
       )

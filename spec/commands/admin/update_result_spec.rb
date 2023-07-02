@@ -36,21 +36,21 @@ module Decidim::Accountability
         main_image: nil,
         list_image: nil,
         taggings: taggings_form,
-        locations: locations || [],
-        result_default_details: result_default_details || [],
-        result_details: result_details || [],
-        result_links: result_links || []
+        locations: locations,
+        result_default_details: result_default_details,
+        result_details: result_details,
+        result_links: result_links
       )
     end
     let(:taggings_form) do
-      double(tags: tags || [])
+      double(tags: tags)
     end
     let(:invalid) { false }
-    let(:tags) {}
-    let(:locations) {}
-    let(:result_default_details) {}
-    let(:result_details) {}
-    let(:result_links) {}
+    let(:tags) { [] }
+    let(:locations) { [] }
+    let(:result_default_details) { [] }
+    let(:result_details) { [] }
+    let(:result_links) { [] }
 
     describe "update result and result details" do
       let(:result_details) do

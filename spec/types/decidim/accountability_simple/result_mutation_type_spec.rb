@@ -134,7 +134,7 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
         model.reload
 
         expect(model.published?).to be(true)
-        expect(model.published_at).not_to be(nil)
+        expect(model.published_at).not_to be_nil
       end
     end
 
@@ -148,7 +148,7 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
         model.reload
 
         expect(model.published?).to be(false)
-        expect(model.published_at).to be(nil)
+        expect(model.published_at).to be_nil
       end
     end
   end
