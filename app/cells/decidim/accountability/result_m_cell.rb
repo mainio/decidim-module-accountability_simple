@@ -195,7 +195,7 @@ module Decidim
         full_category << translated_attribute(cat.name)
 
         content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
-          image_tag(cat.category_icon.url, alt: full_category.join(" - "))
+          image_tag(cat.attached_uploader(:category_icon).path, alt: full_category.join(" - "))
         end
       end
 
@@ -204,7 +204,7 @@ module Decidim
 
         cat ||= model.category
         return unless cat.respond_to?(:category_icon)
-        return cat if cat.category_icon && cat.category_icon.url
+        return cat if cat.category_icon && cat.category_icon.attached?
         return unless cat.parent
 
         icon_category(cat.parent)
