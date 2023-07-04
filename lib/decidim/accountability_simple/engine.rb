@@ -56,6 +56,20 @@ module Decidim
         Decidim::Api::MutationType.include Decidim::AccountabilitySimple::MutationExtensions
       end
 
+      # Needed for the 0.25 active storage migration
+      initializer "decidim_accountability_simple.activestorage_migration" do
+        next unless Decidim.const_defined?("CarrierWaveMigratorService")
+
+        Decidim::CarrierWaveMigratorService.send(:remove_const, :MIGRATION_ATTRIBUTES).tap do |attributes|
+          additional_attributes = [
+            [Decidim::Accountability::Result, "main_image", Decidim::Cw::AccountabilitySimple::MainImageUploader, "main_image"],
+            [Decidim::Accountability::Result, "list_image", Decidim::Cw::AccountabilitySimple::ListImageUploader, "list_image"]
+          ]
+
+          Decidim::CarrierWaveMigratorService.const_set(:MIGRATION_ATTRIBUTES, (attributes + additional_attributes).freeze)
+        end
+      end
+
       initializer "decidim_accountability_simple.overrides", after: "decidim.action_controller" do |app|
         app.config.to_prepare do
           # HACK, because migrations crash if models exists before they are ran
