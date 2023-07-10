@@ -35,7 +35,7 @@ module Decidim
       end
 
       def geocoded_results
-        @geocoded_results ||= search.results.geocoded_data
+        @geocoded_results ||= search.result.geocoded_data
       end
 
       def geocoded_result
