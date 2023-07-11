@@ -1,0 +1,172 @@
+---
+cs:
+  activemodel:
+    attributes:
+      result:
+        list_image: List image
+        main_image: Main image
+        summary: Summary
+      timeline_entry:
+        end_date: End date
+        title: Title (replaces the dates)
+  activerecord:
+    models:
+      decidim/accountability/result:
+        one: Project
+        few: Projects
+        many: Projects
+        other: Projects
+  decidim:
+    accountability:
+      actions:
+        attachment_collections: Folders
+        attachments: Attachments
+        default_details: Default details
+      admin:
+        details:
+          detail:
+            down: Down
+            detail: Default detail
+            remove: Remove
+            up: Up
+          form:
+            add_detail: Add default detail
+          show:
+            title: Default details
+            update: Update
+          update:
+            invalid: There was a problem updating the default details
+            success: Default details successfully updated
+        results:
+          authors_picker:
+            collection_name: Projects
+            label: Authors
+            search_placeholder: Search authors
+          default_detail:
+            default_detail: Default detail
+          form:
+            add_result_detail: Add detail
+            add_result_link: Add link
+            images: Images
+            locations: Locations
+            result_default_details: Default details
+            result_details: Details
+            result_links: Links
+          publish:
+            invalid: There was a problem publishing this result.
+            success: The result has been successfully published.
+          result_detail:
+            down: Down
+            remove: Remove
+            result_detail: Detail
+            up: Up
+          result_link:
+            down: Down
+            remove: Remove
+            result_link: Link
+            up: Up
+          unpublish:
+            invalid: There was a problem unpublishing this result.
+            success: The result has been successfully unpublished.
+      models:
+        result:
+          fields:
+            comments: Comments
+        timeline_entry:
+          fields:
+            end_date: End date
+            title: Title
+      result_m:
+        card_label: "Project: %{title}"
+        progress_explanation: Project progress
+        tags_title: Tags
+        view: Show project
+      results:
+        count:
+          results_count:
+            one: Found 1 project
+            few: "Found %{count} projects"
+            many: "Found %{count} projects"
+            other: "Found %{count} projects"
+        filters:
+          category: Category
+          category_prompt: Choose category
+          open: Open
+          related_to: Related to
+          reset: Clear filters
+          scope: Area
+          search: Search
+          title: Search projects
+        filters_small_view:
+          close_modal: Close modal
+          filter: Filter
+          filter_by: Filter by
+          unfold: Unfold
+        nav_breadcrumb:
+          all_projects: All projects
+        result:
+          project_info: Project info
+        show:
+          stats:
+            scope: Scope
+            category: Category
+        show_parent:
+          locations: Project on a map
+          subresults: Sub projects
+        stats_box:
+          average_progress: Average progress on all projects %{progress}.
+          location: Location
+          show_on_map: Show on a map
+        timeline:
+          title: Implementation timeline
+    accountability_simple:
+      models:
+        result_detail:
+          icons:
+            budget: Budget
+            calendar: Calendar
+            map_marker: Map marker
+            person: Person
+            vote: Voting
+      results:
+        categories_filter:
+          category: Category
+          category_prompt: Choose category
+        components_filter:
+          others: Others
+        filters:
+          component: Process
+          component_prompt: Choose process
+          open: Open
+          related_to: Related to
+          search: Search
+          space: Space
+        filters_small_view:
+          close_modal: Close modal
+          filter: Filter
+          filter_by: Filter by
+          unfold: Unfold
+        index:
+          results: Tracking
+      shared:
+        result:
+          show_project: Show project
+          progress_explanation: Project progress
+    components:
+      accountability:
+        settings:
+          global:
+            geocoding_enabled: Geocoding enabled
+    resource_links:
+      included_ideas:
+        result_idea: Related ideas
+      included_plans:
+        result_plan: Related co-creation proposals
+      included_projects:
+        result_project: Related proposals
+      included_proposals:
+        result_proposal: Related proposals
+  forms:
+    scopes_picker:
+      others: Others
+      prompt: Choose %{item_name}
