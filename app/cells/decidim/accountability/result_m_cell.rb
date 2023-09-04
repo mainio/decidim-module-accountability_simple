@@ -16,6 +16,21 @@ module Decidim
 
       private
 
+      def card_wrapper
+        cls = card_classes.is_a?(Array) ? card_classes.join(" ") : card_classes
+        wrapper_options = { class: "card #{cls}", aria: { label: t(".card_label", title: title) } }
+        if has_link_to_resource?
+          link_to resource_path, **wrapper_options do
+            yield
+          end
+        else
+          aria_options = { role: "region" }
+          content_tag :div, **aria_options.merge(wrapper_options) do
+            yield
+          end
+        end
+      end
+
       def resource_path
         resource_locator(model).path + request_params_query(resource_utm_params)
       end
@@ -160,7 +175,11 @@ module Decidim
       end
 
       def statuses
-        [:favoriting_count, :comments_count]
+        [:comments_count, :favoriting_count]
+      end
+
+      def comments_count_status
+        render_comments_count
       end
 
       def favoriting_count_status

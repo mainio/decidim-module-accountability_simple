@@ -3,7 +3,7 @@
 module Decidim::Cw
   module AccountabilitySimple
     class ListImageUploader < ::Decidim::Cw::ImageUploader
-      process resize_to_limit: [850, 320]
+      process resize_to_limit: [860, 395]
 
       def max_image_height_or_width
         8000

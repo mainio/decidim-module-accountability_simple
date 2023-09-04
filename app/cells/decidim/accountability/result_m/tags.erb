@@ -1,7 +1,11 @@
-<div>
-  <div class="show-for-sr"><%= t(".tags_title") %></div>
-
+<div class="card__tags">
   <%= status_label %>
 
+  <% if has_label? %>
+    <span class="label <%= card_classes %>"><%= label %></span>
+  <% end %>
+
   <%= cell "decidim/tags/tags", model, context: { extra_classes: ["tags--result"] } %>
+
+  <%= render :badge if has_badge? %>
 </div>

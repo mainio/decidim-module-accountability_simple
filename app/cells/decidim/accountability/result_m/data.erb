@@ -1,9 +1,11 @@
-<div class="card__status">
-  <ul class="card-data">
-    <% statuses.each do |status_name| %>
-      <li class="card-data__item <%= status_name %>_status">
-        <%= send("#{status_name}_status") %>
-      </li>
-    <% end %>
-  </ul>
+<div class="card__info">
+  <% if has_category? %>
+    <div class="card__info__item">
+      <%= category %>
+    </div>
+  <% end %>
+
+  <div class="card__info__item">
+    #<%= model.id %>
+  </div>
 </div>
