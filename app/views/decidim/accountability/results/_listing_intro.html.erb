@@ -1,9 +1,15 @@
+<div class="row columns">
+  <div class="page-title">
+    <h2 class="heading1"><%= translated_attribute(current_component.name) %></h2>
+  </div>
+</div>
+
 <% intro = translated_attribute component_settings.intro %>
 
 <% if intro.present? %>
-  <div class="row mb-3">
-    <div class="columns small-centered mediumlarge-10 large-8">
-      <div class="static__content text-center">
+  <div class="row medium-unstack content-intro">
+    <div class="columns medium-6 mediumlarge-8">
+      <div class="text-large">
         <%== translated_attribute component_settings.intro %>
       </div>
     </div>

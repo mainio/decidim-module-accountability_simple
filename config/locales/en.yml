@@ -74,6 +74,8 @@ en:
           fields:
             end_date: End date
             title: Title
+      result_l:
+        card_label: "Project: %{title}"
       result_m:
         card_label: "Project: %{title}"
         progress_explanation: Project progress
@@ -98,15 +100,22 @@ en:
           filter: Filter
           filter_by: Filter by
           unfold: Unfold
+        listing:
+          show_list: Show results as list
+          show_map: Show results on map
         nav_breadcrumb:
           all_projects: All projects
         result:
           project_info: Project info
+        result_actions:
+          share: Share project
+          show_comments: Show project comments
         show:
           stats:
             scope: Scope
             category: Category
         show_parent:
+          back_to_list: Show other projects
           locations: Project on a map
           subresults: Sub projects
         stats_box:

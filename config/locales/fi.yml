@@ -74,6 +74,8 @@ fi:
           fields:
             end_date: Päättymispäivä
             title: Otsikko
+      result_l:
+        card_label: "Hanke: %{title}"
       result_m:
         card_label: "Hanke: %{title}"
         progress_explanation: Hankkeen edistyminen
@@ -98,15 +100,22 @@ fi:
           filter: Rajaa
           filter_by: Rajaa hakua
           unfold: Avaa
+        listing:
+          show_list: Näytä tulokset listana
+          show_map: Näytä tulokset kartalla
         nav_breadcrumb:
           all_projects: Kaikki hankkeet
         result:
           project_info: Hankeinfo
+        result_actions:
+          share: Jaa hanke
+          show_comments: Katso hankkeen kommentit
         show:
           stats:
             scope: Teema
             category: Kategoria
         show_parent:
+          back_to_list: Näytä muut hankkeet
           locations: Hanke kartalla
           subresults: Alihankkeet
         stats_box:

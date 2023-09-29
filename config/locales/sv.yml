@@ -74,6 +74,8 @@ sv:
           fields:
             end_date: Slutdatum
             title: Rubrik
+      result_l:
+        card_label: "Projekt: %{title}"
       result_m:
         card_label: "Projekt: %{title}"
         progress_explanation: Projektets framsteg
@@ -98,15 +100,22 @@ sv:
           filter: Filtrera
           filter_by: Filtrera efter
           unfold: Veckla ut
+        listing:
+          show_list: Visa resultat som lista
+          show_map: Visa resultat på kartan
         nav_breadcrumb:
           all_projects: Alla projekt
         result:
           project_info: Projektinfo
+        result_actions:
+          share: Dela projekt
+          show_comments: Visa projektets kommentarer
         show:
           stats:
             scope: Tema
             category: Kategori
         show_parent:
+          back_to_list: Visa andra projekt
           locations: Projekt på kartan
           subresults: Delprojekt
         stats_box:

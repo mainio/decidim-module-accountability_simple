@@ -1,0 +1,48 @@
+<%= render partial: "listing_intro" %>
+
+<div class="container bg-secondary filters-section">
+  <div class="row columns">
+    <div class="idea-filters record-filters">
+      <%= render partial: "filters" %>
+    </div>
+  </div>
+</div>
+
+<div class="container listing-section">
+  <div class="row columns">
+    <% if show_map? %>
+      <ul class="tabs" data-tabs id="listing-tabs">
+        <li class="tabs-title is-active"><a data-tabs-target="results-listing" href="#results-listing" aria-selected="true"><%= t(".show_list") %></a></li>
+        <li class="tabs-title"><a data-tabs-target="results-map" href="#results-map"><%= t(".show_map") %></a></li>
+      </ul>
+    <% end %>
+
+    <div class="tabs-content" data-tabs-content="listing-tabs">
+      <div class="tabs-panel is-active" id="results-listing">
+        <div class="collection-controls">
+          <% if false %>
+            <div class="control">
+              <%= render partial: "decidim/shared/results_per_page" %>
+            </div>
+          <% end %>
+        </div>
+
+        <div id="results-count">
+          <p class="show-for-sr"><%= heading_parent_level_results(results.total_count) %></p>
+        </div>
+
+        <div id="results">
+          <div class="cards-list">
+            <%= render partial: "decidim/accountability_simple/shared/results_parent", locals: { results: results, total_count: results.total_count } %>
+          </div>
+        </div>
+      </div>
+
+      <% if show_map? %>
+        <div class="tabs-panel" id="results-map">
+          <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_results } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
