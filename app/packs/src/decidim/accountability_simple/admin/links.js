@@ -4,7 +4,7 @@ import createDynamicFields from "src/decidim/admin/dynamic_fields.component";
 import createSortList from "src/decidim/admin/sort_list.component";
 import createQuillEditor from "src/decidim/editor";
 
-((exports) => {
+(() => {
   const wrapperSelector = ".result-link-items";
   const fieldSelector = ".result-link-item";
 
