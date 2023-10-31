@@ -74,15 +74,15 @@ cs:
             comments: Komentáře
         timeline_entry:
           fields:
-            end_date: End date
-            title: Title
+            end_date: Datum ukončení
+            title: Název
       result_l:
-        card_label: "Project: %{title}"
+        card_label: "Projekt: %{title}"
       result_m:
-        card_label: "Project: %{title}"
-        progress_explanation: Project progress
-        tags_title: Tags
-        view: Show project
+        card_label: "Projekt: %{title}"
+        progress_explanation: Pokrok projektu
+        tags_title: Štítky
+        view: Zobrazit projekt
       results:
         count:
           results_count:
