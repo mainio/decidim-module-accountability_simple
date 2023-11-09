@@ -5,7 +5,7 @@ cs:
       result:
         list_image: List image
         main_image: Hlavní obrázek
-        summary: Summary
+        summary: Shrnutí
       timeline_entry:
         end_date: Datum ukončení
         title: Název (nahrazuje data)
@@ -53,7 +53,7 @@ cs:
             result_details: Detaily
             result_links: Odkazy
           publish:
-            invalid: There was a problem publishing this result.
+            invalid: Při publikování tohoto výsledku došlo k chybě.
             success: The result has been successfully published.
           result_detail:
             down: Dolů
@@ -86,19 +86,19 @@ cs:
       results:
         count:
           results_count:
-            one: Found 1 project
-            few: "Found %{count} projects"
-            many: "Found %{count} projects"
-            other: "Found %{count} projects"
+            one: Nalezen 1 projekt
+            few: "Nalezeny %{count} projekty"
+            many: "Nalezeno %{count} projektů"
+            other: "Nalezeno %{count} projektů"
         filters:
-          category: Category
-          category_prompt: Choose category
-          open: Open
-          related_to: Related to
-          reset: Clear filters
-          scope: Area
-          search: Search
-          title: Search projects
+          category: Kategorie
+          category_prompt: Vyberte kategorii
+          open: Otevřít
+          related_to: Souvisí s
+          reset: Vymazat filtry
+          scope: Oblast
+          search: Hledat
+          title: Hledat projekty
         filters_small_view:
           close_modal: Close modal
           filter: Filter
