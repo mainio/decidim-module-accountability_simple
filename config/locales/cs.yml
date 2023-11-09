@@ -3,7 +3,7 @@ cs:
   activemodel:
     attributes:
       result:
-        list_image: List image
+        list_image: Obrázek seznamu
         main_image: Hlavní obrázek
         summary: Shrnutí
       timeline_entry:
@@ -13,9 +13,9 @@ cs:
     models:
       decidim/accountability/result:
         one: Projekt
-        few: Projects
-        many: Projects
-        other: Projects
+        few: Projekty
+        many: Projektů
+        other: Projektů
   decidim:
     accountability:
       actions:
@@ -36,7 +36,7 @@ cs:
             update: Aktualizovat
           update:
             invalid: Při aktualizaci výchozích údajů došlo k chybě
-            success: Default details successfully updated
+            success: Výchozí údaje byly úspěšně aktualizovány
         results:
           authors_picker:
             collection_name: Projekty
@@ -54,7 +54,7 @@ cs:
             result_links: Odkazy
           publish:
             invalid: Při publikování tohoto výsledku došlo k chybě.
-            success: The result has been successfully published.
+            success: Výsledek byl úspěšně zveřejněn.
           result_detail:
             down: Dolů
             remove: Odebrat
@@ -66,8 +66,8 @@ cs:
             result_link: Odkaz
             up: Nahoru
           unpublish:
-            invalid: There was a problem unpublishing this result.
-            success: The result has been successfully unpublished.
+            invalid: Při rušení publikování tohoto výsledku došlo k chybě.
+            success: Zveřejnění výsledku bylo úspěšně zrušeno.
       models:
         result:
           fields:
@@ -100,82 +100,82 @@ cs:
           search: Hledat
           title: Hledat projekty
         filters_small_view:
-          close_modal: Close modal
-          filter: Filter
-          filter_by: Filter by
-          unfold: Unfold
+          close_modal: Zavřít modální okno
+          filter: Filtr
+          filter_by: Filtrovat podle
+          unfold: Rozbalit
         listing:
-          show_list: Show results as list
-          show_map: Show results on map
+          show_list: Zobrazit výsledky jako seznam
+          show_map: Zobrazit výsledky na mapě
         nav_breadcrumb:
-          all_projects: All projects
+          all_projects: Všechny projekty
         result:
-          project_info: Project info
+          project_info: Informace o projektu
         result_actions:
-          share: Share project
-          show_comments: Show project comments
+          share: Sdílet projekt
+          show_comments: Zobrazit komentáře projektu
         show:
           stats:
-            scope: Scope
-            category: Category
+            scope: Oblast působnosti
+            category: Kategorie
         show_parent:
-          back_to_list: Show other projects
-          locations: Project on a map
-          subresults: Sub projects
+          back_to_list: Zobrazit ostatní projekty
+          locations: Projekt na mapě
+          subresults: Podprojekty
         stats_box:
-          average_progress: Average progress on all projects %{progress}.
-          location: Location
-          show_on_map: Show on a map
+          average_progress: Průměrný pokrok u všech projektů %{progress}.
+          location: Poloha
+          show_on_map: Zobrazit na mapě
         timeline:
-          title: Implementation timeline
+          title: Časová osa provádění
     accountability_simple:
       models:
         result_detail:
           icons:
-            budget: Budget
-            calendar: Calendar
-            map_marker: Map marker
-            person: Person
-            vote: Voting
+            budget: Rozpočet
+            calendar: Kalendář
+            map_marker: Značka na mapě
+            person: Osoba
+            vote: Hlasování
       results:
         categories_filter:
-          category: Category
-          category_prompt: Choose category
+          category: Kategorie
+          category_prompt: Vyberte kategorii
         components_filter:
-          others: Others
+          others: Ostatní
         filters:
-          component: Process
-          component_prompt: Choose process
-          open: Open
-          related_to: Related to
-          search: Search
-          space: Space
+          component: Proces
+          component_prompt: Vyberte proces
+          open: Otevřít
+          related_to: Souvisí s
+          search: Hledat
+          space: Prostor
         filters_small_view:
-          close_modal: Close modal
-          filter: Filter
-          filter_by: Filter by
-          unfold: Unfold
+          close_modal: Zavřít modální okno
+          filter: Filtr
+          filter_by: Filtrovat podle
+          unfold: Rozbalit
         index:
-          results: Tracking
+          results: Sledování
       shared:
         result:
-          show_project: Show project
-          progress_explanation: Project progress
+          show_project: Zobrazit projekt
+          progress_explanation: Pokrok projektu
     components:
       accountability:
         settings:
           global:
-            geocoding_enabled: Geocoding enabled
+            geocoding_enabled: Geokódování povoleno
     resource_links:
       included_ideas:
-        result_idea: Related ideas
+        result_idea: Související nápady
       included_plans:
-        result_plan: Related co-creation proposals
+        result_plan: Související návrhy společného vytváření
       included_projects:
-        result_project: Related proposals
+        result_project: Související návrhy
       included_proposals:
-        result_proposal: Related proposals
+        result_proposal: Související návrhy
   forms:
     scopes_picker:
-      others: Others
-      prompt: Choose %{item_name}
+      others: Ostatní
+      prompt: Vybrat %{item_name}
