@@ -1,0 +1,181 @@
+---
+cs:
+  activemodel:
+    attributes:
+      result:
+        list_image: Obrázek seznamu
+        main_image: Hlavní obrázek
+        summary: Shrnutí
+      timeline_entry:
+        end_date: Datum ukončení
+        title: Název (nahrazuje data)
+  activerecord:
+    models:
+      decidim/accountability/result:
+        one: Projekt
+        few: Projekty
+        many: Projektů
+        other: Projektů
+  decidim:
+    accountability:
+      actions:
+        attachment_collections: Složky
+        attachments: Přílohy
+        default_details: Výchozí detaily
+      admin:
+        details:
+          detail:
+            down: Dolů
+            detail: Výchozí detail
+            remove: Odebrat
+            up: Nahoru
+          form:
+            add_detail: Přidat výchozí detail
+          show:
+            title: Výchozí detaily
+            update: Aktualizovat
+          update:
+            invalid: Při aktualizaci výchozích údajů došlo k chybě
+            success: Výchozí údaje byly úspěšně aktualizovány
+        results:
+          authors_picker:
+            collection_name: Projekty
+            label: Autoři
+            search_placeholder: Hledat autory
+          default_detail:
+            default_detail: Výchozí detail
+          form:
+            add_result_detail: Přidat detail
+            add_result_link: Přidat odkaz
+            images: Obrázky
+            locations: Místa
+            result_default_details: Výchozí detaily
+            result_details: Detaily
+            result_links: Odkazy
+          publish:
+            invalid: Při publikování tohoto výsledku došlo k chybě.
+            success: Výsledek byl úspěšně zveřejněn.
+          result_detail:
+            down: Dolů
+            remove: Odebrat
+            result_detail: Detail
+            up: Nahoru
+          result_link:
+            down: Dolů
+            remove: Odebrat
+            result_link: Odkaz
+            up: Nahoru
+          unpublish:
+            invalid: Při rušení publikování tohoto výsledku došlo k chybě.
+            success: Zveřejnění výsledku bylo úspěšně zrušeno.
+      models:
+        result:
+          fields:
+            comments: Komentáře
+        timeline_entry:
+          fields:
+            end_date: Datum ukončení
+            title: Název
+      result_l:
+        card_label: "Projekt: %{title}"
+      result_m:
+        card_label: "Projekt: %{title}"
+        progress_explanation: Pokrok projektu
+        tags_title: Štítky
+        view: Zobrazit projekt
+      results:
+        count:
+          results_count:
+            one: Nalezen 1 projekt
+            few: "Nalezeny %{count} projekty"
+            many: "Nalezeno %{count} projektů"
+            other: "Nalezeno %{count} projektů"
+        filters:
+          category: Kategorie
+          category_prompt: Vyberte kategorii
+          open: Otevřít
+          related_to: Souvisí s
+          reset: Vymazat filtry
+          scope: Oblast
+          search: Hledat
+          title: Hledat projekty
+        filters_small_view:
+          close_modal: Zavřít modální okno
+          filter: Filtr
+          filter_by: Filtrovat podle
+          unfold: Rozbalit
+        listing:
+          show_list: Zobrazit výsledky jako seznam
+          show_map: Zobrazit výsledky na mapě
+        nav_breadcrumb:
+          all_projects: Všechny projekty
+        result:
+          project_info: Informace o projektu
+        result_actions:
+          share: Sdílet projekt
+          show_comments: Zobrazit komentáře projektu
+        show:
+          stats:
+            scope: Oblast působnosti
+            category: Kategorie
+        show_parent:
+          back_to_list: Zobrazit ostatní projekty
+          locations: Projekt na mapě
+          subresults: Podprojekty
+        stats_box:
+          average_progress: Průměrný pokrok u všech projektů %{progress}.
+          location: Poloha
+          show_on_map: Zobrazit na mapě
+        timeline:
+          title: Časová osa provádění
+    accountability_simple:
+      models:
+        result_detail:
+          icons:
+            budget: Rozpočet
+            calendar: Kalendář
+            map_marker: Značka na mapě
+            person: Osoba
+            vote: Hlasování
+      results:
+        categories_filter:
+          category: Kategorie
+          category_prompt: Vyberte kategorii
+        components_filter:
+          others: Ostatní
+        filters:
+          component: Proces
+          component_prompt: Vyberte proces
+          open: Otevřít
+          related_to: Souvisí s
+          search: Hledat
+          space: Prostor
+        filters_small_view:
+          close_modal: Zavřít modální okno
+          filter: Filtr
+          filter_by: Filtrovat podle
+          unfold: Rozbalit
+        index:
+          results: Sledování
+      shared:
+        result:
+          show_project: Zobrazit projekt
+          progress_explanation: Pokrok projektu
+    components:
+      accountability:
+        settings:
+          global:
+            geocoding_enabled: Geokódování povoleno
+    resource_links:
+      included_ideas:
+        result_idea: Související nápady
+      included_plans:
+        result_plan: Související návrhy společného vytváření
+      included_projects:
+        result_project: Související návrhy
+      included_proposals:
+        result_proposal: Související návrhy
+  forms:
+    scopes_picker:
+      others: Ostatní
+      prompt: Vybrat %{item_name}
