@@ -52,7 +52,7 @@
 
         <% if show_map? %>
           <div class="row column" id="result_map">
-            <h2><%= t(".locations") %><h2>
+            <h2><%= t(".locations") %></h2>
           </div>
           <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_result } %>
         <% end %>
