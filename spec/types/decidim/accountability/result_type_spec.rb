@@ -24,6 +24,38 @@ describe Decidim::Accountability::ResultType, type: :graphql do
     end
   end
 
+  describe "mainImage" do
+    let(:query) { "{ mainImage }" }
+
+    before do
+      model.main_image.attach(
+        io: File.open(Decidim::Dev.asset("city.jpeg")),
+        filename: "city.jpeg",
+        content_type: "image/jpeg"
+      )
+    end
+
+    it "returns the result's main image" do
+      expect(response["mainImage"]).to match(model.attached_uploader(:main_image).url)
+    end
+  end
+
+  describe "listImage" do
+    let(:query) { "{ listImage }" }
+
+    before do
+      model.list_image.attach(
+        io: File.open(Decidim::Dev.asset("city.jpeg")),
+        filename: "city.jpeg",
+        content_type: "image/jpeg"
+      )
+    end
+
+    it "returns the result's main image" do
+      expect(response["listImage"]).to match(model.attached_uploader(:list_image).url)
+    end
+  end
+
   describe "defaultDetails" do
     let(:query) { %({ defaultDetails { id values { id } } }) }
 

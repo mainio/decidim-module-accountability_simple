@@ -18,6 +18,18 @@ module Decidim
           type.field :links, [Decidim::AccountabilitySimple::ResultLinkType], "The links for this resource", method: :result_links, null: false
         end
 
+        def main_image
+          return unless object.main_image.attached?
+
+          object.attached_uploader(:main_image).url
+        end
+
+        def list_image
+          return unless object.list_image.attached?
+
+          object.attached_uploader(:list_image).url
+        end
+
         def default_details
           context.scoped_context[:parent] = object
 
