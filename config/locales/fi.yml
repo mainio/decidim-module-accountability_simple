@@ -72,6 +72,7 @@ fi:
             comments: Kommentit
         timeline_entry:
           fields:
+            description: Kuvaus
             end_date: Päättymispäivä
             title: Otsikko
       result_l:

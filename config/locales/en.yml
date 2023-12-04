@@ -72,6 +72,7 @@ en:
             comments: Comments
         timeline_entry:
           fields:
+            description: Description
             end_date: End date
             title: Title
       result_l:
