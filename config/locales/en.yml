@@ -111,6 +111,16 @@ en:
         result_actions:
           share: Share project
           show_comments: Show project comments
+          show_on_map: Show on a map
+        result_attributes:
+          attributes:
+            category: Theme
+            id: Number (ID)
+            location: Location
+            published_at: Publish time
+            reference: Reference
+            scope: Area
+          title: Information
         show:
           stats:
             scope: Scope
@@ -119,10 +129,11 @@ en:
           back_to_list: Show other projects
           locations: Project on a map
           subresults: Sub projects
+        show_result_body:
+          description: Project description
+          subtitle: Project
         stats_box:
           average_progress: Average progress on all projects %{progress}.
-          location: Location
-          show_on_map: Show on a map
         timeline:
           title: Implementation timeline
     accountability_simple:

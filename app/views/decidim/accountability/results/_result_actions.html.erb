@@ -3,6 +3,15 @@
   <%= cell("decidim/favorites/favorite_button", result, button_class: "link action-link", disable_tooltip: true) %>
 </div>
 
+<% if result.locations.any? %>
+  <div class="actions-panel bg-secondary">
+    <a href="#result_map" class="action-link">
+      <span class="link-text"><%= t ".show_on_map" %></span>
+      <%= icon "map-marker", role: "img", "aria-hidden": true %>
+    </a>
+  </div>
+<% end %>
+
 <div class="actions-panel bg-secondary">
   <%= link_to "#comments", class: "action-link" do %>
     <span class="link-text"><%= t ".show_comments" %></span>

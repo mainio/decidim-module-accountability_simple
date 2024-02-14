@@ -111,6 +111,16 @@ sv:
         result_actions:
           share: Dela projekt
           show_comments: Visa projektets kommentarer
+          show_on_map: Visa på kartan
+        result_attributes:
+          attributes:
+            category: Tema
+            id: Nummer (ID)
+            location: Plats
+            published_at: Publiceringstiden
+            reference: Referens
+            scope: Område
+          title: Information
         show:
           stats:
             scope: Tema
@@ -119,10 +129,11 @@ sv:
           back_to_list: Visa andra projekt
           locations: Projekt på kartan
           subresults: Delprojekt
+        show_result_body:
+          description: Projekt beskrivning
+          subtitle: Projekt
         stats_box:
           average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
-          location: Plats
-          show_on_map: Visa på kartan
         timeline:
           title: Implementeringstidslinje
     accountability_simple:

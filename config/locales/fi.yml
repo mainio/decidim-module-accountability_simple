@@ -111,6 +111,16 @@ fi:
         result_actions:
           share: Jaa hanke
           show_comments: Katso hankkeen kommentit
+          show_on_map: Näytä kartalla
+        result_attributes:
+          attributes:
+            category: Teema
+            id: Numero (ID)
+            location: Sijainti
+            published_at: Julkaisuaika
+            reference: Viite
+            scope: Alue
+          title: Tiedot
         show:
           stats:
             scope: Teema
@@ -119,10 +129,11 @@ fi:
           back_to_list: Näytä muut hankkeet
           locations: Hanke kartalla
           subresults: Alihankkeet
+        show_result_body:
+          description: Hankkeen kuvaus
+          subtitle: Hanke
         stats_box:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
-          location: Sijainti
-          show_on_map: Näytä kartalla
         timeline:
           title: Toteutuksen aikajana
     accountability_simple:

@@ -1,3 +1,8 @@
+<%
+root_result = result
+root_result = root_result.parent while root_result.parent
+%>
+
 <div class="row column back-link">
   <%= link_to results_path, class: "action-link" do %>
     <%= icon "arrow-left", role: "img", "aria-hidden": true %>
@@ -8,38 +13,24 @@
 <div class="row column resource">
   <div class="row">
     <div class="columns small-12 medium-8">
-      <div class="resource__main static__content">
+      <div class="resource__main static__content margin-bottom-0">
         <h1><%= translated_attribute result.title %></h1>
 
-        <div class="resource__info">
-          <% if result.scope %>
-            <div class="resource__info__item"><%= translated_attribute(result.scope.name) %></div>
-          <% end %>
-          <div class="resource__info__item">#<%= result.id %></div>
-          <% if result.published? %>
-            <div class="resource__info__item"><%= l(result.published_at.to_date, format: :decidim_short) %></div>
-          <% end %>
-          <% if result.category.present? %>
-            <div class="resource__info__item">
-              <% if result.category.parent %>
-                <%= translated_attribute(result.category.parent.name) %> -
-              <% end %>
-              <%= translated_attribute(result.category.name) %>
-            </div>
-          <% end %>
-        </div>
-
         <% if result.main_image && result.main_image.attached? %>
-          <%= image_tag result.attached_uploader(:main_image).path, alt: translated_attribute(result.title), class: "resource-image" %>
+          <%= image_tag result.attached_uploader(:main_image).path, alt: translated_attribute(result.title), class: "resource__image" %>
         <% end %>
       </div>
     </div>
 
     <div class="columns small-12 medium-4">
-      <div class="resource__aside resource__actions">
-        <%= render partial: "result_actions", locals: { result: result } %>
+      <div class="resource__aside">
+        <div class="resource__actions">
+          <%= render partial: "result_actions", locals: { result: result } %>
+        </div>
 
-        <%= render partial: "stats_box", locals: { geocoded_results: geocoded_result } %>
+        <%= render partial: "result_attributes", locals: { result: @result, root_result: root_result } %>
+
+        <%= render partial: "stats_box", locals: { result: @result, root_result: root_result, geocoded_results: geocoded_result } %>
       </div>
     </div>
   </div>
