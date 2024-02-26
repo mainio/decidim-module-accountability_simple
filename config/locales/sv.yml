@@ -88,13 +88,18 @@ sv:
             one: Hittade 1 projekt
             other: "Hittade %{count} projekt"
         filters:
-          category: Kategori
-          category_prompt: Välj kategori
+          category: Tema
+          categories_values:
+            all: Alla teman
+          label: Projektsökning
           open: Öppna
           related_to: Relaterade till
           reset: Rensa filter
           scope: Område
+          scopes_values:
+            all: Alla områden
           search: Sök
+          term: Nyckelord
           title: Sök projekt
         filters_small_view:
           close_modal: Stäng fönster

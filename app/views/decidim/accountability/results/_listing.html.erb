@@ -19,16 +19,21 @@
 
     <div class="tabs-content" data-tabs-content="listing-tabs">
       <div class="tabs-panel is-active" id="results-listing">
-        <div class="collection-controls">
-          <% if false %>
-            <div class="control">
-              <%= render partial: "decidim/shared/results_per_page" %>
+        <div class="collection-info row">
+          <div class="column">
+            <div id="results-count" aria-live="polite">
+              <%= render partial: "decidim/accountability_simple/shared/results_count", locals: { results: results } %>
             </div>
-          <% end %>
-        </div>
-
-        <div id="results-count">
-          <p class="show-for-sr"><%= heading_parent_level_results(results.total_count) %></p>
+          </div>
+          <div class="column">
+            <div class="collection-controls">
+              <% if false %>
+                <div class="control">
+                  <%= render partial: "decidim/shared/results_per_page" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
 
         <div id="results">

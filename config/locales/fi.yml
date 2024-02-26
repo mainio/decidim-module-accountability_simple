@@ -88,13 +88,18 @@ fi:
             one: Löytyi 1 hanke
             other: "Löytyi %{count} hanketta"
         filters:
-          category: Aihepiiri
-          category_prompt: Valitse aihepiiri
+          category: Teema
+          categories_values:
+            all: Kaikki teemat
+          label: Hankkeiden haku
           open: Avaa
           related_to: Liittyy
           reset: Tyhjennä rajaukset
           scope: Alue
+          scopes_values:
+            all: Kaikki alueet
           search: Hae
+          term: Hakusana
           title: Etsi hankkeista
         filters_small_view:
           close_modal: Sulje ikkuna

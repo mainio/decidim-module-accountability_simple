@@ -88,13 +88,18 @@ en:
             one: Found 1 project
             other: "Found %{count} projects"
         filters:
-          category: Category
-          category_prompt: Choose category
+          category: Theme
+          categories_values:
+            all: All themes
+          label: Project search
           open: Open
           related_to: Related to
           reset: Clear filters
           scope: Area
+          scopes_values:
+            all: All areas
           search: Search
+          term: Keyword
           title: Search projects
         filters_small_view:
           close_modal: Close modal
