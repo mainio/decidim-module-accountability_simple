@@ -17,7 +17,7 @@ root_result = root_result.parent while root_result.parent
         <h1><%= translated_attribute result.title %></h1>
 
         <% if result.main_image && result.main_image.attached? %>
-          <%= image_tag result.attached_uploader(:main_image).path, alt: translated_attribute(result.title), class: "resource__image" %>
+          <%= image_tag result.attached_uploader(:main_image).url, alt: translated_attribute(result.title), class: "resource__image" %>
         <% end %>
       </div>
     </div>

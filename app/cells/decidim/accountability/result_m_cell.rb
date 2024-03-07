@@ -78,7 +78,7 @@ module Decidim
       def resource_image_path
         return unless has_image?
 
-        model.attached_uploader(:list_image).path
+        model.attached_uploader(:list_image).url
       end
 
       def status_label
@@ -214,7 +214,7 @@ module Decidim
         full_category << translated_attribute(cat.name)
 
         content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
-          image_tag(cat.attached_uploader(:category_icon).path, alt: full_category.join(" - "))
+          image_tag(cat.attached_uploader(:category_icon).url, alt: full_category.join(" - "))
         end
       end
 
