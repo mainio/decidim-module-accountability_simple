@@ -175,15 +175,15 @@ module Decidim
       end
 
       def statuses
-        [:comments_count, :favoriting_count]
+        [:comments_count, :favorites_count]
       end
 
       def comments_count_status
         render_comments_count
       end
 
-      def favoriting_count_status
-        cell("decidim/favorites/favoriting_count", model)
+      def favorites_count_status
+        cell("decidim/favorites/favorites_count", model)
       end
 
       def has_dates?
