@@ -1,17 +1,18 @@
 <% if component_settings.display_progress_enabled? && result.progress.present? %>
-  <%= result_progress_info(root_result) do %>
-    <div class="progress-label">
-      <span class="progress-figure">
-        <%= display_percentage result.progress %>
-      </span>
+  <div class="resource__aside__detail">
+    <h2 class="resource__aside__title">Toteutuksen vaiheet</h2>
+
+    <div class="row">
+      <div class="columns" id="result_progress_label">Valmiusaste</div>
+      <div class="columns text-right"><%= display_percentage(result.progress) %></div>
     </div>
 
-    <div class="progress">
+    <div class="progress success" role="progressbar" aria-valuenow="<%= result.progress %>" aria-labelledby="result_progress_label" aria-valuemin="0" aria-valuemax="100">
       <div class="progress-meter" style="width:<%= result.progress %>%"></div>
     </div>
 
     <p class="text-small">
       <%= t(".average_progress", progress: display_percentage(progress_calculator(current_scope, nil))) %>
     </p>
-  <% end %>
+  </div>
 <% end %>

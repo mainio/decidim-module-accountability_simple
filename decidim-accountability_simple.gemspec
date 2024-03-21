@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "decidim-accountability", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-admin", Decidim::AccountabilitySimple.decidim_version
+  spec.add_dependency "decidim-apifiles", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-core", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-favorites", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-locations", Decidim::AccountabilitySimple.decidim_version

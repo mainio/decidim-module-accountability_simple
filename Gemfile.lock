@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/mainio/decidim-module-apifiles.git
+  revision: 832a1ad471910050ff9e4c4ebb6d06c55ace3bf8
+  branch: main
+  specs:
+    decidim-apifiles (0.27.0)
+      decidim-core (~> 0.27.0)
+
+GIT
   remote: https://github.com/mainio/decidim-module-favorites.git
   revision: bc52787ca5edf3be14e8455d10ec1c7074c8dc12
   branch: develop
@@ -29,6 +37,7 @@ PATH
     decidim-accountability_simple (0.27.0)
       decidim-accountability (~> 0.27.0)
       decidim-admin (~> 0.27.0)
+      decidim-apifiles (~> 0.27.0)
       decidim-core (~> 0.27.0)
       decidim-favorites (~> 0.27.0)
       decidim-locations (~> 0.27.0)
@@ -834,6 +843,7 @@ DEPENDENCIES
   byebug (~> 11.0)
   decidim (~> 0.27.0)
   decidim-accountability_simple!
+  decidim-apifiles!
   decidim-dev (~> 0.27.0)
   decidim-favorites!
   decidim-locations!

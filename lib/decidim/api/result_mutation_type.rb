@@ -5,6 +5,9 @@ module Decidim
     class ResultMutationType < GraphQL::Schema::Object
       include Decidim::AccountabilitySimple::Api::Permissions
 
+      implements Decidim::Apifiles::AttachableMutationsInterface
+      implements Decidim::Apifiles::AttachableCollectionsMutationsInterface
+
       graphql_name "ResultMutation"
       description "A result which includes its available mutations"
 
@@ -29,6 +32,9 @@ module Decidim
         argument :details, [Decidim::AccountabilitySimple::ResultDetailAttributes], required: false
         argument :links, [Decidim::AccountabilitySimple::ResultLinkAttributes], required: false
         argument :locations, [Decidim::Locations::LocationAttributes], required: false
+
+        argument :main_image, Decidim::Apifiles::FileAttributes, "The main image for the result", required: false
+        argument :list_image, Decidim::Apifiles::FileAttributes, "The list image for the result", required: false
 
         # Linked resources
         argument :proposal_ids, [GraphQL::Types::Int], description: "The linked proposal IDs for the result", required: false

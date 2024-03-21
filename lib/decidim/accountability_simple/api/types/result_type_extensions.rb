@@ -5,6 +5,8 @@ module Decidim
     module Api
       module ResultTypeExtensions
         def self.included(type)
+          type.implements Decidim::Core::AttachableInterface
+          type.implements Decidim::Apifiles::AttachableCollectionsInterface
           type.implements Decidim::AccountabilitySimple::ResourceLinkableInterface
           type.implements Decidim::Locations::LocationsInterface
           type.implements Decidim::Tags::TagsInterface
