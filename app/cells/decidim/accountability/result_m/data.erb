@@ -1,7 +1,7 @@
 <div class="card__info">
-  <% if has_category? %>
+  <% if has_scope? %>
     <div class="card__info__item">
-      <%= category %>
+      <%= scope %>
     </div>
   <% end %>
 
@@ -9,3 +9,11 @@
     #<%= model.id %>
   </div>
 </div>
+
+<% if has_category? %>
+  <div class="card__info">
+    <div class="card__info__item">
+      <%= category %>
+    </div>
+  </div>
+<% end %>

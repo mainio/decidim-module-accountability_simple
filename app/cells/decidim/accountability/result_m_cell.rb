@@ -75,6 +75,10 @@ module Decidim
         model.main_image && model.main_image.attached?
       end
 
+      def has_scope?
+        model.scope.present?
+      end
+
       def has_category?
         model.category.present?
       end
@@ -209,6 +213,10 @@ module Decidim
 
       def has_dates?
         start_date.present? && end_date.present?
+      end
+
+      def scope
+        translated_attribute(model.scope.name) if has_scope?
       end
 
       def category
