@@ -6,6 +6,18 @@ en:
         list_image: List image
         main_image: Main image
         summary: Summary
+      result_detail:
+        description: Description
+        icon: Icon
+        title: Title
+      result_link:
+        collection_id: Link collection
+        label: Label
+        url: URL address
+      result_link_collection:
+        key: Key
+        name: Name
+        position: Order number
       timeline_entry:
         end_date: End date
         title: Title (replaces the dates)
@@ -20,6 +32,7 @@ en:
         attachment_collections: Folders
         attachments: Attachments
         default_details: Default details
+        link_collections: Link collections
       admin:
         details:
           detail:
@@ -35,6 +48,26 @@ en:
           update:
             invalid: There was a problem updating the default details
             success: Default details successfully updated
+        link_collections:
+          create:
+            error: There was a problem creating a new link collection.
+            success: Link collection successfully created.
+          destroy:
+            success: Link collection successfully deleted.
+          edit:
+            title: Edit link collection
+            update: Update link collection
+          index:
+            link_collections_title: Link collections
+          update:
+            error: There was a problem updating the link collection.
+            success: Link collection successfully updated.
+          new:
+            create: Create link collection
+            title: New link collection
+        models:
+          link_collection:
+            name: Link collection
         results:
           authors_picker:
             collection_name: Projects
@@ -139,8 +172,10 @@ en:
           subtitle: Project
         stats_box:
           average_progress: Average progress on all projects %{progress}.
+          implementation_phases: Phases
+          progress: Progress
         timeline:
-          title: Implementation timeline
+          title: Timeline
     accountability_simple:
       models:
         result_detail:

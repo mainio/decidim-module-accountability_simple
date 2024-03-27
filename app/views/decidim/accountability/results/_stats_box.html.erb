@@ -1,18 +1,38 @@
-<% if component_settings.display_progress_enabled? && result.progress.present? %>
+<% statuses = Decidim::Accountability::Status.where(component: current_component).order(:progress) %>
+
+<% if component_settings.display_progress_enabled? && (statuses.any? || result.progress.present?) %>
   <div class="resource__aside__detail">
-    <h2 class="resource__aside__title">Toteutuksen vaiheet</h2>
+    <h2 class="resource__aside__title"><%= t(".implementation_phases") %></h2>
 
-    <div class="row">
-      <div class="columns" id="result_progress_label">Valmiusaste</div>
-      <div class="columns text-right"><%= display_percentage(result.progress) %></div>
-    </div>
+    <% if statuses.any? %>
+      <div class="row columns">
+        <ul class="stepper stepper--vertical stepper--small">
+          <% active = result.status.present? %>
+          <% statuses.each do |status| %>
+            <li class="stepper__item<%= " stepper__item--active" if active %>">
+              <div class="stepper__item__indicator"></div>
+              <div class="stepper__item__label"><%= translated_attribute(status.name) %></div>
+            </li>
 
-    <div class="progress success" role="progressbar" aria-valuenow="<%= result.progress %>" aria-labelledby="result_progress_label" aria-valuemin="0" aria-valuemax="100">
-      <div class="progress-meter" style="width:<%= result.progress %>%"></div>
-    </div>
+            <% active = false if status == result.status %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-    <p class="text-small">
-      <%= t(".average_progress", progress: display_percentage(progress_calculator(current_scope, nil))) %>
-    </p>
+    <% if result.progress.present? %>
+      <div class="row">
+        <div class="columns" id="result_progress_label"><%= t(".progress") %></div>
+        <div class="columns text-right"><%= display_percentage(result.progress) %></div>
+      </div>
+
+      <div class="progress success" role="progressbar" aria-valuenow="<%= result.progress %>" aria-labelledby="result_progress_label" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-meter" style="width:<%= result.progress %>%"></div>
+      </div>
+
+      <p class="text-small">
+        <%= t(".average_progress", progress: display_percentage(progress_calculator(current_scope, nil))) %>
+      </p>
+    <% end %>
   </div>
 <% end %>

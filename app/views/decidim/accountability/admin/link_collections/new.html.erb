@@ -1,0 +1,8 @@
+<% add_decidim_page_title(t("link_collections.new.title", scope: "decidim.accountability.admin")) %>
+<%= decidim_form_for(@form, url: result_link_collections_path(result), html: { class: "form new_link_collection" }) do |f| %>
+  <%= render partial: "form", object: f, locals: { title: t("link_collections.new.title", scope: "decidim.accountability.admin") } %>
+
+  <div class="button--double form-general-submit">
+    <%= f.submit t("link_collections.new.create", scope: "decidim.accountability.admin") %>
+  </div>
+<% end %>

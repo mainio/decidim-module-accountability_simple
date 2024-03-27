@@ -6,6 +6,18 @@ sv:
         list_image: Lista bild
         main_image: Huvudbild
         summary: Sammanfattning
+      result_detail:
+        description: Beskrivning
+        icon: Ikon
+        title: Titel
+      result_link:
+        collection_id: Länksamling
+        label: Etikett
+        url: URL-adress
+      result_link_collection:
+        key: Nyckel
+        name: Namn
+        position: Ordernummer
       timeline_entry:
         end_date: Slutdatum
         title: Titel (ersätter datumen)
@@ -20,6 +32,7 @@ sv:
         attachment_collections: Mappar
         attachments: Bilagor
         default_details: Default detaljer
+        link_collections: Länksamlingar
       admin:
         details:
           detail:
@@ -35,6 +48,23 @@ sv:
           update:
             invalid: Det gick inte att uppdatera standardin detaljer
             success: Standard detaljer har uppdaterats
+        link_collections:
+          create:
+            error: Det gick inte att skapa en ny länksamling.
+            success: Länksamling har skapats.
+          destroy:
+            success: Länksamlingen har raderats.
+          edit:
+            title: Redigera länksamling
+            update: Uppdatera länksamling
+          index:
+            link_collections_title: Länksamlingar
+          update:
+            error: Det uppstod ett problem med att uppdatera länksamlingen.
+            success: Länksamlingen har uppdaterats.
+          new:
+            create: Skapa länksamling
+            title: Ny länksamling
         results:
           authors_picker:
             collection_name: Projekt
@@ -139,8 +169,10 @@ sv:
           subtitle: Projekt
         stats_box:
           average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
+          implementation_phases: Faser
+          progress: Genomförande
         timeline:
-          title: Implementeringstidslinje
+          title: Tidslinje
     accountability_simple:
       models:
         result_detail:

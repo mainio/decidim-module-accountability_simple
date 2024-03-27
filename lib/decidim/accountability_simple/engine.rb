@@ -20,6 +20,7 @@ module Decidim
           resources :results, only: [] do
             resources :attachment_collections
             resources :attachments
+            resources :link_collections, except: [:show]
             member do
               put :publish
               put :unpublish
@@ -57,6 +58,10 @@ module Decidim
       end
 
       # Needed for the 0.25 active storage migration
+      #
+      # Note:
+      # Causes deprecation warnings due to some autoloading happening when
+      # loading the legacy uploaders.
       initializer "decidim_accountability_simple.activestorage_migration" do
         next unless Decidim.const_defined?("CarrierWaveMigratorService")
 
@@ -120,6 +125,11 @@ module Decidim
           )
           Decidim::ScopesHelper.include(
             Decidim::AccountabilitySimple::ScopesHelperExtensions
+          )
+
+          # Controller extensions
+          Decidim::Accountability::Admin::StatusesController.include(
+            Decidim::AccountabilitySimple::Admin::StatusesControllerExtensions
           )
         end
       end

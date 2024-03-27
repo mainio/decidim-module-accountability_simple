@@ -35,8 +35,32 @@ describe Decidim::Accountability::ResultType, type: :graphql do
       )
     end
 
-    it "returns the result's main image" do
-      expect(response["mainImage"]).to match(model.attached_uploader(:main_image).url)
+    it "returns the result's main image URL" do
+      expect(response["mainImage"]).to eq(model.attached_uploader(:main_image).url)
+    end
+  end
+
+  describe "mainImageBlob" do
+    let(:query) { "{ mainImageBlob { id } }" }
+
+    before do
+      model.main_image.attach(
+        io: File.open(Decidim::Dev.asset("city.jpeg")),
+        filename: "city.jpeg",
+        content_type: "image/jpeg"
+      )
+    end
+
+    it "does not return the blob for unauthorized users" do
+      expect(response["mainImageBlob"]).to be_nil
+    end
+
+    context "when signed in as an admin" do
+      let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
+
+      it "returns the result's main image blob" do
+        expect(response["mainImageBlob"]).to include("id" => model.main_image.blob.id.to_s)
+      end
     end
   end
 
@@ -51,8 +75,32 @@ describe Decidim::Accountability::ResultType, type: :graphql do
       )
     end
 
-    it "returns the result's main image" do
-      expect(response["listImage"]).to match(model.attached_uploader(:list_image).url)
+    it "returns the result's list image URL" do
+      expect(response["listImage"]).to eq(model.attached_uploader(:list_image).url)
+    end
+  end
+
+  describe "listImageBlob" do
+    let(:query) { "{ listImageBlob { id } }" }
+
+    before do
+      model.list_image.attach(
+        io: File.open(Decidim::Dev.asset("city.jpeg")),
+        filename: "city.jpeg",
+        content_type: "image/jpeg"
+      )
+    end
+
+    it "does not return the blob for unauthorized users" do
+      expect(response["mainImageBlob"]).to be_nil
+    end
+
+    context "when signed in as an admin" do
+      let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
+
+      it "returns the result's list image blob" do
+        expect(response["listImageBlob"]).to include("id" => model.list_image.blob.id.to_s)
+      end
     end
   end
 

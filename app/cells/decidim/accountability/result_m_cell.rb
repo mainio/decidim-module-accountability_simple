@@ -67,8 +67,12 @@ module Decidim
         !context[:no_column].presence
       end
 
-      def has_image?
+      def has_list_image?
         model.list_image && model.list_image.attached?
+      end
+
+      def has_main_image?
+        model.main_image && model.main_image.attached?
       end
 
       def has_category?
@@ -76,9 +80,26 @@ module Decidim
       end
 
       def resource_image_path
-        return unless has_image?
+        return model.attached_uploader(:list_image).variant_url(resource_image_variant) if has_list_image?
+        return model.attached_uploader(:main_image).variant_url(resource_image_variant) if has_main_image?
+        return unless has_category?
 
-        model.attached_uploader(:list_image).url
+        category_image_path(model.category)
+      end
+
+      def category_image_path(cat)
+        return unless cat.respond_to?(:category_image_url)
+        return unless cat.category_image.attached?
+
+        cat.category_image_url(category_image_variant)
+      end
+
+      def resource_image_variant
+        :thumbnail
+      end
+
+      def category_image_variant
+        :card
       end
 
       def status_label

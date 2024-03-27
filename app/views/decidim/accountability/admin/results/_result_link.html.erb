@@ -22,6 +22,11 @@
 
   <div class="card-section">
     <div class="grid-x">
+      <% if @result && (collections = @result.result_link_collections).any? %>
+        <div class="cell auto">
+          <%= form.select :collection_id, collections.map { |c| [translated_attribute(c.name), c.id] }, include_blank: true, tabs_id: tabs_id %>
+        </div>
+      <% end %>
       <div class="cell auto">
         <%= form.translated :text_field, :label, tabs_id: tabs_id %>
       </div>

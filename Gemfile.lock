@@ -16,12 +16,13 @@ GIT
 
 GIT
   remote: https://github.com/mainio/decidim-module-locations.git
-  revision: c3991933b8c6899e70d9faac57e862c11bd7e039
-  branch: main
+  revision: ce3b54b80f1502ef75acc662ca1decba70f76ff9
+  branch: develop
   specs:
     decidim-locations (0.27.4)
       decidim-core (~> 0.27.4)
-      rgeo-geojson (~> 2.1, >= 2.1.1)
+      rgeo (= 3.0.1)
+      rgeo-geojson (= 2.1.1)
 
 GIT
   remote: https://github.com/mainio/decidim-module-tags.git

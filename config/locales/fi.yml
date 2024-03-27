@@ -6,6 +6,18 @@ fi:
         list_image: Listauksen kuva
         main_image: Pääkuva
         summary: Tiivistelmä
+      result_detail:
+        description: Kuvaus
+        icon: Ikoni
+        title: Otsikko
+      result_link:
+        collection_id: Linkkikokoelma
+        label: Teksti
+        url: URL-osoite
+      result_link_collection:
+        key: Tunniste
+        name: Nimi
+        position: Järjestysnumero
       timeline_entry:
         end_date: Päättymispäivä
         title: Otsake (päivämäärien tilalla)
@@ -20,6 +32,7 @@ fi:
         attachment_collections: Kansiot
         attachments: Liitteet
         default_details: Oletustiedot
+        link_collections: Linkkikokoelmat
       admin:
         details:
           detail:
@@ -35,6 +48,26 @@ fi:
           update:
             invalid: Oletustietojen päivitys epäonnistui
             success: Oletustietojen päivitys onnistui
+        link_collections:
+          create:
+            error: Linkkikokoelman luonti epäonnistui.
+            success: Linkkikokoelman luonti onnistui.
+          destroy:
+            success: Linkkikokoelman poisto onnistui.
+          edit:
+            title: Muokkaa linkkikokoelmaa
+            update: Päivitä linkkikokoelmaa
+          index:
+            link_collections_title: Linkkikokoelmat
+          update:
+            error: Linkkikokoelman päivittäminen epäonnistui.
+            success: Linkkikokoelman päivittäminen onnistui.
+          new:
+            create: Luo linkkikokoelma
+            title: Uusi linkkikokoelma
+        models:
+          link_collection:
+            name: Linkkikokoelma
         results:
           authors_picker:
             collection_name: Hankkeet
@@ -139,8 +172,10 @@ fi:
           subtitle: Hanke
         stats_box:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
+          implementation_phases: Toteutuksen vaiheet
+          progress: Valmiusaste
         timeline:
-          title: Toteutuksen aikajana
+          title: Aikataulu
     accountability_simple:
       models:
         result_detail:

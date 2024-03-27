@@ -16,7 +16,7 @@ module Decidim
         def map_model(model)
           self.details = Decidim::AccountabilitySimple::ResultDetail.where(
             accountability_result_detailable: model
-          ).map do |detail|
+          ).order(:position).map do |detail|
             DefaultDetailsForm.from_model(detail)
           end
         end

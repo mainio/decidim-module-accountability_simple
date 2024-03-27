@@ -49,6 +49,23 @@ module Decidim
         argument :published, GraphQL::Types::Boolean, description: "Set the record published (true) or unpublished (false)", required: true
       end
 
+      field :create_link_collection, Decidim::AccountabilitySimple::ResultLinkCollectionType, null: false do
+        description "Creates a link collection."
+
+        argument :attributes, Decidim::AccountabilitySimple::ResultLinkCollectionAttributes, description: "Input attributes to create a link collection", required: true
+      end
+
+      field :update_link_collection, Decidim::AccountabilitySimple::ResultLinkCollectionType, null: false do
+        description "Updates a link collection."
+
+        argument :id, GraphQL::Types::ID, required: true
+        argument :attributes, Decidim::AccountabilitySimple::ResultLinkCollectionAttributes, description: "Input attributes to update a link collection", required: true
+      end
+
+      field :delete_link_collection, Decidim::AccountabilitySimple::ResultLinkCollectionType, null: false do
+        argument :id, GraphQL::Types::ID, required: true
+      end
+
       def update(**args)
         enforce_permission_to :update, :result, result: object
 
@@ -103,6 +120,87 @@ module Decidim
         end
       end
 
+      def create_link_collection(attributes:)
+        enforce_permission_to :update, :result, result: object
+
+        form = Decidim::AccountabilitySimple::Admin::ResultLinkCollectionForm.from_params(
+          link_collection_params(attributes)
+        ).with_context(
+          current_organization: current_organization,
+          current_component: object.component,
+          current_user: current_user,
+          result: object
+        )
+
+        link_collection = nil
+        Decidim::Accountability::Admin::CreateLinkCollection.call(form) do
+          on(:ok) do |collection|
+            link_collection = collection
+          end
+        end
+        return link_collection if link_collection.present?
+
+        if form.errors.any?
+          return GraphQL::ExecutionError.new(
+            form.errors.full_messages.join(", ")
+          )
+        end
+
+        GraphQL::ExecutionError.new(
+          I18n.t("decidim.accountability.admin.link_collections.create.error")
+        )
+      end
+
+      def update_link_collection(id:, attributes:)
+        enforce_permission_to :update, :result, result: object
+
+        link_collection = object.result_link_collections.find_by(id: id)
+        raise GraphQL::ExecutionError, "Invalid link collection ID provided: #{id}" unless link_collection
+
+        params = link_collection_params(attributes)
+
+        # Keep the original key through the API if the key wasn't provided
+        params[:key] = link_collection.key if attributes.key.blank?
+
+        form = Decidim::AccountabilitySimple::Admin::ResultLinkCollectionForm.from_params(params).with_context(
+          current_organization: current_organization,
+          current_component: object.component,
+          current_user: current_user,
+          result: object
+        )
+
+        status = nil
+        Decidim::Accountability::Admin::UpdateLinkCollection.call(form, link_collection) do
+          on(:ok) do
+            status = :ok
+          end
+        end
+        return link_collection if status == :ok
+
+        if form.errors.any?
+          return GraphQL::ExecutionError.new(
+            form.errors.full_messages.join(", ")
+          )
+        end
+
+        GraphQL::ExecutionError.new(
+          I18n.t("decidim.accountability.admin.link_collections.update.error")
+        )
+      end
+
+      def delete_link_collection(id:)
+        enforce_permission_to :destroy, :result, result: object
+
+        link_collection = object.result_link_collections.find_by(id: id)
+        raise GraphQL::ExecutionError, "Invalid link collection ID provided: #{id}" unless link_collection
+
+        Decidim.traceability.perform_action!("delete", link_collection, current_user) do
+          link_collection.destroy!
+        end
+
+        link_collection
+      end
+
       protected
 
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -124,6 +222,16 @@ module Decidim
           "plan_ids" => args[:plan_ids],
           "project_ids" => args[:project_ids]
         }
+
+        # Image attributes
+        [:main_image, :list_image].each do |img_key|
+          val = image_attributes(img_key, args)
+          next if val.blank?
+
+          params.merge!(val)
+        end
+
+        # Linked attributes
         if args[:default_details]
           params["result_default_details"] = args[:default_details].map do |detargs|
             { "id" => detargs[:detail_id], "description" => detargs[:description] }
@@ -156,7 +264,8 @@ module Decidim
               "id" => linkargs[:id],
               "position" => linkargs[:position],
               "label" => linkargs[:label],
-              "url" => linkargs[:url]
+              "url" => linkargs[:url],
+              "collection_id" => linkargs.collection&.id_value
             }
           end
           deleted_links = object.result_links.where.not(
@@ -184,6 +293,22 @@ module Decidim
         params
       end
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+      def image_attributes(image_key, attrs)
+        image_attr = attrs[image_key]
+        return unless image_attr
+        return { "remove_#{image_key}" => true } if image_attr.remove
+
+        { image_key.to_s => image_attr.blob } if image_attr.blob
+      end
+
+      def link_collection_params(attributes)
+        {
+          "position" => attributes.position,
+          "key" => attributes.key,
+          "name" => attributes.name
+        }
+      end
 
       private
 
