@@ -38,7 +38,7 @@ root_result = root_result.parent while root_result.parent
 
   <div class="row">
     <div class="columns small-12 medium-8">
-      <div class="resource__main resource__content static__content">
+      <div class="resource__main resource__content resource__content--result static__content">
         <%= render partial: "show_result_body", locals: { result: result } %>
 
         <% if show_map? %>
