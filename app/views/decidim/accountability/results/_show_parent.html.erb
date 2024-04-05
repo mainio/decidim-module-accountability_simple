@@ -15,6 +15,7 @@ root_result = root_result.parent while root_result.parent
     <div class="columns small-12 medium-8">
       <div class="resource__main static__content margin-bottom-0">
         <h1><%= translated_attribute result.title %></h1>
+        <%= render partial: "result_tags", locals: { result: result } %>
 
         <% if result.main_image && result.main_image.attached? %>
           <%= image_tag result.attached_uploader(:main_image).variant_url(:main), alt: translated_attribute(result.title), class: "resource__image" %>
