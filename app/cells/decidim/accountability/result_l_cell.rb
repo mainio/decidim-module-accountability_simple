@@ -15,6 +15,8 @@ module Decidim
       private
 
       def resource_image_variant
+        return :box if has_list_image?
+
         :thumbnail_box
       end
 

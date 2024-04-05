@@ -99,6 +99,8 @@ module Decidim
       end
 
       def resource_image_variant
+        return :default if has_list_image?
+
         :thumbnail
       end
 
