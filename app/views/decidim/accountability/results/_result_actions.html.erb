@@ -12,12 +12,14 @@
   </div>
 <% end %>
 
-<div class="actions-panel bg-secondary">
-  <%= link_to "#comments", class: "action-link" do %>
-    <span class="link-text"><%= t ".show_comments" %></span>
-    <%= icon "comment-square", role: "img", "aria-hidden": true %>
-  <% end %>
-</div>
+<% if result.commentable? %>
+  <div class="actions-panel bg-secondary">
+    <%= link_to "#comments", class: "action-link" do %>
+      <span class="link-text"><%= t ".show_comments" %></span>
+      <%= icon "comment-square", role: "img", "aria-hidden": true %>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="actions-panel bg-secondary">
   <button type="button" class="link action-link" data-open="socialShare" aria-controls="socialShare" aria-haspopup="dialog">
