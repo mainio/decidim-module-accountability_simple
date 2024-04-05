@@ -50,12 +50,8 @@ root_result = root_result.parent while root_result.parent
             <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_result } %>
           </div>
         <% end %>
-      </div>
 
-      <div class="resource__details">
-        <%#= attachments_for result %>
-
-        <%#= render partial: "linked_resources" %>
+        <%= render partial: "linked_resources" %>
       </div>
     </div>
   </div>
