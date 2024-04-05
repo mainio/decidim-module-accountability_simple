@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "decidim-core", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-favorites", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-locations", Decidim::AccountabilitySimple.decidim_version
+  spec.add_dependency "decidim-nav", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-participatory_processes", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-tags", Decidim::AccountabilitySimple.decidim_version
 

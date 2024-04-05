@@ -16,6 +16,7 @@ gem "decidim", DECIDIM_VERSION
 gem "decidim-apifiles", github: "mainio/decidim-module-apifiles", branch: "main"
 gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "develop"
 gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "develop"
+gem "decidim-nav", github: "mainio/decidim-module-nav", branch: "main"
 gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "main"
 
 gem "decidim-accountability_simple", path: "."

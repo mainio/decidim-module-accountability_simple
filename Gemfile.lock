@@ -25,6 +25,14 @@ GIT
       rgeo-geojson (= 2.1.1)
 
 GIT
+  remote: https://github.com/mainio/decidim-module-nav.git
+  revision: f16cb0ef4d822477df4651d0ecc21d130253941e
+  branch: main
+  specs:
+    decidim-nav (0.27.0)
+      decidim-core (~> 0.27.0)
+
+GIT
   remote: https://github.com/mainio/decidim-module-tags.git
   revision: f42f1a2d1b7f19228529f011b77285070202b538
   branch: main
@@ -42,6 +50,7 @@ PATH
       decidim-core (~> 0.27.0)
       decidim-favorites (~> 0.27.0)
       decidim-locations (~> 0.27.0)
+      decidim-nav (~> 0.27.0)
       decidim-participatory_processes (~> 0.27.0)
       decidim-tags (~> 0.27.0)
 
@@ -848,6 +857,7 @@ DEPENDENCIES
   decidim-dev (~> 0.27.0)
   decidim-favorites!
   decidim-locations!
+  decidim-nav!
   decidim-tags!
   faker (~> 2.14)
   letter_opener_web (~> 2.0)
