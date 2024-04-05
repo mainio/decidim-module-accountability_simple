@@ -124,6 +124,7 @@ fi:
           category: Teema
           categories_values:
             all: Kaikki teemat
+          favorites: Näytä suosikkini
           label: Hankkeiden haku
           open: Avaa
           related_to: Liittyy

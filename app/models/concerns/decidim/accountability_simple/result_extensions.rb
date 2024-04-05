@@ -67,6 +67,10 @@ module Decidim
       end
 
       class_methods do
+        def ransack(params = {}, options = {})
+          ResultSearch.new(self, params, options)
+        end
+
         def remove_coauthorships_requirement!
           validators_on(:coauthorships).each do |v|
             v.attributes.delete(:coauthorships) if v.is_a?(ActiveRecord::Validations::PresenceValidator)

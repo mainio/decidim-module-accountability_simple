@@ -75,6 +75,7 @@ module Decidim
       def default_filter_params
         {
           search_text_cont: "",
+          favorites: nil,
           with_scope: "",
           with_category: ""
         }

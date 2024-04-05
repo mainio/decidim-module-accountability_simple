@@ -124,6 +124,7 @@ en:
           category: Theme
           categories_values:
             all: All themes
+          favorites: Show my favourites
           label: Project search
           open: Open
           related_to: Related to

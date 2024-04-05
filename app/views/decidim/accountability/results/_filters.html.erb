@@ -24,6 +24,16 @@
     <% end %>
   </div>
 
+  <% if user_signed_in? %>
+    <div class="row medium-unstack margin-bottom-1">
+      <div class="columns">
+        <div class="filters__control user_modifiers">
+          <%= form.check_box :favorites, label: t(".favorites"), data: { disable_dynamic_change: true } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row columns">
     <div class="filters__actions">
       <button type="submit" class="button button--icon" aria-label="<%= t(".search") %>" aria-controls="results-count results" data-close>

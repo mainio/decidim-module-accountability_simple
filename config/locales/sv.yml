@@ -121,6 +121,7 @@ sv:
           category: Tema
           categories_values:
             all: Alla teman
+          favorites: Visa mina favoriter
           label: Projektsökning
           open: Öppna
           related_to: Relaterade till
