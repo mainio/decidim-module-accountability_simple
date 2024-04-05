@@ -27,6 +27,9 @@
           </div>
           <div class="column">
             <div class="collection-controls">
+              <div class="control">
+                <%= order_selector available_orders, i18n_scope: "decidim.accountability.results.orders" %>
+              </div>
               <% if false %>
                 <div class="control">
                   <%= render partial: "decidim/shared/results_per_page" %>

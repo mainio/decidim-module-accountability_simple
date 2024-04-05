@@ -5,6 +5,9 @@ module Decidim
     # Exposes the result resource so users can view them
     class ResultsController < Decidim::Accountability::ApplicationController
       include FilterResource
+      include Decidim::Paginable
+      include Decidim::AccountabilitySimple::Orderable
+
       helper Decidim::WidgetUrlsHelper
       helper Decidim::TraceabilityHelper
       helper Decidim::Accountability::BreadcrumbHelper
@@ -26,11 +29,11 @@ module Decidim
 
       def results
         @results ||= begin
-          orders = [Arel.sql("title->>'#{current_locale}'")]
-          orders << Arel.sql("title->>'#{current_organization.default_locale}'") if current_organization.default_locale != current_locale
-
           parent_id = params[:parent_id].presence
-          search.result.published.where(parent_id: parent_id).order(*orders).page(params[:page]).per(12)
+          query = search.result.where(parent_id: parent_id)
+
+          query = reorder(query)
+          paginate(query)
         end
       end
 
@@ -66,7 +69,7 @@ module Decidim
       end
 
       def search_collection
-        Result.where(component: current_component)
+        Result.where(component: current_component).published
       end
 
       def default_filter_params

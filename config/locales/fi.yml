@@ -142,6 +142,11 @@ fi:
         listing:
           show_list: Näytä tulokset listana
           show_map: Näytä tulokset kartalla
+        orders:
+          alphabetical: Aakkosjärjestys
+          category: Teeman mukaan
+          label: Järjestä hankkeet
+          scope: Alueen mukaan
         nav_breadcrumb:
           all_projects: Kaikki hankkeet
         result:
@@ -218,7 +223,7 @@ fi:
       included_ideas:
         result_idea: Liitetyt ideat
       included_plans:
-        result_plan: Liitetyt yhteiskehittämisehdotukset
+        result_plan: Liitetyt alkuperäiset ehdotukset
       included_projects:
         result_project: Liitetyt ehdotukset
       included_proposals:
