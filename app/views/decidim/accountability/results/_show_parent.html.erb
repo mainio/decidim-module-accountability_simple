@@ -53,6 +53,7 @@ root_result = root_result.parent while root_result.parent
         <% end %>
 
         <%= render partial: "linked_resources" %>
+        <%= render partial: "result_answer", locals: { result: result } %>
       </div>
     </div>
   </div>

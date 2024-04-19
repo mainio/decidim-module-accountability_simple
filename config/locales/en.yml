@@ -151,6 +151,8 @@ en:
           share: Share project
           show_comments: Show project comments
           show_on_map: Show on a map
+        result_answer:
+          title: Evaluation of the proposal
         result_attributes:
           attributes:
             category: Theme

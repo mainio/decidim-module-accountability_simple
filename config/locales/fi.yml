@@ -156,6 +156,8 @@ fi:
           share: Jaa hanke
           show_comments: Katso hankkeen kommentit
           show_on_map: Näytä kartalla
+        result_answer:
+          title: Ehdotuksen arviointi
         result_attributes:
           attributes:
             category: Teema

@@ -148,6 +148,8 @@ sv:
           share: Dela projekt
           show_comments: Visa projektets kommentarer
           show_on_map: Visa på kartan
+        result_answer:
+          title: Utvärdering av förslaget
         result_attributes:
           attributes:
             category: Tema
