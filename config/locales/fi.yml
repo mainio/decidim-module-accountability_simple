@@ -231,6 +231,8 @@ fi:
         result_project: Liitetyt ehdotukset
       included_proposals:
         result_proposal: Liitetyt ehdotukset
+    tags:
+      filter_results_for_tag: Suodata tulokset tunnisteelle %{tag}
   forms:
     scopes_picker:
       others: Muut

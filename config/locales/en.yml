@@ -226,6 +226,8 @@ en:
         result_project: Related proposals
       included_proposals:
         result_proposal: Related proposals
+    tags:
+      filter_results_for_tag: Filter results for tag %{tag}
   forms:
     scopes_picker:
       others: Others

@@ -223,6 +223,8 @@ sv:
         result_project: Relaterade förslag
       included_proposals:
         result_proposal: Relaterade förslag
+    tags:
+      filter_results_for_tag: Filtrera resultat för tagg %{tag}
   forms:
     scopes_picker:
       others: Andra
