@@ -56,6 +56,10 @@ module Decidim
         # Create i18n ransackers for :title and :description.
         # Create the :search_text ransacker alias for searching from both of these.
         ransacker_i18n_multi :search_text, [:title, :description]
+
+        def self.ransackable_scopes(_auth_object = nil)
+          [:with_category, :with_scope, :with_any_tag]
+        end
       end
 
       class_methods do

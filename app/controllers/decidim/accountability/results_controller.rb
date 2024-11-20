@@ -73,7 +73,8 @@ module Decidim
         {
           search_text_cont: "",
           with_scope: "",
-          with_category: ""
+          with_category: "",
+          with_any_tag: []
         }
       end
 
