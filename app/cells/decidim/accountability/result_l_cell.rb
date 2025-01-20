@@ -6,6 +6,8 @@ module Decidim
   module Accountability
     # This cell renders a result with its L-size card.
     class ResultLCell < Decidim::Accountability::ResultMCell
+      include Decidim::AccountabilitySimple::TagsHelper
+
       def card_classes
         classes = super
         classes = classes.split unless classes.is_a?(Array)

@@ -1,7 +1,7 @@
 <p><%== translated_attribute result.summary %></p>
 
 <div class="description">
-  <%== translated_attribute result.description %>
+  <%== decidim_sanitize(translated_attribute(result.description)) %>
 </div>
 
 <%== cell("decidim/tags/tags", result) %>

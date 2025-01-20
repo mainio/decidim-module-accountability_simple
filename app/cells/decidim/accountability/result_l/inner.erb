@@ -4,7 +4,9 @@
       <div class="card__content">
         <h2 class="h4"><%= title %></h2>
 
-        <%= render :tags %>
+        <% sanitize_block do%>
+          <%= render :tags %>
+        <% end%>
 
         <div class="card__text">
           <div class="card__text--paragraph">

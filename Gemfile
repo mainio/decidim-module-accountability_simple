@@ -13,13 +13,18 @@ require_relative "#{base_path}lib/decidim/accountability_simple/version"
 DECIDIM_VERSION = Decidim::AccountabilitySimple.decidim_version
 
 gem "decidim", DECIDIM_VERSION
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "main"
-gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "main"
-gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "main"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.27-stable"
+gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "release/0.27-stable"
+gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.27-stable"
 
 gem "decidim-accountability_simple", path: "."
 
 gem "bootsnap", "~> 1.4"
+
+# This is a temporary fix for: https://github.com/rails/rails/issues/54263
+# Without this downgrade Activesupport will give error for missing Logger
+gem "concurrent-ruby", "1.3.4"
+
 gem "puma", ">= 5.6.2"
 
 gem "faker", "~> 2.14"

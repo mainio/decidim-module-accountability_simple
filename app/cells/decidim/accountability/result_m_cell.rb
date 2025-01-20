@@ -98,7 +98,7 @@ module Decidim
         end
 
         content_tag :span, class: "label", style: style do
-          translated_attribute(model.status.name)
+          decidim_sanitize(translated_attribute(model.status.name))
         end
       end
 
@@ -183,7 +183,7 @@ module Decidim
       end
 
       def favoriting_count_status
-        cell("decidim/favorites/favoriting_count", model)
+        cell("decidim/favorites/favorites_count", model)
       end
 
       def has_dates?
