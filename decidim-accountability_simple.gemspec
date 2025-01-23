@@ -7,7 +7,7 @@ require "decidim/accountability_simple/version"
 Gem::Specification.new do |spec|
   spec.name = "decidim-accountability_simple"
   spec.version = Decidim::AccountabilitySimple.version
-  spec.required_ruby_version = ">= 3.0"
+  spec.required_ruby_version = ">= 3.1"
   spec.authors = ["Antti Hukkanen"]
   spec.email = ["antti.hukkanen@mainiotech.fi"]
 
