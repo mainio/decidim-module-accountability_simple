@@ -8,7 +8,6 @@ module Decidim
       include Decidim::Paginable
       include Decidim::AccountabilitySimple::Orderable
 
-      helper Decidim::WidgetUrlsHelper
       helper Decidim::TraceabilityHelper
       helper Decidim::Accountability::BreadcrumbHelper
       helper Decidim::TooltipHelper
@@ -30,7 +29,7 @@ module Decidim
       def results
         @results ||= begin
           parent_id = params[:parent_id].presence
-          query = search.result.where(parent_id: parent_id)
+          query = search.result.where(parent_id:)
 
           query = reorder(query)
           paginate(query)

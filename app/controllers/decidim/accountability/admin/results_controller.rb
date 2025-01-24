@@ -7,9 +7,14 @@ module Decidim
       class ResultsController < Admin::ApplicationController
         include Decidim::ApplicationHelper
         include Decidim::SanitizeHelper
-        include Decidim::Proposals::Admin::Picker
+        include Decidim::Accountability::Admin::Filterable
 
         helper_method :results, :parent_result, :parent_results, :statuses, :present, :blank_result_detail, :blank_result_link
+
+        def collection
+          parent_id = params[:parent_id].presence
+          @collection ||= Result.where(component: current_component, parent_id:).page(params[:page]).per(15)
+        end
 
         def new
           enforce_permission_to :create, :result
@@ -17,6 +22,12 @@ module Decidim
           # Pass the component
           @form = form(ResultForm).from_model(Result.new(component: current_component))
           @form.parent_id = params[:parent_id]
+        end
+
+        def edit
+          enforce_permission_to(:update, :result, result:)
+
+          @form = form(ResultForm).from_model(result)
         end
 
         def create
@@ -37,14 +48,8 @@ module Decidim
           end
         end
 
-        def edit
-          enforce_permission_to :update, :result, result: result
-
-          @form = form(ResultForm).from_model(result)
-        end
-
         def update
-          enforce_permission_to :update, :result, result: result
+          enforce_permission_to(:update, :result, result:)
 
           @form = form(ResultForm).from_params(params)
 
@@ -62,7 +67,7 @@ module Decidim
         end
 
         def destroy
-          enforce_permission_to :destroy, :result, result: result
+          enforce_permission_to(:destroy, :result, result:)
 
           DestroyResult.call(result, current_user) do
             on(:ok) do
@@ -74,7 +79,7 @@ module Decidim
         end
 
         def publish
-          enforce_permission_to :update, :result, result: result
+          enforce_permission_to(:update, :result, result:)
 
           PublishResult.call(result, current_user) do
             on(:ok) do
@@ -89,7 +94,7 @@ module Decidim
         end
 
         def unpublish
-          enforce_permission_to :update, :result, result: result
+          enforce_permission_to(:update, :result, result:)
 
           UnpublishResult.call(result, current_user) do
             on(:ok) do
@@ -107,7 +112,7 @@ module Decidim
 
         def results
           parent_id = params[:parent_id].presence
-          @results ||= Result.where(component: current_component, parent_id: parent_id).page(params[:page]).per(15)
+          @results ||= Result.where(component: current_component, parent_id:).page(params[:page]).per(15)
         end
 
         def result
