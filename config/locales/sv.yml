@@ -107,7 +107,7 @@ sv:
             title: Rubrik
       result_l:
         card_label: "Projekt: %{title}"
-      result_m:
+      result_g:
         card_label: "Projekt: %{title}"
         progress_explanation: Projektets framsteg
         tags_title: Taggar

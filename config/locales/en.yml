@@ -111,7 +111,7 @@ en:
             title: Title
       result_l:
         card_label: "Project: %{title}"
-      result_m:
+      result_g:
         card_label: "Project: %{title}"
         progress_explanation: Project progress
         tags_title: Tags

@@ -110,7 +110,7 @@ fi:
             title: Otsikko
       result_l:
         card_label: "Hanke: %{title}"
-      result_m:
+      result_g:
         card_label: "Hanke: %{title}"
         progress_explanation: Hankkeen edistyminen
         tags_title: Tunnisteet

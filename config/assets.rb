@@ -12,7 +12,8 @@ Decidim::Webpacker.register_path("#{base_path}/app/packs")
 # `stylesheet_pack_tag`.
 Decidim::Webpacker.register_entrypoints(
   decidim_accountability_simple: "#{base_path}/app/packs/entrypoints/decidim_accountability_simple.js",
-  decidim_accountability_simple_admin: "#{base_path}/app/packs/entrypoints/decidim_accountability_simple_admin.js"
+  decidim_accountability_simple_admin: "#{base_path}/app/packs/entrypoints/decidim_accountability_simple_admin.js",
+  decidim_accountability_simple_results: "#{base_path}/app/packs/entrypoints/decidim_accountability_simple_results.js"
 )
 
 # Register the main application's stylesheet include statement:

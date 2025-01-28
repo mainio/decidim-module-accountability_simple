@@ -6,7 +6,7 @@ module Decidim
   module Accountability
     # This cell renders the Medium (:m) result card
     # for an instance of a Result
-    class ResultMCell < Decidim::CardMCell
+    class ResultGCell < Decidim::CardGCell
       include Decidim::SanitizeHelper
       include Decidim::TranslationsHelper
       include Decidim::TooltipHelper
@@ -15,21 +15,6 @@ module Decidim
       delegate :start_date, :end_date, :progress, to: :model
 
       private
-
-      def card_wrapper
-        cls = card_classes.is_a?(Array) ? card_classes.join(" ") : card_classes
-        wrapper_options = { class: "card #{cls}", aria: { label: t(".card_label", title: title) } }
-        if has_link_to_resource?
-          link_to resource_path, **wrapper_options do
-            yield
-          end
-        else
-          aria_options = { role: "region" }
-          content_tag :div, **aria_options.merge(wrapper_options) do
-            yield
-          end
-        end
-      end
 
       def resource_path
         resource_locator(model).path + request_params_query(resource_utm_params)
@@ -124,7 +109,7 @@ module Decidim
           }.map { |key, val| "#{key}:#{val}" }.join(";")
         end
 
-        content_tag :span, class: "label", style: style do
+        content_tag(:span, class: "label", style:) do
           translated_attribute(model.status.name)
         end
       end
@@ -141,7 +126,7 @@ module Decidim
               when Decidim::UserGroup
                 Decidim::AccountabilitySimple::UserGroupCardPresenter
               end
-            present(identity, presenter_class: presenter_class)
+            present(identity, presenter_class:)
           end
         end
       end
