@@ -33,6 +33,7 @@ en:
         attachments: Attachments
         default_details: Default details
         link_collections: Link collections
+        new_link_collection: New link collection
       admin:
         details:
           detail:
@@ -145,6 +146,11 @@ en:
           show_map: Show results on map
         nav_breadcrumb:
           all_projects: All projects
+        orders:
+          alphabetical: Alphabetical
+          category: Category
+          label: Label
+          scope: Scope
         result:
           project_info: Project info
         result_actions:
