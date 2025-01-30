@@ -6,6 +6,18 @@ cs:
         list_image: Obrázek seznamu
         main_image: Hlavní obrázek
         summary: Shrnutí
+      result_detail:
+        description: Description
+        icon: Icon
+        title: Title
+      result_link:
+        collection_id: Link collection
+        label: Label
+        url: URL address
+      result_link_collection:
+        key: Key
+        name: Name
+        position: Order number
       timeline_entry:
         end_date: Datum ukončení
         title: Název (nahrazuje data)
@@ -22,6 +34,8 @@ cs:
         attachment_collections: Složky
         attachments: Přílohy
         default_details: Výchozí detaily
+        link_collections: Link collections
+        new_link_collection: New link collection
       admin:
         details:
           detail:
@@ -37,6 +51,26 @@ cs:
           update:
             invalid: Při aktualizaci výchozích údajů došlo k chybě
             success: Výchozí údaje byly úspěšně aktualizovány
+        link_collections:
+          create:
+            error: There was a problem creating a new link collection.
+            success: Link collection successfully created.
+          destroy:
+            success: Link collection successfully deleted.
+          edit:
+            title: Edit link collection
+            update: Update link collection
+          index:
+            link_collections_title: Link collections
+          update:
+            error: There was a problem updating the link collection.
+            success: Link collection successfully updated.
+          new:
+            create: Create link collection
+            title: New link collection
+        models:
+          link_collection:
+            name: Link collection
         results:
           authors_picker:
             collection_name: Projekty
@@ -74,15 +108,16 @@ cs:
             comments: Komentáře
         timeline_entry:
           fields:
+            description: Description
             end_date: Datum ukončení
             title: Název
       result_l:
         card_label: "Projekt: %{title}"
-      result_m:
-        card_label: "Projekt: %{title}"
-        progress_explanation: Pokrok projektu
-        tags_title: Štítky
-        view: Zobrazit projekt
+      result_g:
+        card_label: "Project: %{title}"
+        progress_explanation: Project progress
+        tags_title: Tags
+        view: Show project
       results:
         count:
           results_count:
@@ -91,13 +126,19 @@ cs:
             many: "Nalezeno %{count} projektů"
             other: "Nalezeno %{count} projektů"
         filters:
-          category: Kategorie
-          category_prompt: Vyberte kategorii
+          category: Theme
+          categories_values:
+            all: All themes
+          favorites: Show my favourites
+          label: Project search
           open: Otevřít
           related_to: Souvisí s
           reset: Vymazat filtry
           scope: Oblast
+          scopes_values:
+            all: All areas
           search: Hledat
+          term: Keyword
           title: Hledat projekty
         filters_small_view:
           close_modal: Zavřít modální okno
@@ -109,11 +150,28 @@ cs:
           show_map: Zobrazit výsledky na mapě
         nav_breadcrumb:
           all_projects: Všechny projekty
+        orders:
+          alphabetical: Alphabetical
+          category: Category
+          label: Label
+          scope: Scope
         result:
           project_info: Informace o projektu
         result_actions:
           share: Sdílet projekt
           show_comments: Zobrazit komentáře projektu
+          show_on_map: Show on a map
+        result_answer:
+          title: Evaluation of the proposal
+        result_attributes:
+          attributes:
+            category: Theme
+            id: Number (ID)
+            location: Location
+            published_at: Publish time
+            reference: Reference
+            scope: Area
+          title: Information
         show:
           stats:
             scope: Oblast působnosti
@@ -122,12 +180,15 @@ cs:
           back_to_list: Zobrazit ostatní projekty
           locations: Projekt na mapě
           subresults: Podprojekty
+        show_result_body:
+          description: Project description
+          subtitle: Project
         stats_box:
           average_progress: Průměrný pokrok u všech projektů %{progress}.
-          location: Poloha
-          show_on_map: Zobrazit na mapě
+          implementation_phases: Phases
+          progress: Progress
         timeline:
-          title: Časová osa provádění
+          title: Timeline
     accountability_simple:
       models:
         result_detail:
@@ -170,11 +231,13 @@ cs:
       included_ideas:
         result_idea: Související nápady
       included_plans:
-        result_plan: Související návrhy společného vytváření
+        result_plan: Related original proposals
       included_projects:
         result_project: Související návrhy
       included_proposals:
         result_proposal: Související návrhy
+    tags:
+      filter_results_for_tag: Filter results for tag %{tag}
   forms:
     scopes_picker:
       others: Ostatní
