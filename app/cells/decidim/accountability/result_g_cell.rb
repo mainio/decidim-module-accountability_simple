@@ -6,7 +6,7 @@ module Decidim
   module Accountability
     # This cell renders the Medium (:m) result card
     # for an instance of a Result
-    class ResultMCell < Decidim::CardMCell
+    class ResultGCell < Decidim::CardGCell
       include Decidim::SanitizeHelper
       include Decidim::TranslationsHelper
       include Decidim::TooltipHelper
@@ -15,21 +15,6 @@ module Decidim
       delegate :start_date, :end_date, :progress, to: :model
 
       private
-
-      def card_wrapper
-        cls = card_classes.is_a?(Array) ? card_classes.join(" ") : card_classes
-        wrapper_options = { class: "card #{cls}", aria: { label: t(".card_label", title: title) } }
-        if has_link_to_resource?
-          link_to resource_path, **wrapper_options do
-            yield
-          end
-        else
-          aria_options = { role: "region" }
-          content_tag :div, **aria_options.merge(wrapper_options) do
-            yield
-          end
-        end
-      end
 
       def resource_path
         resource_locator(model).path + request_params_query(resource_utm_params)
@@ -67,8 +52,16 @@ module Decidim
         !context[:no_column].presence
       end
 
-      def has_image?
+      def has_list_image?
         model.list_image && model.list_image.attached?
+      end
+
+      def has_main_image?
+        model.main_image && model.main_image.attached?
+      end
+
+      def has_scope?
+        model.scope.present?
       end
 
       def has_category?
@@ -76,9 +69,28 @@ module Decidim
       end
 
       def resource_image_path
-        return unless has_image?
+        return model.attached_uploader(:list_image).variant_url(resource_image_variant) if has_list_image?
+        return model.attached_uploader(:main_image).variant_url(resource_image_variant) if has_main_image?
+        return unless has_category?
 
-        model.attached_uploader(:list_image).path
+        category_image_path(model.category)
+      end
+
+      def category_image_path(cat)
+        return unless cat.respond_to?(:category_image_url)
+        return unless cat.category_image.attached?
+
+        cat.category_image_url(category_image_variant)
+      end
+
+      def resource_image_variant
+        return :default if has_list_image?
+
+        :thumbnail
+      end
+
+      def category_image_variant
+        :card
       end
 
       def status_label
@@ -97,8 +109,8 @@ module Decidim
           }.map { |key, val| "#{key}:#{val}" }.join(";")
         end
 
-        content_tag :span, class: "label", style: style do
-          decidim_sanitize(translated_attribute(model.status.name))
+        content_tag(:span, class: "label", style:) do
+          translated_attribute(model.status.name)
         end
       end
 
@@ -114,7 +126,7 @@ module Decidim
               when Decidim::UserGroup
                 Decidim::AccountabilitySimple::UserGroupCardPresenter
               end
-            present(identity, presenter_class: presenter_class)
+            present(identity, presenter_class:)
           end
         end
       end
@@ -175,19 +187,23 @@ module Decidim
       end
 
       def statuses
-        [:comments_count, :favoriting_count]
+        [:comments_count, :favorites_count]
       end
 
       def comments_count_status
         render_comments_count
       end
 
-      def favoriting_count_status
+      def favorites_count_status
         cell("decidim/favorites/favorites_count", model)
       end
 
       def has_dates?
         start_date.present? && end_date.present?
+      end
+
+      def scope
+        translated_attribute(model.scope.name) if has_scope?
       end
 
       def category
@@ -214,7 +230,7 @@ module Decidim
         full_category << translated_attribute(cat.name)
 
         content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
-          image_tag(cat.attached_uploader(:category_icon).path, alt: full_category.join(" - "))
+          image_tag(cat.attached_uploader(:category_icon).url, alt: full_category.join(" - "))
         end
       end
 

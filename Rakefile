@@ -8,8 +8,12 @@ def install_module(path)
     system("bundle exec rails decidim_favorites:install:migrations")
     system("bundle exec rails decidim_locations:install:migrations")
     system("bundle exec rails decidim_tags:install:migrations")
+    system("bundle exec rails decidim_nav:install:migrations")
+    system("bundle exec rails decidim_apifiles:install:migrations")
     system("bundle exec rails decidim_accountability_simple:install:migrations")
     system("bundle exec rails db:migrate")
+
+    system("npm i '@tarekraafat/autocomplete.js@<=10.2.7'")
   end
 end
 

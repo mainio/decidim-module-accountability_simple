@@ -3,21 +3,30 @@
   <%= cell("decidim/favorites/favorite_button", result, button_class: "link action-link", disable_tooltip: true) %>
 </div>
 
-<div class="actions-panel bg-secondary">
-  <%= link_to "#comments", class: "action-link" do %>
-    <span class="link-text"><%= t ".show_comments" %></span>
-    <%= icon "comment-square", role: "img", "aria-hidden": true %>
-  <% end %>
-</div>
+<% if result.locations.any? %>
+  <div class="actions-panel bg-secondary">
+    <a href="#result_map" class="action-link">
+      <span class="link-text"><%= t ".show_on_map" %></span>
+      <%= icon "map-marker", role: "img", "aria-hidden": true %>
+    </a>
+  </div>
+<% end %>
+
+<% if result.commentable? %>
+  <div class="actions-panel bg-secondary">
+    <%= link_to "#comments", class: "action-link" do %>
+      <span class="link-text"><%= t ".show_comments" %></span>
+      <%= icon "question-answer-line", role: "img", "aria-hidden": true %>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="actions-panel bg-secondary">
-  <button type="button" class="link action-link" data-open="socialShare" aria-controls="socialShare" aria-haspopup="dialog">
+  <button id="openShareModal" type="button" class="link action-link" aria-controls="socialShare" aria-haspopup="dialog">
     <span class="link-text"><%= t ".share" %></span>
     <%= icon "share", role: "img", "aria-hidden": true %>
   </button>
 </div>
-
-<%= render partial: "decidim/shared/share_modal" %>
 
 <% if false %>
   <div class="actions-panel bg-secondary">

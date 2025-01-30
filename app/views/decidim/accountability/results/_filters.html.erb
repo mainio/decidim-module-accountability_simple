@@ -1,54 +1,46 @@
-<%= filter_form_for filter do |form| %>
-  <div class="row columns show-for-medium">
-    <div class="filters__section filters__section--title">
-      <div class="row">
-        <div class="columns mediumlarge-6 large-8">
-          <h3><%= t(".title") %></h3>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<%= filter_form_for filter, results_path, "aria-label": t(".label") do |form| %>
   <div class="row medium-unstack">
-    <div class="columns mediumlarge-6 large-4">
-      <div class="filters__section text_filter">
-        <fieldset>
-          <legend class="mini-title"><%= t(".search") %></legend>
-          <%= form.search_field :search_text_cont, label: false, placeholder: t(".search"), title: t(".search"), "aria-label": t(".search"), data: { disable_dynamic_change: true } %>
-        </fieldset>
+    <div class="columns">
+      <div class="filters__control text_filter">
+        <%= form.search_field :search_text_cont, label: t(".term"), placeholder: t(".term"), data: { disable_dynamic_change: true } %>
       </div>
     </div>
 
     <% if current_participatory_space.has_subscopes? %>
-      <div class="columns mediumlarge-6 large-4 <%= " end" if !current_component.categories.any? %>">
-        <div class="filters__section with_scope_filter">
-          <fieldset>
-            <legend class="mini-title"><%= t(".scope") %></legend>
-            <% scopes = current_component.scope&.children || current_participatory_space.scope&.children || current_organization.scopes.top_level %>
-            <%= form.select(:with_scope, scope_picker_options(scopes, form.object.send(:with_scope)), { label: false, include_blank: t("forms.scopes_picker.prompt", item_name: t(".scope").downcase) }, "aria-label": t(".scope"), data: { disable_dynamic_change: true }) %>
-          </fieldset>
+      <div class="columns">
+        <div class="filters__control with_scope_filter">
+          <% scopes = current_component.scope&.children || current_participatory_space.scope&.children || current_organization.scopes.top_level %>
+          <%= form.select(:with_scope, scope_picker_options(scopes, form.object.send(:with_scope)), { label: t(".scope"), include_blank: t(".scopes_values.all", item_name: t(".scope").downcase) }, data: { disable_dynamic_change: true }) %>
         </div>
       </div>
     <% end %>
 
     <% if current_component.categories.any? %>
-      <div class="columns mediumlarge-6 large-4 end">
-        <div class="filters__section with_category_filter">
-          <fieldset>
-            <legend class="mini-title"><%= t(".category") %></legend>
-            <%= form.select(:with_category, filter_categories_values, { label: false, include_blank: t(".category_prompt") }, "aria-label": t(".category"), data: { disable_dynamic_change: true }) %>
-          </fieldset>
+      <div class="columns">
+        <div class="filters__control category_id_filter">
+          <%= form.select(:with_category, filter_categories_values, { label: t(".category"), include_blank: t(".categories_values.all") }, data: { disable_dynamic_change: true }) %>
         </div>
       </div>
     <% end %>
   </div>
 
+  <% if user_signed_in? %>
+    <div class="row medium-unstack margin-bottom-1">
+      <div class="columns">
+        <div class="filters__control user_modifiers">
+          <%= form.check_box :favorites, label: t(".favorites"), data: { disable_dynamic_change: true } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row columns">
-    <div class="filters__section">
-      <button type="submit" class="button primary" aria-label="<%= t(".search") %>" aria-controls="projects-count projects" data-close>
+    <div class="filters__actions">
+      <button type="submit" class="button button--icon" aria-label="<%= t(".search") %>" aria-controls="results-count results" data-close>
         <%= t(".search") %>
+        <%= icon("search-line", role: "img", "aria-hidden": true) %>
       </button>
-      <button type="reset" class="button clear"><%= t ".reset" %></button>
+      <button type="reset" class="button clear text-lg"><%= t ".reset" %></button>
     </div>
   </div>
 <% end %>

@@ -1,4 +1,4 @@
-<%= card_wrapper do %>
+<div class="card">
   <%= render :top if render_top? %>
   <%= render :image %>
 
@@ -16,4 +16,4 @@
   <%= render :progress if display_progress? %>
   <%= render :data %>
   <%= render :status %>
-<% end %>
+</div>

@@ -1,89 +1,38 @@
-<%
-root_result = result
-root_result = root_result.parent while root_result.parent
-%>
-<% if component_settings.display_progress_enabled? && result.progress.present? %>
-  <%= result_progress_info(root_result) do %>
-    <div class="progress-label">
-      <span class="progress-figure">
-        <%= display_percentage result.progress %>
-      </span>
-    </div>
+<% statuses = Decidim::Accountability::Status.where(component: current_component).order(:progress) %>
 
-    <div class="progress">
-      <div class="progress-meter" style="width:<%= result.progress %>%"></div>
-    </div>
+<% if component_settings.display_progress_enabled? && (statuses.any? || result.progress.present?) %>
+  <div class="resource__aside__detail">
+    <h2 class="resource__aside__title"><%= t(".implementation_phases") %></h2>
 
-    <p class="text-small">
-      <%= t(".average_progress", progress: display_percentage(progress_calculator(current_scope, nil))) %>
-    </p>
-  <% end %>
-<% end %>
+    <% if statuses.any? %>
+      <div class="row columns">
+        <ul class="stepper stepper--vertical stepper--small">
+          <% active = result.status.present? %>
+          <% statuses.each do |status| %>
+            <li class="stepper__item<%= " stepper__item--active" if active %>">
+              <div class="stepper__item__indicator"></div>
+              <div class="stepper__item__label"><%= translated_attribute(status.name) %></div>
+            </li>
 
-<% if result.result_all_details.any? || !root_result.scope.nil? || !result.category.nil? || result.locations.any? %>
-  <%= result_detail_info(root_result) do %>
-    <% result.result_all_details.each do |detail| %>
-      <div class="definition-data__item result_detail">
-        <span class="definition-data__icon">
-          <%= result_detail_icon(result, detail) %>
-        </span>
-        <span class="definition-data__info">
-          <% if translated_attribute(detail.description_for(result)).empty? %>
-            <span class="definition-data__title"><%= translated_attribute detail.title %></span>
-          <% else %>
-            <span class="definition-data__title with_description"><%= translated_attribute detail.title %></span>
-            <span class="definition-data__description"><%= translated_attribute detail.description_for(result) %></span>
+            <% active = false if status == result.status %>
           <% end %>
-        </span>
+        </ul>
       </div>
     <% end %>
 
-    <% if root_result.scope %>
-      <div class="definition-data__item result_detail">
-        <span class="definition-data__icon">
-          <%= result_detail_icon(result) %>
-        </span>
-        <span class="definition-data__info">
-          <% if root_result.scope.parent %>
-            <span class="definition-data__title with_description"><%= translated_attribute root_result.scope.parent.name %></span>
-          <% else %>
-            <span class="definition-data__title with_description"><%= t("results.show.stats.scope", scope: "decidim.accountability") %></span>
-          <% end %>
-          <span class="definition-data__description"><%= translated_attribute root_result.scope.name %></span>
-        </span>
+    <% if result.progress.present? %>
+      <div class="row">
+        <div class="columns" id="result_progress_label"><%= t(".progress") %></div>
+        <div class="columns text-right"><%= display_percentage(result.progress) %></div>
       </div>
-    <% end %>
 
-    <% if root_result.category %>
-      <div class="definition-data__item result_detail">
-        <span class="definition-data__icon">
-          <%= result_detail_icon(result) %>
-        </span>
-        <span class="definition-data__info">
-          <span class="definition-data__title with_description"><%= t("results.show.stats.category", scope: "decidim.accountability") %></span>
-          <span class="definition-data__description"><%= translated_attribute root_result.category.name %></span>
-        </span>
+      <div class="progress success" role="progressbar" aria-valuenow="<%= result.progress %>" aria-labelledby="result_progress_label" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-meter" style="width:<%= result.progress %>%"></div>
       </div>
-    <% end %>
 
-    <% if result.locations.any? %>
-      <div class="definition-data__item result_detail">
-        <span class="definition-data__icon">
-          <%= accountability_icon("map-marker") %>
-        </span>
-        <span class="definition-data__info">
-          <span class="definition-data__title with_description"><%= t ".location" %></span>
-          <span class="definition-data__description">
-            <%= result.locations.map(&:address).join(", ") %>
-            <% if geocoded_result.any? %>
-              <br>
-              <a href="#result_map"><%= t(".show_on_map") %></a>
-            <% end %>
-          </span>
-        </span>
-      </div>
+      <p class="text-small">
+        <%= t(".average_progress", progress: display_percentage(progress_calculator(current_scope, nil))) %>
+      </p>
     <% end %>
-  <% end %>
+  </div>
 <% end %>
-
-<%= resource_reference(result) %>

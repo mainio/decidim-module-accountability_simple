@@ -6,6 +6,18 @@ en:
         list_image: List image
         main_image: Main image
         summary: Summary
+      result_detail:
+        description: Description
+        icon: Icon
+        title: Title
+      result_link:
+        collection_id: Link collection
+        label: Label
+        url: URL address
+      result_link_collection:
+        key: Key
+        name: Name
+        position: Order number
       timeline_entry:
         end_date: End date
         title: Title (replaces the dates)
@@ -20,6 +32,8 @@ en:
         attachment_collections: Folders
         attachments: Attachments
         default_details: Default details
+        link_collections: Link collections
+        new_link_collection: New link collection
       admin:
         details:
           detail:
@@ -35,6 +49,26 @@ en:
           update:
             invalid: There was a problem updating the default details
             success: Default details successfully updated
+        link_collections:
+          create:
+            error: There was a problem creating a new link collection.
+            success: Link collection successfully created.
+          destroy:
+            success: Link collection successfully deleted.
+          edit:
+            title: Edit link collection
+            update: Update link collection
+          index:
+            link_collections_title: Link collections
+          update:
+            error: There was a problem updating the link collection.
+            success: Link collection successfully updated.
+          new:
+            create: Create link collection
+            title: New link collection
+        models:
+          link_collection:
+            name: Link collection
         results:
           authors_picker:
             collection_name: Projects
@@ -72,11 +106,12 @@ en:
             comments: Comments
         timeline_entry:
           fields:
+            description: Description
             end_date: End date
             title: Title
       result_l:
         card_label: "Project: %{title}"
-      result_m:
+      result_g:
         card_label: "Project: %{title}"
         progress_explanation: Project progress
         tags_title: Tags
@@ -87,13 +122,19 @@ en:
             one: Found 1 project
             other: "Found %{count} projects"
         filters:
-          category: Category
-          category_prompt: Choose category
+          category: Theme
+          categories_values:
+            all: All themes
+          favorites: Show my favourites
+          label: Project search
           open: Open
           related_to: Related to
           reset: Clear filters
           scope: Area
+          scopes_values:
+            all: All areas
           search: Search
+          term: Keyword
           title: Search projects
         filters_small_view:
           close_modal: Close modal
@@ -105,11 +146,28 @@ en:
           show_map: Show results on map
         nav_breadcrumb:
           all_projects: All projects
+        orders:
+          alphabetical: Alphabetical
+          category: Category
+          label: Label
+          scope: Scope
         result:
           project_info: Project info
         result_actions:
           share: Share project
           show_comments: Show project comments
+          show_on_map: Show on a map
+        result_answer:
+          title: Evaluation of the proposal
+        result_attributes:
+          attributes:
+            category: Theme
+            id: Number (ID)
+            location: Location
+            published_at: Publish time
+            reference: Reference
+            scope: Area
+          title: Information
         show:
           stats:
             scope: Scope
@@ -118,12 +176,15 @@ en:
           back_to_list: Show other projects
           locations: Project on a map
           subresults: Sub projects
+        show_result_body:
+          description: Project description
+          subtitle: Project
         stats_box:
           average_progress: Average progress on all projects %{progress}.
-          location: Location
-          show_on_map: Show on a map
+          implementation_phases: Phases
+          progress: Progress
         timeline:
-          title: Implementation timeline
+          title: Timeline
     accountability_simple:
       models:
         result_detail:
@@ -166,11 +227,13 @@ en:
       included_ideas:
         result_idea: Related ideas
       included_plans:
-        result_plan: Related co-creation proposals
+        result_plan: Related original proposals
       included_projects:
         result_project: Related proposals
       included_proposals:
         result_proposal: Related proposals
+    tags:
+      filter_results_for_tag: Filter results for tag %{tag}
   forms:
     scopes_picker:
       others: Others

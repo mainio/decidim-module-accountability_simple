@@ -1,31 +1,31 @@
 <div class="small-12 columns section">
   <div class="row">
     <div class="small-12 medium-9 columns">
-      <%= linked_resources_for result, :proposals, "included_proposals" %>
+      <%= cell("decidim/linked_resources_for", result, type: :proposals, link_name: "included_proposals") %>
     </div>
   </div>
 
   <div class="row">
     <div class="small-12 medium-9 columns">
-      <%= linked_resources_for result, :meetings, "meetings_through_proposals" %>
+      <%= cell("decidim/linked_resources_for", result, type: :meetings, link_name: "meetings_through_proposals") %>
     </div>
   </div>
 
   <div class="row">
     <div class="small-12 medium-9 columns">
-      <%= linked_resources_for result, :ideas, "included_ideas" %>
+      <%= cell("decidim/linked_resources_for", result, type: :ideas, link_name: "included_ideas") %>
     </div>
   </div>
 
   <div class="row">
     <div class="small-12 medium-9 columns">
-      <%= linked_resources_for result, :plans, "included_plans" %>
+      <%= cell("decidim/linked_resources_for", result, type: :plans, link_name: "included_plans") %>
     </div>
   </div>
 
   <div class="row">
     <div class="small-12 medium-9 columns">
-      <%= linked_resources_for result, :projects, "included_projects" %>
+      <%= cell("decidim/linked_resources_for", result, type: :projects, link_name: "included_projects") %>
     </div>
   </div>
 </div>

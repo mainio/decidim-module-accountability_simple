@@ -1,0 +1,44 @@
+<% add_decidim_page_title(t("link_collections.index.link_collections_title", scope: "decidim.accountability.admin")) %>
+<div class="card" id="link_collections">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t("link_collections.index.link_collections_title", scope: "decidim.accountability.admin") %>
+      <% if allowed_to? :create, :result %>
+        <%= link_to t("actions.new_link_collection", scope: "decidim.accountability", name: t("models.link_collection.name", scope: "decidim.accountability.admin")), new_result_link_collection_path(result), class: "button button__sm button__secondary" %>
+      <% end %>
+    </h1>
+  </div>
+
+  <div class="card-section">
+     <% if result.result_link_collections.any? %>
+      <div class="table-scroll">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th><%= t("activemodel.attributes.result_link_collection.name") %></th>
+              <th><%= t("activemodel.attributes.result_link_collection.key") %></th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% result.result_link_collections.each do |link_collection| %>
+              <tr data-id="<%= link_collection.id %>">
+                <td><%= translated_attribute(link_collection.name) %></td>
+                <td><%= link_collection.key %></td>
+                <td class="table-list__actions">
+                  <% if allowed_to? :update, :result, result: result %>
+                    <%= icon_link_to "pencil-line", edit_result_link_collection_path(result, link_collection), t("actions.edit", scope: "decidim.admin"), class: "action-icon--edit" %>
+                  <% end %>
+
+                  <% if allowed_to? :destroy, :result, result: result %>
+                    <%= icon_link_to "delete-bin-line", result_link_collection_path(result, link_collection), t("actions.destroy", scope: "decidim.admin"), class: "action-icon--remove", method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>

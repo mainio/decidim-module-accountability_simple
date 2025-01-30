@@ -7,7 +7,7 @@ require "decidim/accountability_simple/version"
 Gem::Specification.new do |spec|
   spec.name = "decidim-accountability_simple"
   spec.version = Decidim::AccountabilitySimple.version
-  spec.required_ruby_version = ">= 3.0"
+  spec.required_ruby_version = ">= 3.1"
   spec.authors = ["Antti Hukkanen"]
   spec.email = ["antti.hukkanen@mainiotech.fi"]
 
@@ -27,9 +27,11 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "decidim-accountability", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-admin", Decidim::AccountabilitySimple.decidim_version
+  spec.add_dependency "decidim-apifiles", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-core", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-favorites", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-locations", Decidim::AccountabilitySimple.decidim_version
+  spec.add_dependency "decidim-nav", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-participatory_processes", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-tags", Decidim::AccountabilitySimple.decidim_version
 

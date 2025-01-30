@@ -7,15 +7,15 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
   include_context "with a graphql class type"
   include_context "with accountability graphql mutation"
 
-  let(:model) { create(:result, component: component) }
-  let(:component) { create(:accountability_component, participatory_space: participatory_space) }
+  let(:model) { create(:result, component:) }
+  let(:component) { create(:accountability_component, participatory_space:) }
   let(:participatory_space) { create(:participatory_process, organization: current_organization) }
   let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
 
   describe "update" do
     let(:default_detail) { create(:result_detail, accountability_result_detailable: component) }
-    let(:status) { create(:status, component: component) }
-    let(:category) { create(:category, participatory_space: participatory_space) }
+    let(:status) { create(:status, component:) }
+    let(:category) { create(:category, participatory_space:) }
     let(:scope) { create(:scope, organization: current_organization) }
 
     let(:title) { generate_localized_title }
@@ -29,8 +29,8 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
     let(:link_label) { generate_localized_title }
     let(:link_url) { Decidim::Faker::Localized.localized { Faker::Internet.url } }
 
-    let(:proposal) { create(:proposal, component: create(:proposal_component, participatory_space: participatory_space)) }
-    let(:project) { create(:project, component: create(:budgets_component, participatory_space: participatory_space)) }
+    let(:proposal) { create(:proposal, component: create(:proposal_component, participatory_space:)) }
+    let(:project) { create(:project, component: create(:budgets_component, participatory_space:)) }
 
     let(:start_date) { Faker::Date.backward(days: 30) }
     let(:end_date) { Faker::Date.forward(days: 30) }
@@ -119,6 +119,217 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
       expect(model.linked_resources(:proposals, "included_proposals")).to eq([proposal])
       expect(model.linked_resources(:projects, "included_projects")).to eq([project])
     end
+
+    context "with main image" do
+      let(:blob) do
+        ActiveStorage::Blob.create_and_upload!(
+          io: File.open(Decidim::Dev.asset("city.jpeg")),
+          filename: "city.jpeg",
+          content_type: "image/jpeg"
+        )
+      end
+      let(:query) do
+        %(
+          {
+            update(
+              title: #{convert_value(title)},
+              summary: #{convert_value(summary)},
+              description: #{convert_value(description)},
+              progress: 50,
+              mainImage: { blobId: #{blob.id} }
+            ) { id }
+          }
+        )
+      end
+
+      it "sets the main image" do
+        response
+        model.reload
+        expect(model.main_image.blob).to eq(blob)
+      end
+
+      context "when removing the image" do
+        let(:query) do
+          %(
+            {
+              update(
+                title: #{convert_value(title)},
+                summary: #{convert_value(summary)},
+                description: #{convert_value(description)},
+                progress: 50,
+                mainImage: { remove: true }
+              ) { id }
+            }
+          )
+        end
+
+        before { model.main_image.attach(blob) }
+
+        it "removes the blob attachment and destroys the blob" do
+          expect(model.main_image.attached?).to be(true)
+          response
+          model.reload
+          expect(model.main_image.attached?).to be(false)
+        end
+      end
+    end
+
+    context "with list image" do
+      let(:blob) do
+        ActiveStorage::Blob.create_and_upload!(
+          io: File.open(Decidim::Dev.asset("city.jpeg")),
+          filename: "city.jpeg",
+          content_type: "image/jpeg"
+        )
+      end
+      let(:query) do
+        %(
+          {
+            update(
+              title: #{convert_value(title)},
+              summary: #{convert_value(summary)},
+              description: #{convert_value(description)},
+              progress: 50,
+              listImage: { blobId: #{blob.id} }
+            ) { id }
+          }
+        )
+      end
+
+      it "sets the list image" do
+        response
+        model.reload
+        expect(model.list_image.blob).to eq(blob)
+      end
+
+      context "when removing the image" do
+        let(:query) do
+          %(
+            {
+              update(
+                title: #{convert_value(title)},
+                summary: #{convert_value(summary)},
+                description: #{convert_value(description)},
+                progress: 50,
+                listImage: { remove: true }
+              ) { id }
+            }
+          )
+        end
+
+        before { model.list_image.attach(blob) }
+
+        it "removes the blob attachment and destroys the blob" do
+          expect(model.list_image.attached?).to be(true)
+          response
+          model.reload
+          expect(model.list_image.attached?).to be(false)
+        end
+      end
+    end
+
+    context "with links" do
+      let(:query) do
+        %(
+          {
+            update(
+              title: #{convert_value(title)},
+              summary: #{convert_value(summary)},
+              description: #{convert_value(description)},
+              progress: 50,
+              links: [
+                {
+                  position: 10,
+                  label: #{convert_value(link_label)}
+                  url: #{convert_value(link_url)}
+                }
+              ]
+            ) { id }
+          }
+        )
+      end
+
+      it "creates the links" do
+        expect { response }.to change(Decidim::AccountabilitySimple::ResultLink, :count).by(1)
+        model.reload
+        expect(model.result_links.count).to eq(1)
+
+        link = model.result_links.first
+        expect(link.position).to eq(10)
+        expect(link.label).to eq(link_label)
+        expect(link.url).to eq(link_url)
+        expect(link.link_collection).to be_nil
+      end
+    end
+
+    context "with link collections" do
+      let(:link_collection) do
+        model.result_link_collections.create!(
+          key: "testing",
+          name: generate_localized_title,
+          position: 0
+        )
+      end
+      let(:query) do
+        %(
+          {
+            update(
+              title: #{convert_value(title)},
+              summary: #{convert_value(summary)},
+              description: #{convert_value(description)},
+              progress: 50,
+              links: [
+                {
+                  position: 10,
+                  label: #{convert_value(link_label)}
+                  url: #{convert_value(link_url)}
+                  collection: { key: "#{link_collection.key}" }
+                }
+              ]
+            ) { id }
+          }
+        )
+      end
+
+      it "maps the link with the collection" do
+        expect { response }.to change(Decidim::AccountabilitySimple::ResultLink, :count).by(1)
+        model.reload
+        expect(model.result_links.count).to eq(1)
+
+        link = model.result_links.first
+        expect(link.link_collection).to eq(link_collection)
+      end
+
+      context "when using the collection ID" do
+        let(:query) do
+          %(
+            {
+              update(
+                title: #{convert_value(title)},
+                summary: #{convert_value(summary)},
+                description: #{convert_value(description)},
+                progress: 50,
+                links: [
+                  {
+                    position: 10,
+                    label: #{convert_value(link_label)}
+                    url: #{convert_value(link_url)}
+                    collection: { id: "#{link_collection.id}" }
+                  }
+                ]
+              ) { id }
+            }
+          )
+        end
+
+        it "maps the link with the collection" do
+          expect { response }.to change(Decidim::AccountabilitySimple::ResultLink, :count).by(1)
+          model.reload
+          expect(model.result_links.count).to eq(1)
+          expect(model.result_links.first.link_collection).to eq(link_collection)
+        end
+      end
+    end
   end
 
   describe "publicity" do
@@ -139,7 +350,7 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
     end
 
     context "when setting the result unpublished" do
-      let(:model) { create(:result, component: component, published_at: Time.current) }
+      let(:model) { create(:result, component:, published_at: Time.current) }
 
       let(:query) { "{ publicity(published: false) { id } }" }
 
@@ -150,6 +361,100 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
         expect(model.published?).to be(false)
         expect(model.published_at).to be_nil
       end
+    end
+  end
+
+  describe "createLinkCollection" do
+    let(:query) do
+      %(
+        {
+          createLinkCollection(
+            attributes: {
+              position: #{position},
+              key: "#{key}",
+              name: #{convert_value(name)}
+            }
+          ) { id }
+        }
+      )
+    end
+    let(:position) { 123 }
+    let(:key) { "testing" }
+    let(:name) { generate_localized_title }
+
+    it_behaves_like "when the user does not have permissions"
+
+    it "creates a new link collection" do
+      expect { response }.to change(Decidim::AccountabilitySimple::ResultLinkCollection, :count).by(1)
+    end
+
+    it "sets the correct details for the collection" do
+      collection = Decidim::AccountabilitySimple::ResultLinkCollection.find(response["createLinkCollection"]["id"])
+      expect(collection.result).to eq(model)
+      expect(collection.position).to eq(position)
+      expect(collection.key).to eq(key)
+      expect(collection.name).to eq(name)
+    end
+  end
+
+  describe "updateLinkCollection" do
+    let!(:collection) do
+      model.result_link_collections.create!(
+        position: 0,
+        key: "original",
+        name: generate_localized_title
+      )
+    end
+    let(:query) do
+      %(
+        {
+          updateLinkCollection(
+            id: "#{collection.id}",
+            attributes: {
+              position: #{position},
+              key: "#{key}",
+              name: #{convert_value(name)}
+            }
+          ) { id }
+        }
+      )
+    end
+    let(:position) { 123 }
+    let(:key) { "testing" }
+    let(:name) { generate_localized_title }
+
+    it_behaves_like "when the user does not have permissions"
+
+    it "updates the correct details for the collection" do
+      expect(response["updateLinkCollection"]["id"]).to eq(collection.id.to_s)
+
+      collection.reload
+      expect(collection.position).to eq(position)
+      expect(collection.key).to eq(key)
+      expect(collection.name).to eq(name)
+    end
+  end
+
+  describe "deleteLinkCollection" do
+    let!(:collection) do
+      model.result_link_collections.create!(
+        position: 0,
+        key: "original",
+        name: generate_localized_title
+      )
+    end
+    let(:query) do
+      %({ deleteLinkCollection(id: "#{collection.id}") { id } })
+    end
+
+    it_behaves_like "when the user does not have permissions"
+
+    it "creates an action log record" do
+      expect { response }.to change(Decidim::ActionLog, :count).by(1)
+    end
+
+    it "deletes the collection" do
+      expect { response }.to change(Decidim::AccountabilitySimple::ResultLinkCollection, :count).by(-1)
     end
   end
 end

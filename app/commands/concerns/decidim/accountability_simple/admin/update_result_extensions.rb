@@ -122,6 +122,7 @@ module Decidim
 
         def update_result_link(form_result_link)
           result_link_attributes = {
+            link_collection: result.result_link_collections.find_by(id: form_result_link.collection_id),
             label: form_result_link.label,
             url: form_result_link.url,
             position: form_result_link.position

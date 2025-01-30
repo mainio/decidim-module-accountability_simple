@@ -12,7 +12,7 @@ module Decidim
           if text
             "#{text}: #{count}"
           else
-            t("results.count.results_count", scope: "decidim.accountability", count: count)
+            t("results.count.results_count", scope: "decidim.accountability", count:)
           end
         end
 
@@ -21,7 +21,7 @@ module Decidim
           if text
             "#{text}: #{count}"
           else
-            t("results.count.results_count", scope: "decidim.accountability", count: count)
+            t("results.count.results_count", scope: "decidim.accountability", count:)
           end
         end
       end
@@ -57,7 +57,7 @@ module Decidim
         style = "border-color: #{color};"
         title_style = "background-color: #{color};"
 
-        content_tag :div, class: "progress-level section", style: style do
+        content_tag(:div, class: "progress-level section", style:) do
           title = content_tag :div, class: "definition-data__boxtitle", style: title_style do
             t("models.result.fields.progress", scope: "decidim.accountability")
           end
@@ -74,7 +74,7 @@ module Decidim
         style = "border-color: #{color};"
         title_style = "background-color: #{color};"
 
-        content_tag :div, class: "card extra line-stats line-stats-project", style: style do
+        content_tag(:div, class: "card extra line-stats line-stats-project", style:) do
           title = content_tag :div, class: "definition-data__boxtitle", style: title_style do
             t("results.result.project_info", scope: "decidim.accountability")
           end
@@ -92,7 +92,7 @@ module Decidim
         color = result_theme_color(result)
         style = "background-color: #{color};"
 
-        content_tag(:span, "", class: "definition-data__icon__marker", style: style).html_safe
+        content_tag(:span, "", class: "definition-data__icon__marker", style:).html_safe
       end
 
       def default_theme_color

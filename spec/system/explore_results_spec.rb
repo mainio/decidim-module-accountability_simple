@@ -2,17 +2,17 @@
 
 require "spec_helper"
 
-describe "Explore results", versioning: true, type: :system do
+describe "ExploreResults", versioning: true do
   include_context "with a component"
 
   let(:manifest_name) { "accountability" }
   let(:results_count) { 5 }
-  let!(:scope) { create :scope, organization: component.organization }
+  let!(:scope) { create(:scope, organization: component.organization) }
   let!(:results) do
     create_list(
       :result,
       results_count,
-      component: component,
+      component:,
       published_at: Time.current
     )
   end
@@ -39,7 +39,11 @@ describe "Explore results", versioning: true, type: :system do
     let(:path) { decidim_accountability.results_path }
 
     it "shows all results for the given process and category" do
-      expect(page).to have_selector(".card--result", count: results_count)
+      within "#results" do
+        results.each do |result|
+          expect(page).to have_css("div#result_#{result.id}")
+        end
+      end
 
       results.each do |result|
         expect(page).to have_content(translated(result.title))
@@ -60,8 +64,8 @@ describe "Explore results", versioning: true, type: :system do
     end
 
     context "when result has details" do
-      let(:scope) { create :scope, organization: organization }
-      let(:category) { create :category, participatory_space: participatory_process }
+      let(:scope) { create(:scope, organization:) }
+      let(:category) { create(:category, participatory_space: participatory_process) }
       let(:detail_attributes) do
         {
           title: { "en" => "Some title", "ca" => "Sama katalaaniksi", "es" => "Sama espanjaksi" },
@@ -74,7 +78,7 @@ describe "Explore results", versioning: true, type: :system do
       before do
         expect(page).to have_i18n_content(result.title)
         detail = Decidim::AccountabilitySimple::ResultDetail.create(detail_attributes)
-        detail.values.build(result: result).update!(description: { "en" => "Some value" })
+        detail.values.build(result:).update!(description: { "en" => "Some value" })
         result.scope = scope
         result.category = category
         result.save!
@@ -82,12 +86,12 @@ describe "Explore results", versioning: true, type: :system do
       end
 
       it "shows details" do
-        page.scroll_to find(".line-stats-project")
-        within ".line-stats-project" do
-          expect(page).to have_content(translated(detail_attributes[:title]).upcase)
+        page.scroll_to find(".attributes")
+        within ".attributes" do
+          expect(page).to have_content(translated(detail_attributes[:title]))
           expect(page).to have_content("Some value")
-          expect(page).to have_i18n_content(scope.name)
-          expect(page).to have_i18n_content(category.name)
+          expect(page).to have_i18n_content(translated(scope.name))
+          expect(page).to have_i18n_content(translated(category.name))
         end
       end
     end

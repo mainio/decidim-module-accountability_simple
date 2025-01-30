@@ -23,11 +23,20 @@ module Decidim
         validates_upload :list_image, uploader: Decidim::AccountabilitySimple::ListImageUploader
 
         has_many :result_details, -> { order(:position) }, as: :accountability_result_detailable,
-                                                           class_name: "Decidim::AccountabilitySimple::ResultDetail"
+                                                           class_name: "Decidim::AccountabilitySimple::ResultDetail",
+                                                           dependent: :destroy
         has_many :result_detail_values, class_name: "Decidim::AccountabilitySimple::ResultDetailValue",
-                                        foreign_key: "decidim_accountability_result_id"
+                                        foreign_key: "decidim_accountability_result_id",
+                                        dependent: :destroy
+        has_many :result_link_collections,
+                 -> { order(:position) },
+                 class_name: "Decidim::AccountabilitySimple::ResultLinkCollection",
+                 foreign_key: "decidim_accountability_result_id",
+                 inverse_of: :result,
+                 dependent: :destroy
         has_many :result_links, -> { order(:position) }, class_name: "Decidim::AccountabilitySimple::ResultLink",
-                                                         foreign_key: "decidim_accountability_result_id"
+                                                         foreign_key: "decidim_accountability_result_id",
+                                                         dependent: :destroy
 
         def result_default_details
           Decidim::AccountabilitySimple::ResultDetail.where(
@@ -40,8 +49,8 @@ module Decidim
           return result_details unless use_default_details?
 
           Decidim::AccountabilitySimple::ResultDetail.where(
-            "(accountability_result_detailable_type = ? AND accountability_result_detailable_id = ?)"\
-            " OR "\
+            "(accountability_result_detailable_type = ? AND accountability_result_detailable_id = ?) " \
+            "OR " \
             "(accountability_result_detailable_type = ? AND accountability_result_detailable_id = ?)",
             Decidim::Accountability::Result.name,
             id,
@@ -56,9 +65,17 @@ module Decidim
         # Create i18n ransackers for :title and :description.
         # Create the :search_text ransacker alias for searching from both of these.
         ransacker_i18n_multi :search_text, [:title, :description]
+
+        def self.ransackable_scopes(_auth_object = nil)
+          [:with_category, :with_scope, :with_any_tag]
+        end
       end
 
       class_methods do
+        def ransack(params = {}, options = {})
+          ResultSearch.new(self, params, options)
+        end
+
         def remove_coauthorships_requirement!
           validators_on(:coauthorships).each do |v|
             v.attributes.delete(:coauthorships) if v.is_a?(ActiveRecord::Validations::PresenceValidator)

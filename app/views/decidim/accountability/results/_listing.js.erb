@@ -1,6 +1,15 @@
 var $results = $('#results');
+var $resultsCount = $('#results-count');
+var $orderFilterInput = $('.order_filter');
+var $order = $('.order-by__dropdown a[data-order="<%= order %>"]');
 
 $results.html('<%= j(render partial: "decidim/accountability_simple/shared/results_parent", locals: { results: results, total_count: results.total_count }).strip.html_safe %>');
+$resultsCount.html('<%= j(render partial: "decidim/accountability_simple/shared/results_count", locals: { results: results }).strip.html_safe %>');
+$orderFilterInput.val('<%= order %>');
+
+if ($order) {
+  $(".order-by__dropdown .is-dropdown-submenu-parent > button").text($order.text());
+}
 
 var $dropdownMenu = $('.dropdown.menu', $results);
 $dropdownMenu.foundation();

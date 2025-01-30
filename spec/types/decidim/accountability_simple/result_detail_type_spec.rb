@@ -66,7 +66,7 @@ describe Decidim::AccountabilitySimple::ResultDetailType, type: :graphql do
       context "with result as detailable" do
         let(:model) { create(:result_detail, accountability_result_detailable: result) }
         let(:result) { create(:result) }
-        let!(:value) { create(:result_detail_value, detail: model, result: result) }
+        let!(:value) { create(:result_detail_value, detail: model, result:) }
 
         let!(:another_result) { create(:result, component: result.component) }
         let!(:another_value) { create(:result_detail_value, detail: model, result: another_result) }
@@ -79,7 +79,7 @@ describe Decidim::AccountabilitySimple::ResultDetailType, type: :graphql do
               module_function
 
               def before_query(query)
-                query.context.scoped_context[:parent] = result
+                query.context.scoped_context.merge!(parent: result)
               end
 
               def after_query(_query); end

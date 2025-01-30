@@ -1,0 +1,19 @@
+<div class="card__info">
+  <% if has_scope? %>
+    <div class="card__info__item">
+      <%= scope %>
+    </div>
+  <% end %>
+
+  <div class="card__info__item">
+    #<%= model.id %>
+  </div>
+</div>
+
+<% if has_category? %>
+  <div class="card__info">
+    <div class="card__info__item">
+      <%= category %>
+    </div>
+  </div>
+<% end %>
