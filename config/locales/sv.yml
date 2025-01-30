@@ -6,6 +6,18 @@ sv:
         list_image: Lista bild
         main_image: Huvudbild
         summary: Sammanfattning
+      result_detail:
+        description: Beskrivning
+        icon: Ikon
+        title: Titel
+      result_link:
+        collection_id: Länksamling
+        label: Etikett
+        url: URL-adress
+      result_link_collection:
+        key: Nyckel
+        name: Namn
+        position: Ordernummer
       timeline_entry:
         end_date: Slutdatum
         title: Titel (ersätter datumen)
@@ -20,6 +32,8 @@ sv:
         attachment_collections: Mappar
         attachments: Bilagor
         default_details: Default detaljer
+        link_collections: Länksamlingar
+        new_link_collection: New link collection
       admin:
         details:
           detail:
@@ -35,6 +49,26 @@ sv:
           update:
             invalid: Det gick inte att uppdatera standardin detaljer
             success: Standard detaljer har uppdaterats
+        link_collections:
+          create:
+            error: Det gick inte att skapa en ny länksamling.
+            success: Länksamling har skapats.
+          destroy:
+            success: Länksamlingen har raderats.
+          edit:
+            title: Redigera länksamling
+            update: Uppdatera länksamling
+          index:
+            link_collections_title: Länksamlingar
+          update:
+            error: Det uppstod ett problem med att uppdatera länksamlingen.
+            success: Länksamlingen har uppdaterats.
+          new:
+            create: Skapa länksamling
+            title: Ny länksamling
+        models:
+          link_collection:
+            name: Link collection
         results:
           authors_picker:
             collection_name: Projekt
@@ -72,11 +106,12 @@ sv:
             comments: Bilder
         timeline_entry:
           fields:
+            description: Beskrivning
             end_date: Slutdatum
             title: Rubrik
       result_l:
         card_label: "Projekt: %{title}"
-      result_m:
+      result_g:
         card_label: "Projekt: %{title}"
         progress_explanation: Projektets framsteg
         tags_title: Taggar
@@ -87,13 +122,19 @@ sv:
             one: Hittade 1 projekt
             other: "Hittade %{count} projekt"
         filters:
-          category: Kategori
-          category_prompt: Välj kategori
+          category: Tema
+          categories_values:
+            all: Alla teman
+          favorites: Visa mina favoriter
+          label: Projektsökning
           open: Öppna
           related_to: Relaterade till
           reset: Rensa filter
           scope: Område
+          scopes_values:
+            all: Alla områden
           search: Sök
+          term: Nyckelord
           title: Sök projekt
         filters_small_view:
           close_modal: Stäng fönster
@@ -105,11 +146,28 @@ sv:
           show_map: Visa resultat på kartan
         nav_breadcrumb:
           all_projects: Alla projekt
+        orders:
+          alphabetical: Alphabetical
+          category: Category
+          label: Label
+          scope: Scope
         result:
           project_info: Projektinfo
         result_actions:
           share: Dela projekt
           show_comments: Visa projektets kommentarer
+          show_on_map: Visa på kartan
+        result_answer:
+          title: Utvärdering av förslaget
+        result_attributes:
+          attributes:
+            category: Tema
+            id: Nummer (ID)
+            location: Plats
+            published_at: Publiceringstiden
+            reference: Referens
+            scope: Område
+          title: Information
         show:
           stats:
             scope: Tema
@@ -118,12 +176,15 @@ sv:
           back_to_list: Visa andra projekt
           locations: Projekt på kartan
           subresults: Delprojekt
+        show_result_body:
+          description: Projekt beskrivning
+          subtitle: Projekt
         stats_box:
           average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
-          location: Plats
-          show_on_map: Visa på kartan
+          implementation_phases: Faser
+          progress: Genomförande
         timeline:
-          title: Implementeringstidslinje
+          title: Tidslinje
     accountability_simple:
       models:
         result_detail:
@@ -166,11 +227,13 @@ sv:
       included_ideas:
         result_idea: Relaterade idéer
       included_plans:
-        result_plan: Relaterade samutveckling förslag
+        result_plan: Relaterade ursprungliga förslag
       included_projects:
         result_project: Relaterade förslag
       included_proposals:
         result_proposal: Relaterade förslag
+    tags:
+      filter_results_for_tag: Filtrera resultat för tagg %{tag}
   forms:
     scopes_picker:
       others: Andra
