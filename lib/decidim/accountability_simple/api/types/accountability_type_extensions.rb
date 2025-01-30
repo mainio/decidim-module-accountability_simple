@@ -25,7 +25,7 @@ module Decidim
         end
 
         def available_details
-          context.scoped_context[:parent] = object
+          context.scoped_context.merge!(parent: object)
 
           Decidim::AccountabilitySimple::ResultDetail.where(
             accountability_result_detailable: object

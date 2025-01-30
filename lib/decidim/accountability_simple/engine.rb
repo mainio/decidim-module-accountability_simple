@@ -9,10 +9,6 @@ module Decidim
         Decidim.register_assets_path File.expand_path("app/packs", root)
       end
 
-      initializer "decidim_accountability_simple.register_icons" do
-        Decidim.icons.register(name: "globe-line", icon: "route-line", category: "system", description: "", engine: :accountability)
-      end
-
       initializer "decidim_accountability_simple.mount_routes", before: :add_routing_paths do
         Decidim::Core::Engine.routes do
           mount Decidim::AccountabilitySimple::Engine => "/"

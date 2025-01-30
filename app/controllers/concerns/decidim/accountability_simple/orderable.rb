@@ -19,7 +19,6 @@ module Decidim
           end
         end
 
-
         def default_order
           "alphabetical"
         end

@@ -74,7 +74,6 @@ import createQuillEditor from "src/decidim/editor";
   });
 
   createSortableList();
-
   $(fieldSelector).each((_i, el) => {
     const $target = $(el);
 

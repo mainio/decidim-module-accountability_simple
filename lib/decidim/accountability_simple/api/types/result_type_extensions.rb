@@ -56,13 +56,13 @@ module Decidim
         end
 
         def default_details
-          context.scoped_context[:parent] = object
+          context.scoped_context.merge!(parent: object)
 
           object.result_default_details
         end
 
         def details
-          context.scoped_context[:parent] = object
+          context.scoped_context.merge!(parent: object)
 
           object.result_details
         end

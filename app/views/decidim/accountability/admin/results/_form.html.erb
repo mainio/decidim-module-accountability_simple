@@ -24,7 +24,7 @@
 
         <% if current_participatory_space.has_subscopes? %>
           <div class="row column">
-            <%= scopes_picker_field form, :decidim_scope_id %>
+            <%= scopes_select_field form, :decidim_scope_id, root: current_component.scope %>
           </div>
         <% end %>
 
@@ -149,7 +149,6 @@
   <div class="card-divider">
     <h2 class="card-title"><%= t(".result_details") %></h2>
   </div>
-
   <div class="card-section">
     <div class="result-detail-items">
       <%= fields_for "result[result_details][#{blank_result_detail.to_param}]", blank_result_detail do |result_detail_form| %>
@@ -165,7 +164,7 @@
           <% end %>
         <% end %>
       </div>
-      <button class="button button__sm button__transparent-secondary ml-4 mb-4 mt-10"><%= t(".add_result_detail") %></button>
+      <button class="button button__sm button__transparent-secondary ml-4 mb-4 mt-10 add-result-detail-item"><%= t(".add_result_detail") %></button>
     </div>
   </div>
 </div>
@@ -190,7 +189,7 @@
           <% end %>
         <% end %>
       </div>
-      <button class="button button__sm button__transparent-secondary ml-4 mb-4 mt-10"><%= t(".add_result_link") %></button>
+      <button class="button button__sm button__transparent-secondary ml-4 mb-4 mt-10 add-result-link-item"><%= t(".add_result_link") %></button>
     </div>
   </div>
 </div>

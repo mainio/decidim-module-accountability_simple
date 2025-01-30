@@ -1,11 +1,11 @@
-<div class="grid-x">
-  <div class="cell auto">
+<div class="card-section">
+  <div class="row column">
     <%= form.select :icon, result_detail_icons, include_blank: true, tabs_id: tabs_id %>
   </div>
-  <div class="cell auto">
+  <div class="row column">
     <%= form.translated :text_field, :title, tabs_id: tabs_id %>
   </div>
-  <div class="cell auto">
+  <div class="row column">
     <%= form.translated :text_field, :description, tabs_id: tabs_id %>
   </div>
 </div>

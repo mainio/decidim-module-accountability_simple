@@ -27,7 +27,7 @@ module Decidim
 
         def map_model(model)
           result = model.accountability_result_detailable
-          self.description = model.values.find_by(result: result).try(:description)
+          self.description = model.values.find_by(result:).try(:description)
         end
       end
     end

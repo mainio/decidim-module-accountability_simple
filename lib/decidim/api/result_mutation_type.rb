@@ -72,9 +72,9 @@ module Decidim
         form = Decidim::Accountability::Admin::ResultForm.from_params(
           "result" => result_params(**args)
         ).with_context(
-          current_organization: current_organization,
+          current_organization:,
           current_component: object.component,
-          current_user: current_user
+          current_user:
         )
 
         result = object
@@ -126,9 +126,9 @@ module Decidim
         form = Decidim::AccountabilitySimple::Admin::ResultLinkCollectionForm.from_params(
           link_collection_params(attributes)
         ).with_context(
-          current_organization: current_organization,
+          current_organization:,
           current_component: object.component,
-          current_user: current_user,
+          current_user:,
           result: object
         )
 
@@ -154,7 +154,7 @@ module Decidim
       def update_link_collection(id:, attributes:)
         enforce_permission_to :update, :result, result: object
 
-        link_collection = object.result_link_collections.find_by(id: id)
+        link_collection = object.result_link_collections.find_by(id:)
         raise GraphQL::ExecutionError, "Invalid link collection ID provided: #{id}" unless link_collection
 
         params = link_collection_params(attributes)
@@ -163,9 +163,9 @@ module Decidim
         params[:key] = link_collection.key if attributes.key.blank?
 
         form = Decidim::AccountabilitySimple::Admin::ResultLinkCollectionForm.from_params(params).with_context(
-          current_organization: current_organization,
+          current_organization:,
           current_component: object.component,
-          current_user: current_user,
+          current_user:,
           result: object
         )
 
@@ -191,7 +191,7 @@ module Decidim
       def delete_link_collection(id:)
         enforce_permission_to :destroy, :result, result: object
 
-        link_collection = object.result_link_collections.find_by(id: id)
+        link_collection = object.result_link_collections.find_by(id:)
         raise GraphQL::ExecutionError, "Invalid link collection ID provided: #{id}" unless link_collection
 
         Decidim.traceability.perform_action!("delete", link_collection, current_user) do

@@ -47,9 +47,9 @@ module Decidim
             "title" => title
           }
         ).with_context(
-          current_organization: current_organization,
+          current_organization:,
           current_component: object.component,
-          current_user: current_user
+          current_user:
         )
 
         Decidim::Accountability::Admin::CreateTimelineEntry.call(form) do
@@ -70,7 +70,7 @@ module Decidim
       end
 
       def update(id:, entry_date:, description:, end_date: nil, title: nil)
-        entry = object.timeline_entries.find_by(id: id)
+        entry = object.timeline_entries.find_by(id:)
         unless entry
           return GraphQL::ExecutionError.new(
             I18n.t("decidim.accountability.admin.timeline_entries.update.invalid")
@@ -87,9 +87,9 @@ module Decidim
             "title" => title
           }
         ).with_context(
-          current_organization: current_organization,
+          current_organization:,
           current_component: object.component,
-          current_user: current_user
+          current_user:
         )
 
         Decidim::Accountability::Admin::UpdateTimelineEntry.call(form, entry, current_user) do
@@ -110,7 +110,7 @@ module Decidim
       end
 
       def destroy(id:)
-        entry = object.timeline_entries.find_by(id: id)
+        entry = object.timeline_entries.find_by(id:)
         unless entry
           return GraphQL::ExecutionError.new(
             I18n.t("decidim.accountability.admin.timeline_entries.update.invalid")

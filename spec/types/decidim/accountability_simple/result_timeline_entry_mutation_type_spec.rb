@@ -7,8 +7,8 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
   include_context "with a graphql class type"
   include_context "with accountability graphql mutation"
 
-  let(:model) { create(:result, component: component) }
-  let(:component) { create(:accountability_component, participatory_space: participatory_space) }
+  let(:model) { create(:result, component:) }
+  let(:component) { create(:accountability_component, participatory_space:) }
   let(:participatory_space) { create(:participatory_process, organization: current_organization) }
   let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
 

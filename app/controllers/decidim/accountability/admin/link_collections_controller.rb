@@ -13,12 +13,18 @@ module Decidim
 
         def new
           enforce_permission_to :create, :result
-          @form = form(AccountabilitySimple::Admin::ResultLinkCollectionForm).from_params({}, result: result)
+          @form = form(AccountabilitySimple::Admin::ResultLinkCollectionForm).from_params({}, result:)
+        end
+
+        def edit
+          @link_collection = collection.find(params[:id])
+          enforce_permission_to :update, :result, result: @link_collection.result
+          @form = form(AccountabilitySimple::Admin::ResultLinkCollectionForm).from_model(@link_collection, result:)
         end
 
         def create
           enforce_permission_to :create, :result
-          @form = form(AccountabilitySimple::Admin::ResultLinkCollectionForm).from_params(params, result: result)
+          @form = form(AccountabilitySimple::Admin::ResultLinkCollectionForm).from_params(params, result:)
 
           CreateLinkCollection.call(@form) do
             on(:ok) do
@@ -33,16 +39,10 @@ module Decidim
           end
         end
 
-        def edit
-          @link_collection = collection.find(params[:id])
-          enforce_permission_to :update, :result, result: @link_collection.result
-          @form = form(AccountabilitySimple::Admin::ResultLinkCollectionForm).from_model(@link_collection, result: result)
-        end
-
         def update
           @link_collection = collection.find(params[:id])
           enforce_permission_to :update, :result, result: @link_collection.result
-          @form = form(AccountabilitySimple::Admin::ResultLinkCollectionForm).from_params(params, result: result)
+          @form = form(AccountabilitySimple::Admin::ResultLinkCollectionForm).from_params(params, result:)
 
           UpdateLinkCollection.call(@form, @link_collection) do
             on(:ok) do

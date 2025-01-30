@@ -36,7 +36,7 @@ describe Decidim::Accountability::ResultType, type: :graphql do
     end
 
     it "returns the result's main image URL" do
-      expect(response["mainImage"]).to eq(model.attached_uploader(:main_image).url)
+      expect(normalize_url(response["mainImage"])).to eq(normalize_url(model.attached_uploader(:main_image).url))
     end
   end
 
@@ -76,7 +76,7 @@ describe Decidim::Accountability::ResultType, type: :graphql do
     end
 
     it "returns the result's list image URL" do
-      expect(response["listImage"]).to eq(model.attached_uploader(:list_image).url)
+      expect(normalize_url(response["listImage"])).to eq(normalize_url(model.attached_uploader(:list_image).url))
     end
   end
 
@@ -246,7 +246,7 @@ describe Decidim::Accountability::ResultType, type: :graphql do
     let(:query) { %({ tags { id name { translation(locale: "en") } } }) }
 
     let!(:tag) { create(:tag, organization: model.organization) }
-    let!(:tagging) { create(:tagging, taggable: model, tag: tag) }
+    let!(:tagging) { create(:tagging, taggable: model, tag:) }
 
     it "returns the correct location" do
       expect(response["tags"]).to eq([{ "id" => tag.id.to_s, "name" => { "translation" => tag.name["en"] } }])
@@ -260,5 +260,9 @@ describe Decidim::Accountability::ResultType, type: :graphql do
         expect(response["tags"]).to eq([])
       end
     end
+  end
+
+  def normalize_url(url)
+    url.sub(%r{(/rails/active_storage/disk/)[^/]+(/city\.jpeg)$}, "REMOVED SIGNATURE FOR TIMESTAMPS")
   end
 end

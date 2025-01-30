@@ -29,18 +29,18 @@ describe "Admin validates result images" do # rubocop:disable RSpec/DescribeClas
         let(:params) do
           {
             resource_class: "Decidim::Accountability::Result",
-            property: property,
+            property:,
             blob: blob.signed_id,
             form_class: "Decidim::Accountability::Admin::ResultForm"
           }
         end
 
         it "validates the image" do
-          post(request_path, params: params, headers: headers)
+          post(request_path, params:, headers:)
 
           expect(response).to have_http_status(:ok)
 
-          messages = JSON.parse(response.body)
+          messages = response.parsed_body
           expect(messages).to be_empty
         end
       end

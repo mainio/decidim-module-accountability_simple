@@ -23,7 +23,8 @@ module Decidim
         validates_upload :list_image, uploader: Decidim::AccountabilitySimple::ListImageUploader
 
         has_many :result_details, -> { order(:position) }, as: :accountability_result_detailable,
-                                                           class_name: "Decidim::AccountabilitySimple::ResultDetail"
+                                                           class_name: "Decidim::AccountabilitySimple::ResultDetail",
+                                                           dependent: :destroy
         has_many :result_detail_values, class_name: "Decidim::AccountabilitySimple::ResultDetailValue",
                                         foreign_key: "decidim_accountability_result_id",
                                         dependent: :destroy
@@ -48,8 +49,8 @@ module Decidim
           return result_details unless use_default_details?
 
           Decidim::AccountabilitySimple::ResultDetail.where(
-            "(accountability_result_detailable_type = ? AND accountability_result_detailable_id = ?)"\
-            " OR "\
+            "(accountability_result_detailable_type = ? AND accountability_result_detailable_id = ?) " \
+            "OR " \
             "(accountability_result_detailable_type = ? AND accountability_result_detailable_id = ?)",
             Decidim::Accountability::Result.name,
             id,

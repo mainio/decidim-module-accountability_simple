@@ -7,15 +7,15 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
   include_context "with a graphql class type"
   include_context "with accountability graphql mutation"
 
-  let(:model) { create(:result, component: component) }
-  let(:component) { create(:accountability_component, participatory_space: participatory_space) }
+  let(:model) { create(:result, component:) }
+  let(:component) { create(:accountability_component, participatory_space:) }
   let(:participatory_space) { create(:participatory_process, organization: current_organization) }
   let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
 
   describe "update" do
     let(:default_detail) { create(:result_detail, accountability_result_detailable: component) }
-    let(:status) { create(:status, component: component) }
-    let(:category) { create(:category, participatory_space: participatory_space) }
+    let(:status) { create(:status, component:) }
+    let(:category) { create(:category, participatory_space:) }
     let(:scope) { create(:scope, organization: current_organization) }
 
     let(:title) { generate_localized_title }
@@ -29,8 +29,8 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
     let(:link_label) { generate_localized_title }
     let(:link_url) { Decidim::Faker::Localized.localized { Faker::Internet.url } }
 
-    let(:proposal) { create(:proposal, component: create(:proposal_component, participatory_space: participatory_space)) }
-    let(:project) { create(:project, component: create(:budgets_component, participatory_space: participatory_space)) }
+    let(:proposal) { create(:proposal, component: create(:proposal_component, participatory_space:)) }
+    let(:project) { create(:project, component: create(:budgets_component, participatory_space:)) }
 
     let(:start_date) { Faker::Date.backward(days: 30) }
     let(:end_date) { Faker::Date.forward(days: 30) }
@@ -350,7 +350,7 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
     end
 
     context "when setting the result unpublished" do
-      let(:model) { create(:result, component: component, published_at: Time.current) }
+      let(:model) { create(:result, component:, published_at: Time.current) }
 
       let(:query) { "{ publicity(published: false) { id } }" }
 

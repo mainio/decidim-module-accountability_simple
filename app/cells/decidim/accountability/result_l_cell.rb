@@ -10,6 +10,10 @@ module Decidim
         model.scope.present?
       end
 
+      def has_category?
+        model.category.present?
+      end
+
       def card_classes
         classes = super
         classes = classes.split unless classes.is_a?(Array)
