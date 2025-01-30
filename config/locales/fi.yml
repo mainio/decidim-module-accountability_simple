@@ -6,6 +6,18 @@ fi:
         list_image: Listauksen kuva
         main_image: Pääkuva
         summary: Tiivistelmä
+      result_detail:
+        description: Kuvaus
+        icon: Ikoni
+        title: Otsikko
+      result_link:
+        collection_id: Linkkikokoelma
+        label: Teksti
+        url: URL-osoite
+      result_link_collection:
+        key: Tunniste
+        name: Nimi
+        position: Järjestysnumero
       timeline_entry:
         end_date: Päättymispäivä
         title: Otsake (päivämäärien tilalla)
@@ -20,6 +32,8 @@ fi:
         attachment_collections: Kansiot
         attachments: Liitteet
         default_details: Oletustiedot
+        link_collections: Linkkikokoelmat
+        new_link_collection: New link collection
       admin:
         details:
           detail:
@@ -35,6 +49,26 @@ fi:
           update:
             invalid: Oletustietojen päivitys epäonnistui
             success: Oletustietojen päivitys onnistui
+        link_collections:
+          create:
+            error: Linkkikokoelman luonti epäonnistui.
+            success: Linkkikokoelman luonti onnistui.
+          destroy:
+            success: Linkkikokoelman poisto onnistui.
+          edit:
+            title: Muokkaa linkkikokoelmaa
+            update: Päivitä linkkikokoelmaa
+          index:
+            link_collections_title: Linkkikokoelmat
+          update:
+            error: Linkkikokoelman päivittäminen epäonnistui.
+            success: Linkkikokoelman päivittäminen onnistui.
+          new:
+            create: Luo linkkikokoelma
+            title: Uusi linkkikokoelma
+        models:
+          link_collection:
+            name: Linkkikokoelma
         results:
           authors_picker:
             collection_name: Hankkeet
@@ -72,11 +106,12 @@ fi:
             comments: Kommentit
         timeline_entry:
           fields:
+            description: Kuvaus
             end_date: Päättymispäivä
             title: Otsikko
       result_l:
         card_label: "Hanke: %{title}"
-      result_m:
+      result_g:
         card_label: "Hanke: %{title}"
         progress_explanation: Hankkeen edistyminen
         tags_title: Tunnisteet
@@ -87,13 +122,19 @@ fi:
             one: Löytyi 1 hanke
             other: "Löytyi %{count} hanketta"
         filters:
-          category: Aihepiiri
-          category_prompt: Valitse aihepiiri
+          category: Teema
+          categories_values:
+            all: Kaikki teemat
+          favorites: Näytä suosikkini
+          label: Hankkeiden haku
           open: Avaa
           related_to: Liittyy
           reset: Tyhjennä rajaukset
           scope: Alue
+          scopes_values:
+            all: Kaikki alueet
           search: Hae
+          term: Hakusana
           title: Etsi hankkeista
         filters_small_view:
           close_modal: Sulje ikkuna
@@ -105,11 +146,28 @@ fi:
           show_map: Näytä tulokset kartalla
         nav_breadcrumb:
           all_projects: Kaikki hankkeet
+        orders:
+          alphabetical: Aakkosjärjestys
+          category: Teeman mukaan
+          label: Järjestä hankkeet
+          scope: Alueen mukaan
         result:
           project_info: Hankeinfo
         result_actions:
           share: Jaa hanke
           show_comments: Katso hankkeen kommentit
+          show_on_map: Näytä kartalla
+        result_answer:
+          title: Ehdotuksen arviointi
+        result_attributes:
+          attributes:
+            category: Teema
+            id: Numero (ID)
+            location: Sijainti
+            published_at: Julkaisuaika
+            reference: Viite
+            scope: Alue
+          title: Tiedot
         show:
           stats:
             scope: Teema
@@ -118,12 +176,15 @@ fi:
           back_to_list: Näytä muut hankkeet
           locations: Hanke kartalla
           subresults: Alihankkeet
+        show_result_body:
+          description: Hankkeen kuvaus
+          subtitle: Hanke
         stats_box:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
-          location: Sijainti
-          show_on_map: Näytä kartalla
+          implementation_phases: Toteutuksen vaiheet
+          progress: Valmiusaste
         timeline:
-          title: Toteutuksen aikajana
+          title: Aikataulu
     accountability_simple:
       models:
         result_detail:
@@ -166,11 +227,13 @@ fi:
       included_ideas:
         result_idea: Liitetyt ideat
       included_plans:
-        result_plan: Liitetyt yhteiskehittämisehdotukset
+        result_plan: Liitetyt alkuperäiset ehdotukset
       included_projects:
         result_project: Liitetyt ehdotukset
       included_proposals:
         result_proposal: Liitetyt ehdotukset
+    tags:
+      filter_results_for_tag: Suodata tulokset tunnisteelle %{tag}
   forms:
     scopes_picker:
       others: Muut
