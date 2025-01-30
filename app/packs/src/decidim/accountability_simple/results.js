@@ -3,7 +3,7 @@
 
   if (openShareModalButton) {
     openShareModalButton.addEventListener("click", () => {
-      window.Decidim.currentDialogs["socialShare"].open();
+      window.Decidim.currentDialogs.socialShare.open();
     })
   } else {
     console.error("openShareModalButton not found")
