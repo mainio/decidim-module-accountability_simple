@@ -13,5 +13,8 @@
         <%== translated_attribute component_settings.intro %>
       </div>
     </div>
+    <div class="columns medium-6 mediumlarge-4">
+      <%= render partial: "decidim/nav/shared/action_panel_links", locals: { navigable: current_component } %>
+    </div>
   </div>
 <% end %>

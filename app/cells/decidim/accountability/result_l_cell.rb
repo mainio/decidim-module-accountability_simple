@@ -17,11 +17,17 @@ module Decidim
       private
 
       def resource_image_variant
+        return :box if has_list_image?
+
         :thumbnail_box
       end
 
       def category_image_variant
         :card_box
+      end
+
+      def creation_date_status
+        l(model.published_at.to_date, format: :decidim_short)
       end
     end
   end

@@ -10,6 +10,7 @@ module Decidim
       argument :position, GraphQL::Types::Int, required: true
       argument :label, GraphQL::Types::JSON, required: true
       argument :url, GraphQL::Types::JSON, required: true
+      argument :collection, Decidim::AccountabilitySimple::ResultLinkCollectionInput, required: false
     end
   end
 end

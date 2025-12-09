@@ -1,0 +1,12 @@
+<% collection = result.result_link_collections.find_by(key: collection_key) %>
+
+<% if collection && collection.links.any? %>
+  <% collection.links.each do |link| %>
+    <%= link_to translated_attribute(link.url), class: "asset", target: "_blank", data: { external_link_spacer: "" } do %>
+      <span class="asset__label"><%= translated_attribute(link.label) %></span>
+      <span class="asset__icon">
+        <%= icon "external-link", role: "img", "aria-hidden": true %>
+      </span>
+    <% end %>
+  <% end %>
+<% end %>

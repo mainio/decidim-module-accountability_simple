@@ -1,6 +1,6 @@
 <%
 image = nil
-image = result.attached_uploader(:list_image).path if result.list_image && result.list_image.attached?
+image = result.attached_uploader(:list_image).url if result.list_image && result.list_image.attached?
 
 add_decidim_meta_tags({
   description: translated_attribute(result.description),

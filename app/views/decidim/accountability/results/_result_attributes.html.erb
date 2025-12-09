@@ -1,0 +1,61 @@
+<div class="attributes">
+  <h2 class="resource__aside__title"><%= t(".title") %></h2>
+
+  <% if result.reference.present? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.reference") %></h3>
+      <div class="attributes__item__value"><%= result.reference %></div>
+    </div>
+  <% end %>
+  <% if root_result.scope %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name">
+        <% if root_result.scope.parent %>
+          <%= translated_attribute root_result.scope.parent.name %>
+        <% else %>
+          <%= t(".attributes.scope") %>
+        <% end %>
+      </h3>
+      <div class="attributes__item__value">
+        <%= translated_attribute(root_result.scope.name) %>
+      </div>
+    </div>
+  <% end %>
+  <% if root_result.category.present? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.category") %></h3>
+      <div class="attributes__item__value">
+        <% if result.category.parent %>
+          <%= translated_attribute(root_result.category.parent.name) %> -
+        <% end %>
+        <%= translated_attribute(root_result.category.name) %>
+      </div>
+    </div>
+  <% end %>
+  <% if result.published? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.published_at") %></h3>
+      <div class="attributes__item__value"><%= l(result.published_at.to_date, format: :decidim_short) %></div>
+    </div>
+  <% end %>
+
+  <%= render partial: "result_attributes_extra", locals: { result: result, root_result: root_result } %>
+
+  <% result.result_all_details.each do |detail| %>
+    <% description = translated_attribute(detail.description_for(result)) %>
+    <% if description.present? %>
+      <div class="attributes__item">
+        <h3 class="attributes__item__name"><%= translated_attribute(detail.title) %></h3>
+        <div class="attributes__item__value"><%= description %></div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if result.locations.any? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.location") %></h3>
+      <div class="attributes__item__value"><%= result.locations.map(&:address).join(", ") %></div>
+    </div>
+  <% end %>
+</div>
+

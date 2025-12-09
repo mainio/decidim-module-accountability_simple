@@ -7,13 +7,17 @@ module Decidim
         extend ActiveSupport::Concern
 
         included do
-          translatable_attribute :title, String
           attribute :end_date, Decidim::Attributes::LocalizedDate
 
-          # Remove the entry date presence validation
-          _validators.reject! { |key, _| key == :entry_date }
-          _validate_callbacks.each do |callback|
-            _validate_callbacks.delete(callback) if callback.raw_filter.attributes == [:entry_date]
+          # Remove the title and entry date presence validations
+          #
+          # NOTE: Title became a required field in core but since there are
+          # legacy integrations, we need to keep it optional.
+          [:entry_date, :title].each do |attr|
+            _validators.reject! { |key, _| key == attr }
+            _validate_callbacks.each do |callback|
+              _validate_callbacks.delete(callback) if callback.raw_filter.attributes == [attr]
+            end
           end
         end
       end

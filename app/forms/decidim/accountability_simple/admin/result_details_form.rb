@@ -7,6 +7,8 @@ module Decidim
       class ResultDetailsForm < Decidim::Form
         include TranslatableAttributes
 
+        mimic :result_detail
+
         translatable_attribute :title, String
         translatable_attribute :description, String
 

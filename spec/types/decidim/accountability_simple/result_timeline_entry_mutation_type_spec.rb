@@ -44,6 +44,34 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
       expect(model.timeline_entries.first.entry_date).to eq(entry_date)
       expect(model.timeline_entries.first.end_date).to eq(end_date)
     end
+
+    # Note that this is important for backwards compatibility because some of
+    # the legacy integration apps are relying on creating the entries without
+    # titles.
+    context "without a title" do
+      let(:query) do
+        %(
+          {
+            create(
+              description: #{convert_value(description)},
+              entryDate: "#{entry_date.to_date.iso8601}",
+              endDate: "#{end_date.to_date.iso8601}"
+            ) { id }
+          }
+        )
+      end
+
+      it "creates a new timeline entry" do
+        expect { response }.to change(Decidim::Accountability::TimelineEntry, :count).by(1)
+
+        expect(response["create"]["id"]).to match(/[0-9]+/)
+
+        model.reload
+        expect(model.timeline_entries.first.description).to eq(description)
+        expect(model.timeline_entries.first.entry_date).to eq(entry_date)
+        expect(model.timeline_entries.first.end_date).to eq(end_date)
+      end
+    end
   end
 
   describe "update" do
@@ -75,6 +103,36 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
       expect(entry.description).to include(description)
       expect(entry.entry_date).to eq(entry_date)
       expect(entry.end_date).to eq(end_date)
+    end
+
+    # Note that this is important for backwards compatibility because some of
+    # the legacy integration apps are relying on creating the entries without
+    # titles.
+    context "without a title" do
+      let(:query) do
+        %(
+          {
+            update(
+              id: "#{entry.id}",
+              description: #{convert_value(description)},
+              entryDate: "#{entry_date.to_date.iso8601}",
+              endDate: "#{end_date.to_date.iso8601}"
+            ) { id }
+          }
+        )
+      end
+
+      it "creates a new timeline entry" do
+        expect { response }.not_to change(Decidim::Accountability::TimelineEntry, :count)
+
+        expect(response["update"]["id"]).to eq(entry.id.to_s)
+
+        entry.reload
+        expect(entry.title).to match("machine_translations" => instance_of(Hash))
+        expect(entry.description).to include(description)
+        expect(entry.entry_date).to eq(entry_date)
+        expect(entry.end_date).to eq(end_date)
+      end
     end
   end
 
