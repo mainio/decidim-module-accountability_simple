@@ -224,13 +224,13 @@ fi:
             geocoding_enabled: Paikkatieto sallittu
     resource_links:
       included_ideas:
-        result_idea: Liitetyt ideat
+        result_idea: Ideat
       included_plans:
-        result_plan: Liitetyt alkuperäiset ehdotukset
+        result_plan: Alkuperäiset ehdotukset
       included_projects:
-        result_project: Liitetyt ehdotukset
+        result_project: Äänestetyt ehdotukset
       included_proposals:
-        result_proposal: Liitetyt ehdotukset
+        result_proposal: Ehdotukset
     tags:
       filter_results_for_tag: Suodata tulokset tunnisteelle %{tag}
   forms:

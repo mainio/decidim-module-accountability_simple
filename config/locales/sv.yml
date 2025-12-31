@@ -216,13 +216,13 @@ sv:
             geocoding_enabled: Geokodning aktiverad
     resource_links:
       included_ideas:
-        result_idea: Relaterade idéer
+        result_idea: Idéer
       included_plans:
-        result_plan: Relaterade ursprungliga förslag
+        result_plan: Ursprungliga förslag
       included_projects:
-        result_project: Relaterade förslag
+        result_project: Röstade förslag
       included_proposals:
-        result_proposal: Relaterade förslag
+        result_proposal: Förslag
     tags:
       filter_results_for_tag: Filtrera resultat för tagg %{tag}
   forms:

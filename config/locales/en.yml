@@ -219,13 +219,13 @@ en:
             geocoding_enabled: Geocoding enabled
     resource_links:
       included_ideas:
-        result_idea: Related ideas
+        result_idea: Ideas
       included_plans:
-        result_plan: Related original proposals
+        result_plan: Original proposals
       included_projects:
-        result_project: Related proposals
+        result_project: Voted proposals
       included_proposals:
-        result_proposal: Related proposals
+        result_proposal: Proposals
     tags:
       filter_results_for_tag: Filter results for tag %{tag}
   forms:
