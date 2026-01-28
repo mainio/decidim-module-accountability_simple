@@ -1,17 +1,16 @@
 <%
-# Note that the order is important as the resource links are created in the
-# order that they are defined in the API query.
-linked_plans = Decidim::ResourceLink.where(
+# There should always be only one related project for each result.
+project = Decidim::ResourceLink.where(
   from_type: "Decidim::Accountability::Result",
   from_id: result.id,
-  name: "included_plans",
-  to_type: "Decidim::Plans::Plan"
-).order(:id).map(&:to)
+  name: "included_projects",
+  to_type: "Decidim::Budgets::Project"
+).order(:id).first&.to
 
-answers = linked_plans.map { |plan| translated_attribute(plan.answer) }.select { |answer| strip_tags(answer).strip.present? }
+answer = translated_attribute(project&.answer) if project.respond_to?(:answer)
 %>
 
-<% if answers.any? %>
+<% if answer.present? && strip_tags(answer).strip.present? %>
   <div class="accordion accordion--large" data-accordion data-multi-expand="true" data-allow-all-closed="true">
     <div class="accordion-item" data-accordion-item>
       <a role="button" class="accordion-title" href="#" aria-expanded="false">
@@ -26,7 +25,7 @@ answers = linked_plans.map { |plan| translated_attribute(plan.answer) }.select {
         </span>
       </a>
       <div class="accordion-content" data-tab-content="" role="region" aria-hidden="true">
-        <%== answers.first %>
+        <%= decidim_sanitize_editor_admin(answer) %>
       </div>
     </div>
   </div>
