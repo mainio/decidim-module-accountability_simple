@@ -92,8 +92,8 @@ module Decidim
       end
 
       def category_image_path(cat)
+        return unless cat
         return unless cat.respond_to?(:category_image_url)
-        return unless cat.category_image.attached?
 
         cat.category_image_url(category_image_variant)
       end
