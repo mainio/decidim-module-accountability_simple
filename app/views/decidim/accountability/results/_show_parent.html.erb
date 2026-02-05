@@ -19,8 +19,8 @@ root_result = root_result.parent while root_result.parent
 
         <% if result.main_image && result.main_image.attached? %>
           <%= image_tag result.attached_uploader(:main_image).variant_url(:main), alt: translated_attribute(result.title), class: "resource__image" %>
-        <% elsif result.category.present? && result.category.respond_to?(:category_image_url) && result.category.category_image.attached? %>
-          <%= image_tag result.category.category_image_url(:default), alt: translated_attribute(result.title), class: "resource__image" %>
+        <% elsif result.category.present? && result.category.respond_to?(:category_image_url_for) && (cat_img = result.category.category_image_url_for(result, :default)).present? %>
+          <%= image_tag cat_img, alt: translated_attribute(result.title), class: "resource__image" %>
         <% end %>
       </div>
     </div>
