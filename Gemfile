@@ -13,11 +13,11 @@ require_relative "#{base_path}lib/decidim/accountability_simple/version"
 DECIDIM_VERSION = Decidim::AccountabilitySimple.decidim_version
 
 gem "decidim", DECIDIM_VERSION
-gem "decidim-apifiles", github: "mainio/decidim-module-apifiles"
-gem "decidim-favorites", github: "mainio/decidim-module-favorites"
-gem "decidim-locations", github: "mainio/decidim-module-locations"
-gem "decidim-nav", github: "mainio/decidim-module-nav"
-gem "decidim-tags", github: "mainio/decidim-module-tags"
+gem "decidim-apifiles", github: "mainio/decidim-module-apifiles", branch: "release/0.28-stable"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.28-stable"
+gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "release/0.28-stable"
+gem "decidim-nav", github: "mainio/decidim-module-nav", branch: "release/0.28-stable"
+gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.28-stable"
 
 gem "decidim-accountability_simple", path: "."
 
@@ -30,6 +30,9 @@ gem "concurrent-ruby", "1.3.4"
 gem "puma", ">= 6.4.2"
 
 gem "faker", "~> 3.2.2"
+
+# This locks nokogiri to a version < 1.17 so it doesn't cause issues
+gem "nokogiri", "1.16.8"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
@@ -46,8 +49,5 @@ group :development do
   gem "rubocop", "~>1.28"
   gem "rubocop-faker"
   gem "rubocop-rspec", "2.20"
-
-  gem "spring", "~> 2.0"
-  gem "spring-watcher-listen", "~> 2.0"
   gem "web-console", "~> 4.2"
 end
