@@ -11,34 +11,25 @@ module Decidim
         include Decidim::AttachmentAttributesMethods
 
         included do
+          fetch_form_attributes :scope, :component, :category, :parent_id, :title, :description, :start_date,
+                              :end_date, :progress, :decidim_accountability_status_id, :external_id, :weight,
+                              :use_default_details
+
           private
 
           attr_reader :form # Needed for attachment_attributes
 
-          def create_result
-            params = {
-              component: @form.current_component,
-              scope: @form.scope,
-              category: @form.category,
-              parent_id: @form.parent_id,
-              title: @form.title,
-              summary: @form.summary,
-              description: @form.description,
-              start_date: @form.start_date,
-              end_date: @form.end_date,
-              progress: @form.progress,
-              decidim_accountability_status_id: @form.decidim_accountability_status_id,
-              external_id: @form.external_id.presence,
-              weight: @form.weight,
-              use_default_details: @form.use_default_details
-            }.merge(attachment_attributes(:main_image, :list_image)).merge(extra_attributes)
+          def attributes
+            super
+              .merge(attachment_attributes(:main_image, :list_image))
+              .merge(extra_attributes)
+          end
 
-            @result = Decidim.traceability.create!(
-              Decidim::Accountability::Result,
-              @form.current_user,
-              params,
-              visibility: "all"
-            )
+          def run_after_hooks
+            link_meetings
+            link_proposals
+            link_projects
+            notify_proposal_followers
 
             create_result_authors
             create_result_default_details

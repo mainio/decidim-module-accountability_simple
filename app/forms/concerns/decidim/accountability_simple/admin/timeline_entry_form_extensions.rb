@@ -16,7 +16,7 @@ module Decidim
           [:entry_date, :title].each do |attr|
             _validators.reject! { |key, _| key == attr }
             _validate_callbacks.each do |callback|
-              _validate_callbacks.delete(callback) if callback.raw_filter.attributes == [attr]
+              _validate_callbacks.delete(callback) if callback.filter.attributes == [attr]
             end
           end
         end

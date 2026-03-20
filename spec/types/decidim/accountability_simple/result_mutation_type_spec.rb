@@ -104,6 +104,7 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
       expect(model.weight).to eq(10)
       expect(model.category).to eq(category)
       expect(model.scope).to eq(scope)
+      raise model.result_default_details.first.value_for(model).inspect
       expect(model.result_default_details.first.value_for(model).description).to include(default_detail_value)
       expect(model.result_details.count).to eq(1)
       expect(model.result_details.first.title).to include(detail_title)

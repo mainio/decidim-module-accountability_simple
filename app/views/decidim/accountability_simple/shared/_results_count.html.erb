@@ -1,1 +1,8 @@
-<p class="lead"><%= heading_parent_level_results(results.total_count) %></p>
+<p class="lead">
+  <%= cell(
+    "decidim/accountability/status",
+    nil,
+    count: results.total_count,
+    extra_classes: "accountability__status__project"
+  ) %>
+</p>

@@ -79,7 +79,7 @@ describe Decidim::AccountabilitySimple::ResultDetailType, type: :graphql do
               module_function
 
               def before_query(query)
-                query.context.scoped_context.merge!(parent: result)
+                query.context.scoped_context.merge!({ parent: result })
               end
 
               def after_query(_query); end

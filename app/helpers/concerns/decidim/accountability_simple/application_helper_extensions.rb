@@ -6,26 +6,6 @@ module Decidim
       extend ActiveSupport::Concern
       include Decidim::LayoutHelper
 
-      included do
-        def heading_parent_level_results(count)
-          text = translated_attribute(component_settings.heading_parent_level_results).presence
-          if text
-            "#{text}: #{count}"
-          else
-            t("results.count.results_count", scope: "decidim.accountability", count:)
-          end
-        end
-
-        def heading_leaf_level_results(count)
-          text = translated_attribute(component_settings.heading_leaf_level_results).presence
-          if text
-            "#{text}: #{count}"
-          else
-            t("results.count.results_count", scope: "decidim.accountability", count:)
-          end
-        end
-      end
-
       def filter_categories_values
         organization = current_component.participatory_space.organization
 

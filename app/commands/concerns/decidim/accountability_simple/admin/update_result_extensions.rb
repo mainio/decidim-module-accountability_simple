@@ -15,12 +15,11 @@ module Decidim
 
           attr_reader :form # Needed for attachment_attributes
 
-          def update_result
-            Decidim.traceability.update!(
-              result,
-              @form.current_user,
-              attributes
-            )
+          def run_after_hooks
+            link_proposals
+            link_meetings
+            link_projects
+            send_notifications if should_notify_followers?
 
             update_result_authors
             update_result_default_details
@@ -82,7 +81,7 @@ module Decidim
             form_default_detail.id
           )
 
-          value = record.value_for(@result) || record.values.build(result: @result)
+          value = record.value_for(result) || record.values.build(result:)
           value.attributes = { description: form_default_detail.description }
           value.save!
         end
@@ -94,8 +93,8 @@ module Decidim
             position: form_result_detail.position
           }
 
-          record = @result.result_details.find_by(id: form_result_detail.id) ||
-                   @result.result_details.build(result_detail_attributes)
+          record = result.result_details.find_by(id: form_result_detail.id) ||
+                   result.result_details.build(result_detail_attributes)
 
           if record.persisted?
             if form_result_detail.deleted?
@@ -107,7 +106,7 @@ module Decidim
             record.save!
           end
 
-          value = record.value_for(@result) || record.values.build(result: @result)
+          value = record.value_for(result) || record.values.build(result:)
           value.attributes = { description: form_result_detail.description }
           value.save!
 
@@ -115,7 +114,7 @@ module Decidim
         end
 
         def update_result_links
-          @form.result_links.each do |form_result_link|
+          form.result_links.each do |form_result_link|
             update_result_link(form_result_link)
           end
         end
