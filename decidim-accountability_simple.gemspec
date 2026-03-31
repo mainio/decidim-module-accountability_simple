@@ -34,4 +34,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "decidim-nav", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-participatory_processes", Decidim::AccountabilitySimple.decidim_version
   spec.add_dependency "decidim-tags", Decidim::AccountabilitySimple.decidim_version
+
+  # These extra development dependencies are needed for factory loading for the
+  # tests
+  spec.add_development_dependency "decidim-assemblies", Decidim::AccountabilitySimple.decidim_version
+  spec.add_development_dependency "decidim-comments", Decidim::AccountabilitySimple.decidim_version
 end
