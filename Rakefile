@@ -2,13 +2,15 @@
 
 require "decidim/dev/common_rake"
 
-def install_module(path)
+def install_module(path, test: false)
   ENV["accountability_simple"] = ""
   Dir.chdir(path) do
+    env = {}
+
     # Disable Spring to evade reloading error.
     # (Spring reloads, and therefore needs the application to have reloading enabled.) This is disabled by default.
 
-    env = { "DISABLE_SPRING" => "1", "RAILS_ENV" => "test" }
+    env["DISABLE_SPRING"] = "1" if test
 
     system(env, "bundle exec rails decidim_favorites:install:migrations")
     system(env, "bundle exec rails decidim_locations:install:migrations")
@@ -32,7 +34,7 @@ desc "Generates a dummy app for testing"
 task test_app: "decidim:generate_external_test_app" do
   ENV["accountability_simple"] = "create_app"
   ENV["RAILS_ENV"] = "test"
-  install_module("spec/decidim_dummy_app")
+  install_module("spec/decidim_dummy_app", test: true)
 end
 
 desc "Generates a development app"
