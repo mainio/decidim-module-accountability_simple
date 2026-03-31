@@ -5,7 +5,7 @@ module Decidim
     module Admin
       # This class holds a Form to update meeting agenda items
       class ComponentDetailsForm < Decidim::Form
-        attribute :details, Array[DefaultDetailsForm]
+        attribute :details, [DefaultDetailsForm]
 
         def to_param
           return id if id.present?

@@ -18,14 +18,14 @@ module Decidim
           attribute :remove_main_image, Decidim::AttributeObject::Model::Boolean, default: false
           attribute :remove_list_image, Decidim::AttributeObject::Model::Boolean, default: false
           attribute :use_default_details, Decidim::AttributeObject::Model::Boolean, default: true
-          attribute :author_ids, Array[Integer]
+          attribute :author_ids, [Integer]
 
-          attribute :idea_ids, Array[Integer]
-          attribute :plan_ids, Array[Integer]
+          attribute :idea_ids, [Integer]
+          attribute :plan_ids, [Integer]
 
-          attribute :result_default_details, Array[ResultDefaultDetailsForm]
-          attribute :result_details, Array[ResultDetailsForm]
-          attribute :result_links, Array[ResultLinkForm]
+          attribute :result_default_details, [ResultDefaultDetailsForm]
+          attribute :result_details, [ResultDetailsForm]
+          attribute :result_links, [ResultLinkForm]
 
           validates :main_image, passthru: {
             to: Decidim::Accountability::Result,
@@ -94,16 +94,16 @@ module Decidim
           return [] unless defined?(Decidim::Ideas::Idea)
 
           @ideas ||= Decidim.find_resource_manifest(:ideas).try(:resource_scope, current_component)
-                         &.where(id: idea_ids)
-                         &.order(title: :asc)
+                            &.where(id: idea_ids)
+                            &.order(title: :asc)
         end
 
         def plans
           return [] unless defined?(Decidim::Plans::Plan)
 
           @plans ||= Decidim.find_resource_manifest(:plans).try(:resource_scope, current_component)
-                         &.where(id: plan_ids)
-                         &.order(title: :asc)
+                            &.where(id: plan_ids)
+                            &.order(title: :asc)
         end
       end
     end

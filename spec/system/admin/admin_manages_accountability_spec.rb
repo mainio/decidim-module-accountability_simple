@@ -61,7 +61,7 @@ describe "AdminManagesAccountability" do
       select translated(scope.name), from: :result_decidim_scope_id
       select translated(category.name), from: :result_decidim_category_id
 
-      find_by_id("result_start_date", visible: false).set(Time.now)
+      find_by_id("result_start_date", visible: false).set(Time.zone.now)
       find_by_id("result_end_date", visible: false).set(2.weeks.from_now)
 
       dynamically_attach_file(:result_main_image, Decidim::Dev.asset("city.jpeg"))
