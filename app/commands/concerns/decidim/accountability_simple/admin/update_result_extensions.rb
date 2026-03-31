@@ -127,8 +127,8 @@ module Decidim
             position: form_result_link.position
           }
 
-          record = @result.result_links.find_by(id: form_result_link.id) ||
-                   @result.result_links.build(result_link_attributes)
+          record = result.result_links.find_by(id: form_result_link.id) ||
+                   result.result_links.build(result_link_attributes)
 
           if record.persisted?
             if form_result_link.deleted?

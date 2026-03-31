@@ -12,8 +12,8 @@ module Decidim
 
         included do
           fetch_form_attributes :scope, :component, :category, :parent_id, :title, :description, :start_date,
-                              :end_date, :progress, :decidim_accountability_status_id, :external_id, :weight,
-                              :use_default_details
+                                :end_date, :progress, :decidim_accountability_status_id, :external_id, :weight,
+                                :use_default_details
 
           private
 
@@ -35,8 +35,8 @@ module Decidim
             create_result_default_details
             create_result_details
             create_result_links
-            update_taggings(@result, @form)
-            update_locations(@result, @form)
+            update_taggings(result, @form)
+            update_locations(result, @form)
 
             link_ideas
             link_plans
@@ -72,7 +72,7 @@ module Decidim
             form_default_detail.id
           )
 
-          value = record.value_for(@result) || record.values.build(result: @result)
+          value = record.value_for(result) || record.values.build(result:)
           value.attributes = { description: form_default_detail.description }
           value.save!
         end
@@ -82,7 +82,7 @@ module Decidim
             title: form_result_detail.title,
             icon: form_result_detail.icon,
             position: form_result_detail.position,
-            accountability_result_detailable: @result
+            accountability_result_detailable: result
           }
 
           record = Decidim::AccountabilitySimple::ResultDetail.find_or_create_by!(
@@ -102,7 +102,7 @@ module Decidim
             record.save!
           end
 
-          value = record.value_for(@result) || record.values.build(result: @result)
+          value = record.value_for(result) || record.values.build(result:)
           value.attributes = { description: form_result_detail.description }
           value.save!
 
@@ -117,14 +117,14 @@ module Decidim
 
         def create_result_link(form_result_link)
           result_link_attributes = {
-            link_collection: @result.result_link_collections.find_by(id: form_result_link.collection_id),
+            link_collection: result.result_link_collections.find_by(id: form_result_link.collection_id),
             label: form_result_link.label,
             url: form_result_link.url,
             position: form_result_link.position,
-            result: @result
+            result:
           }
 
-          @result.result_links.create!(result_link_attributes)
+          result.result_links.create!(result_link_attributes)
         end
 
         def link_ideas
