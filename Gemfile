@@ -29,8 +29,6 @@ gem "faker", "~> 3.2.2"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
-  gem "decidim-assemblies", DECIDIM_VERSION
-  gem "decidim-comments", DECIDIM_VERSION
   gem "decidim-dev", DECIDIM_VERSION
 
   # Fix issue with simplecov-cobertura

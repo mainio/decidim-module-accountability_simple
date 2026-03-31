@@ -865,8 +865,6 @@ DEPENDENCIES
   decidim (~> 0.29.0)
   decidim-accountability_simple!
   decidim-apifiles!
-  decidim-assemblies (~> 0.29.0)
-  decidim-comments (~> 0.29.0)
   decidim-dev (~> 0.29.0)
   decidim-favorites!
   decidim-locations!
