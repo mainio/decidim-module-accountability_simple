@@ -9,7 +9,7 @@ module Decidim
           thumbnail: { resize_to_fill: [860, 395], auto_orient: true },
           thumbnail_box: { resize_to_fill: [660, 450], auto_orient: true },
           big: { resize_to_limit: [nil, 1000], auto_orient: true },
-          main: { resize_to_fill: [1500, 920], auto_orient: true }
+          main: { resize_to_fill: [1512, 568], auto_orient: true }
         }
       end
 
