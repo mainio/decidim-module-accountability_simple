@@ -43,6 +43,12 @@ module Decidim
           ).order(:position)
         end
 
+        # By default, the followers are not notified. Therefore, this method is
+        # customized.
+        def users_to_notify_on_comment_created
+          participatory_space.followers
+        end
+
         # Gets the default details and result specific details
         def result_all_details
           return result_details unless use_default_details?
