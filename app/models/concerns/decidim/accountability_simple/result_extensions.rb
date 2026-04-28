@@ -46,7 +46,11 @@ module Decidim
         # By default, the followers are not notified. Therefore, this method is
         # customized.
         def users_to_notify_on_comment_created
-          participatory_space.followers
+          if participatory_space.present? && participatory_space.respond_to?(:followers)
+            participatory_space.followers
+          else
+            Decidim::User.none
+          end
         end
 
         # Gets the default details and result specific details
