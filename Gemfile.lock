@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/mainio/decidim-module-apifiles.git
-  revision: 6633a8bfdda14d3c4d53d9fd649e3d472e3165ee
+  revision: e6a105992ca972f6b9095f04d896842df053775f
+  branch: release/0.29-stable
   specs:
     decidim-apifiles (0.29.0)
       decidim-api (~> 0.29.0)
@@ -9,6 +10,7 @@ GIT
 GIT
   remote: https://github.com/mainio/decidim-module-favorites.git
   revision: ec98fcfa06b21160abd5b6a68325e5c0d4c398b3
+  branch: release/0.29-stable
   specs:
     decidim-favorites (0.29.0)
       decidim-core (~> 0.29.0)
@@ -16,7 +18,8 @@ GIT
 
 GIT
   remote: https://github.com/mainio/decidim-module-locations.git
-  revision: d9ef933b00e3cc6a0749569caba6c01aea29fdc1
+  revision: 3cdcfa1cb3e3d9b4d9cead872807ab4d5f8cc2ae
+  branch: release/0.29-stable
   specs:
     decidim-locations (0.29.0)
       decidim-core (~> 0.29.0)
@@ -25,7 +28,8 @@ GIT
 
 GIT
   remote: https://github.com/mainio/decidim-module-nav.git
-  revision: 9a17d83d67f49773fb38549cd5b7b0f5254d14cc
+  revision: 2046250e6b0c6c661af376bf75acd6f82c40017c
+  branch: release/0.29-stable
   specs:
     decidim-nav (0.29.0)
       decidim-core (~> 0.29.0)
@@ -33,6 +37,7 @@ GIT
 GIT
   remote: https://github.com/mainio/decidim-module-tags.git
   revision: 3f5a9ad814067cf0f50cffc27b13d09b07c7dcc0
+  branch: release/0.29-stable
   specs:
     decidim-tags (0.29.0)
       decidim-core (~> 0.29.0)
@@ -133,9 +138,11 @@ GEM
     acts_as_list (1.2.6)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
-    addressable (2.8.9)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
+    auth-sanitizer (0.1.4)
+      version_gem (~> 1.1, >= 1.1.9)
     base64 (0.3.0)
     batch-loader (1.5.0)
     bcrypt (3.1.22)
@@ -147,9 +154,9 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.2)
     bindex (0.8.1)
-    bootsnap (1.23.0)
+    bootsnap (1.24.5)
       msgpack (~> 1.2)
     browser (2.7.1)
     builder (3.3.0)
@@ -177,6 +184,7 @@ GEM
     cells-rails (0.1.6)
       actionpack (>= 5.0)
       cells (>= 4.1.6, < 5.0.0)
+    cgi (0.5.1)
     charlock_holmes (0.7.9)
     childprocess (5.1.0)
       logger (~> 1.5)
@@ -186,7 +194,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    css_parser (1.21.1)
+    css_parser (1.22.0)
       addressable
     csv (3.3.5)
     dartsass (1.49.8)
@@ -375,7 +383,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.11.0)
       devise (>= 4.9.0)
-    devise_invitable (2.0.11)
+    devise_invitable (2.0.12)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.6.2)
@@ -384,7 +392,7 @@ GEM
       nokogiri (>= 1.18.2)
       rubyzip (~> 2.3.0)
     docile (1.4.1)
-    doorkeeper (5.9.0)
+    doorkeeper (5.9.1)
       railties (>= 5)
     doorkeeper-i18n (4.0.1)
     drb (2.2.3)
@@ -403,20 +411,20 @@ GEM
       logger
     extended-markdown-filter (0.7.0)
       html-pipeline (~> 2.9)
-    factory_bot (6.5.6)
+    factory_bot (6.6.0)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
     faker (3.2.3)
       i18n (>= 1.8.11, < 2)
-    faraday (2.14.1)
+    faraday (2.14.2)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.2)
+    faraday-net_http (3.4.3)
       net-http (~> 0.5)
-    ffi (1.17.3-x86_64-linux-gnu)
+    ffi (1.17.4-x86_64-linux-gnu)
     file_validators (3.0.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
@@ -473,7 +481,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.8, >= 1.8.1)
       terminal-table (>= 1.5.1)
-    icalendar (2.12.2)
+    icalendar (2.12.3)
       base64
       ice_cube (~> 0.16)
       logger
@@ -485,8 +493,8 @@ GEM
     invisible_captcha (0.13.0)
       rails (>= 3.2.0)
     io-console (0.8.2)
-    json (2.19.2)
-    jwt (3.1.2)
+    json (2.19.5)
+    jwt (3.2.0)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -526,25 +534,25 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.1.0)
+    marcel (1.2.1)
     matrix (0.4.3)
     method_source (1.1.0)
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0317)
+    mime-types-data (3.2026.0414)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
-    minitest (6.0.2)
+    minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
     msgpack (1.8.0)
-    multi_xml (0.8.1)
+    multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.3)
+    net-imap (0.6.4)
       date
       net-protocol
     net-pop (0.1.2)
@@ -554,22 +562,27 @@ GEM
     net-smtp (0.3.4)
       net-protocol
     nio4r (2.7.5)
-    nokogiri (1.19.2-x86_64-linux-gnu)
+    nokogiri (1.19.3-x86_64-linux-gnu)
       racc (~> 1.4)
-    oauth (1.1.3)
+    oauth (1.1.5)
+      auth-sanitizer (~> 0.1, >= 0.1.3)
       base64 (~> 0.1)
-      oauth-tty (~> 1.0, >= 1.0.6)
-      snaky_hash (~> 2.0)
+      cgi
+      oauth-tty (~> 1.0, >= 1.0.8)
+      snaky_hash (~> 2.0, >= 2.0.4)
       version_gem (~> 1.1, >= 1.1.9)
-    oauth-tty (1.0.6)
+    oauth-tty (1.0.8)
+      auth-sanitizer (~> 0.1, >= 0.1.3)
+      cgi
       version_gem (~> 1.1, >= 1.1.9)
-    oauth2 (2.0.18)
+    oauth2 (2.0.20)
+      auth-sanitizer (~> 0.1, >= 0.1.3)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
-      snaky_hash (~> 2.0, >= 2.0.3)
+      snaky_hash (~> 2.0, >= 2.0.4)
       version_gem (~> 1.1, >= 1.1.9)
     omniauth (2.1.4)
       hashie (>= 3.4.6)
@@ -596,16 +609,16 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    openssl (4.0.1)
+    openssl (4.0.2)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     paper_trail (12.3.0)
       activerecord (>= 5.2)
       request_store (~> 1.1)
-    parallel (1.27.0)
+    parallel (1.28.0)
     parallel_tests (4.10.1)
       parallel
-    parser (3.3.10.2)
+    parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
     pg (1.4.6)
@@ -627,7 +640,7 @@ GEM
     puma (6.6.1)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.22)
+    rack (2.2.23)
     rack-attack (6.8.0)
       rack (>= 1.0, < 4)
     rack-cors (1.1.1)
@@ -635,7 +648,7 @@ GEM
     rack-protection (3.2.0)
       base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
-    rack-proxy (0.7.7)
+    rack-proxy (0.8.2)
       rack
     rack-test (2.2.0)
       rack (>= 1.3)
@@ -675,7 +688,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.3.1)
+    rake (13.4.2)
     ransack (3.2.1)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
@@ -685,7 +698,7 @@ GEM
       ffi (~> 1.0)
     redcarpet (3.6.1)
     redis (4.8.1)
-    regexp_parser (2.11.3)
+    regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
     request_store (1.5.1)
@@ -773,7 +786,7 @@ GEM
       rubyzip (>= 1.3.0)
     rubyzip (2.3.2)
     securerandom (0.4.1)
-    selenium-webdriver (4.41.0)
+    selenium-webdriver (4.44.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -795,10 +808,10 @@ GEM
     simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
     smart_properties (1.17.0)
-    snaky_hash (2.0.3)
+    snaky_hash (2.0.4)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    spring (4.4.2)
+    spring (4.5.0)
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
@@ -854,7 +867,7 @@ GEM
     wisper-rspec (1.1.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.2)
 
 PLATFORMS
   x86_64-linux
