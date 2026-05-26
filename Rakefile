@@ -19,8 +19,6 @@ def install_module(path, test: false)
     system(env, "bundle exec rails decidim_apifiles:install:migrations")
     system(env, "bundle exec rails decidim_accountability_simple:install:migrations")
     system(env, "bundle exec rails db:migrate")
-
-    system("npm i '@tarekraafat/autocomplete.js@<=10.2.7'")
   end
 end
 
