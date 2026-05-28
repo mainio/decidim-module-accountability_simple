@@ -6,7 +6,6 @@ module Decidim
       # Custom helpers, scoped to the accountability admin engine.
       #
       module ApplicationHelper
-        include Decidim::Admin::ResourceScopeHelper
         include Decidim::PaginateHelper
 
         def tabs_id_for_default_detail(default_detail)

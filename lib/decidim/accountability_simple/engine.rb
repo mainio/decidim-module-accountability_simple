@@ -105,9 +105,6 @@ module Decidim
           Decidim::Accountability::ApplicationHelper.include(
             Decidim::AccountabilitySimple::ApplicationHelperExtensions
           )
-          Decidim::ScopesHelper.include(
-            Decidim::AccountabilitySimple::ScopesHelperExtensions
-          )
 
           # Controller extensions
           Decidim::Accountability::Admin::StatusesController.include(
