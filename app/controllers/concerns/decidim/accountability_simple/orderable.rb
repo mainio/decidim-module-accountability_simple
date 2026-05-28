@@ -13,10 +13,7 @@ module Decidim
 
         # Available orders based on enabled settings
         def available_orders
-          @available_orders ||= %w(alphabetical).tap do |orders|
-            orders << "scope" if current_component.scopes_enabled?
-            orders << "category"
-          end
+          @available_orders ||= %w(alphabetical)
         end
 
         def default_order
@@ -24,22 +21,10 @@ module Decidim
         end
 
         def reorder(results)
-          case order
-          when "scope"
-            results.left_joins(:scope).order(
-              Arel.sql(
-                "decidim_scopes.name->>'#{current_locale}', decidim_accountability_results.title->>'#{current_locale}'"
-              )
-            )
-          when "category"
-            results.left_joins(:category).order(
-              Arel.sql(
-                "decidim_categories.name->>'#{current_locale}', decidim_accountability_results.title->>'#{current_locale}'"
-              )
-            )
-          else # "alphabetical"
-            results.order(Arel.sql("decidim_accountability_results.title->>'#{current_locale}'"))
-          end
+          # Scopes and categories are removed. A record can have multiple taxonomies so ordering based on those is not
+          # worth it either
+
+          results.order(Arel.sql("decidim_accountability_results.title->>'#{current_locale}'"))
         end
       end
     end
