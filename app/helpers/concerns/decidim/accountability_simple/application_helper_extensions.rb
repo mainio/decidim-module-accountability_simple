@@ -6,15 +6,15 @@ module Decidim
       extend ActiveSupport::Concern
       include Decidim::LayoutHelper
 
-      def filter_categories_values
+      def filter_taxonomy_values_for(taxonomy_filter)
         organization = current_component.participatory_space.organization
+        flatten_taxonomy_values(taxonomy_filter.taxonomies, organization)
+      end
 
-        sorted_main_categories = current_component.participatory_space.categories.first_class.includes(:subcategories).sort_by do |category|
-          [category.weight, translated_attribute(category.name, organization)]
-        end
-
-        sorted_main_categories.map do |category|
-          [translated_attribute(category.name, organization), category.id]
+      def flatten_taxonomy_values(children, organization)
+        children.flat_map do |id, hash|
+          [[translated_attribute(hash[:taxonomy].name, organization), id]] +
+            flatten_taxonomy_values(hash[:children], organization)
         end
       end
 
