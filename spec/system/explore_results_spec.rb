@@ -7,30 +7,32 @@ describe "ExploreResults", versioning: true do
 
   let(:manifest_name) { "accountability" }
   let(:results_count) { 5 }
-  let!(:scope) { create(:scope, organization: component.organization) }
   let!(:results) do
     create_list(
       :result,
       results_count,
       component:,
+      taxonomies: [taxonomy],
       published_at: Time.current
     )
   end
 
+  let!(:root_taxonomy) { create(:taxonomy, organization: component.organization) }
+  let!(:taxonomy) { create(:taxonomy, parent: root_taxonomy, organization: component.organization) }
+
   let(:decidim_accountability) { Decidim::EngineRouter.main_proxy(component) }
 
   before do
-    component.update(settings: { scopes_enabled: true })
     visit path
   end
 
   describe "home" do
     let(:path) { decidim_accountability.root_path }
 
-    it "shows categories and subcategories with results" do
-      participatory_process.categories.each do |category|
-        results_count = Decidim::Accountability::ResultsCalculator.new(component, nil, category.id).count
-        expect(page).to have_content(translated(category.name)) if !category.subcategories.empty? || results_count.positive?
+    it "shows taxonomies and subtaxonomies with results" do
+      participatory_process.taxonomies.each do |taxonomy|
+        results_count = Decidim::Accountability::ResultsCalculator.new(component, taxonomy.id).count
+        expect(page).to have_content(translated(taxonomy.name)) if results_count.positive?
       end
     end
   end
@@ -64,8 +66,6 @@ describe "ExploreResults", versioning: true do
     end
 
     context "when result has details" do
-      let(:scope) { create(:scope, organization:) }
-      let(:category) { create(:category, participatory_space: participatory_process) }
       let(:detail_attributes) do
         {
           title: { "en" => "Some title", "ca" => "Sama katalaaniksi", "es" => "Sama espanjaksi" },
@@ -79,8 +79,7 @@ describe "ExploreResults", versioning: true do
         expect(page).to have_i18n_content(result.title)
         detail = Decidim::AccountabilitySimple::ResultDetail.create(detail_attributes)
         detail.values.build(result:).update!(description: { "en" => "Some value" })
-        result.scope = scope
-        result.category = category
+        result.taxonomies = [taxonomy]
         result.save!
         visit current_path
       end
@@ -90,8 +89,7 @@ describe "ExploreResults", versioning: true do
         within ".attributes" do
           expect(page).to have_content(translated(detail_attributes[:title]))
           expect(page).to have_content("Some value")
-          expect(page).to have_i18n_content(translated(scope.name))
-          expect(page).to have_i18n_content(translated(category.name))
+          expect(page).to have_i18n_content(translated(taxonomy.name))
         end
       end
     end

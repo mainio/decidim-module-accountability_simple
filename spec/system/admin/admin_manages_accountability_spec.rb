@@ -4,14 +4,15 @@ require "spec_helper"
 
 describe "AdminManagesAccountability" do
   include_context "when managing a component"
+  include_context "with taxonomy filters context"
 
   let(:organization) { create(:organization, available_locales: [:en, :ca, :es]) }
   let(:participatory_process) do
     create(:participatory_process, :with_steps, organization:)
   end
-  let!(:component) { create(:component, participatory_space: participatory_process, manifest_name: "accountability") }
-  let!(:scope) { create(:scope, organization:) }
-  let!(:category) { create(:category, participatory_space: participatory_process) }
+  let!(:component) { create(:component, participatory_space: participatory_process, manifest_name: "accountability", settings: { taxonomy_filters: [taxonomy_filter.id] }) }
+  let(:taxonomy_filter) { create(:taxonomy_filter, root_taxonomy:, participatory_space_manifests: [participatory_space.manifest.name]) }
+  let!(:taxonomy_filter_item) { create(:taxonomy_filter_item, taxonomy_filter:, taxonomy_item: taxonomy) }
   let(:user) { create(:user, :confirmed, :admin, organization:) }
 
   before do
@@ -58,8 +59,7 @@ describe "AdminManagesAccountability" do
         ca: "Descripció més llarga"
       )
 
-      select translated(scope.name), from: :result_decidim_scope_id
-      select translated(category.name), from: :result_decidim_category_id
+      select decidim_sanitize_translated(taxonomy.name), from: "taxonomies-#{taxonomy_filter.id}"
 
       find_by_id("result_start_date", visible: false).set(Time.zone.now)
       find_by_id("result_end_date", visible: false).set(2.weeks.from_now)
@@ -114,8 +114,7 @@ describe "AdminManagesAccountability" do
           ca: "Descripció més llarga"
         )
 
-        select translated(scope.name), from: :result_decidim_scope_id
-        select translated(category.name), from: :result_decidim_category_id
+        select decidim_sanitize_translated(taxonomy.name), from: "taxonomies-#{taxonomy_filter.id}"
 
         dynamically_attach_file(:result_main_image, Decidim::Dev.asset("city.jpeg"))
         dynamically_attach_file(:result_list_image, Decidim::Dev.asset("city2.jpeg"))
@@ -127,7 +126,7 @@ describe "AdminManagesAccountability" do
 
     describe "delete result" do
       it "deletes result" do
-        find(".action-icon--remove").click
+        find(".action-icon--delete").click
         click_on "OK"
         expect(page).to have_content("Result successfully deleted")
       end

@@ -22,8 +22,7 @@ module Decidim::Accountability
         project_ids: [],
         idea_ids: [],
         plan_ids: [],
-        scope: nil,
-        category: nil,
+        taxonomizations: [],
         start_date: Date.yesterday,
         end_date: Date.tomorrow,
         decidim_accountability_status_id: nil,
@@ -39,7 +38,10 @@ module Decidim::Accountability
         locations:,
         result_default_details:,
         result_details:,
-        result_links:
+        result_links:,
+        address: nil,
+        latitude: nil,
+        longitude: nil
       )
     end
     let(:taggings_form) do

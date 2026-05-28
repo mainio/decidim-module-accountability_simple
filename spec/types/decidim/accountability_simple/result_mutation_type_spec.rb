@@ -15,8 +15,7 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
   describe "update" do
     let(:default_detail) { create(:result_detail, accountability_result_detailable: component) }
     let(:status) { create(:status, component:) }
-    let(:category) { create(:category, participatory_space:) }
-    let(:scope) { create(:scope, organization: current_organization) }
+    let(:taxonomy) { create(:taxonomy, :with_parent, skip_injection: true, organization: current_organization) }
 
     let(:title) { generate_localized_title }
     let(:summary) { generate_localized_title }
@@ -49,8 +48,7 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
             progress: 50,
             statusId: #{status.id},
             weight: 10,
-            categoryId: #{category.id},
-            scopeId: #{scope.id},
+            taxonomyIds: [#{taxonomy.id}],
             defaultDetails: [
               {
                 detailId: "#{default_detail.id}",
@@ -102,8 +100,7 @@ describe Decidim::AccountabilitySimple::ResultMutationType do
       expect(model.progress).to eq(50)
       expect(model.status).to eq(status)
       expect(model.weight).to eq(10)
-      expect(model.category).to eq(category)
-      expect(model.scope).to eq(scope)
+      expect(model.taxonomies).to include(taxonomy)
       expect(model.result_default_details.first.value_for(model).description).to include(default_detail_value)
       expect(model.result_details.count).to eq(1)
       expect(model.result_details.first.title).to include(detail_title)
