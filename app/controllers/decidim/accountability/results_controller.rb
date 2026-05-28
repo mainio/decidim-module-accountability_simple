@@ -12,10 +12,14 @@ module Decidim
       helper Decidim::Accountability::BreadcrumbHelper
       helper Decidim::TooltipHelper
 
-      helper_method :results, :geocoded_results, :result, :geocoded_result, :show_map?, :first_class_categories, :count_calculator
+      helper_method :results, :geocoded_results, :result, :geocoded_result, :show_map?, :first_class_taxonomies, :count_calculator
 
       def show
         raise ActionController::RoutingError, "Not Found" if result.blank? || !can_show_result?
+      end
+
+      def home
+        @all_geocoded_results = results.geocoded
       end
 
       private
@@ -74,19 +78,36 @@ module Decidim
       def default_filter_params
         {
           search_text_cont: "",
+          taxonomies_part_of_contains: "",
           favorites: nil,
-          with_scope: "",
-          with_category: "",
           with_any_tag: []
         }
       end
 
-      def first_class_categories
-        @first_class_categories ||= current_participatory_space.categories.first_class
+      def first_class_taxonomies
+        @first_class_taxonomies ||= current_organization.taxonomies.where(parent_id: current_component.available_root_taxonomies, id: current_component.available_taxonomy_ids)
       end
 
-      def count_calculator(scope_id, category_id)
-        Decidim::Accountability::ResultsCalculator.new(current_component, scope_id, category_id).count
+      def count_calculator(taxonomy_id)
+        Decidim::Accountability::ResultsCalculator.new(current_component, taxonomy_id).count
+      end
+
+      def controller_breadcrumb_items
+        @controller_breadcrumb_items ||= []
+      end
+
+      def set_controller_breadcrumb
+        controller_breadcrumb_items << breadcrumb_item
+      end
+
+      def breadcrumb_item
+        return {} if result&.parent.blank?
+
+        {
+          label: translated_attribute(result.parent.title),
+          url: result_path(result.parent),
+          active: true
+        }
       end
     end
   end
