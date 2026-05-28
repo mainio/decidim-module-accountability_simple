@@ -7,28 +7,14 @@
       <div class="attributes__item__value"><%= result.reference %></div>
     </div>
   <% end %>
-  <% if root_result.scope %>
+  <% root_result.taxonomies.group_by(&:parent).each do |parent, taxonomies| %>
     <div class="attributes__item">
-      <h3 class="attributes__item__name">
-        <% if root_result.scope.parent %>
-          <%= translated_attribute root_result.scope.parent.name %>
-        <% else %>
-          <%= t(".attributes.scope") %>
-        <% end %>
-      </h3>
+      <h3 class="attributes__item__name"><%= t(".attributes.taxonomy") %></h3>
       <div class="attributes__item__value">
-        <%= translated_attribute(root_result.scope.name) %>
-      </div>
-    </div>
-  <% end %>
-  <% if root_result.category.present? %>
-    <div class="attributes__item">
-      <h3 class="attributes__item__name"><%= t(".attributes.category") %></h3>
-      <div class="attributes__item__value">
-        <% if result.category.parent %>
-          <%= translated_attribute(root_result.category.parent.name) %> -
+        <% if parent %>
+          <%= translated_attribute(parent.name) %> -
         <% end %>
-        <%= translated_attribute(root_result.category.name) %>
+        <%= taxonomies.map { |t| translated_attribute(t.name) }.join(", ") %>
       </div>
     </div>
   <% end %>

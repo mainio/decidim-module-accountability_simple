@@ -160,12 +160,11 @@ fi:
           title: Ehdotuksen arviointi
         result_attributes:
           attributes:
-            category: Teema
             id: Numero (ID)
             location: Sijainti
             published_at: Julkaisuaika
             reference: Viite
-            scope: Alue
+            taxonomy: Luokitukset
           title: Tiedot
         show:
           stats:

@@ -152,12 +152,11 @@ sv:
           title: Utvärdering av förslaget
         result_attributes:
           attributes:
-            category: Tema
             id: Nummer (ID)
             location: Plats
             published_at: Publiceringstiden
             reference: Referens
-            scope: Område
+            taxonomy: Taxonomier
           title: Information
         show:
           stats:

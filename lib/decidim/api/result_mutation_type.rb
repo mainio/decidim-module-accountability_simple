@@ -25,8 +25,7 @@ module Decidim
         argument :status_id, GraphQL::Types::Int, description: "The result status ID", required: false
         argument :weight, GraphQL::Types::Float, description: "The weight (order) of the result", required: false
 
-        argument :category_id, GraphQL::Types::Int, description: "The result category ID", required: false
-        argument :scope_id, GraphQL::Types::Int, description: "The result scope ID", required: false
+        argument :taxonomy_ids, [GraphQL::Types::Int], description: "The result taxonomy IDs", required: false
 
         argument :default_details, [Decidim::AccountabilitySimple::ResultDefaultDetailAttributes], required: false
         argument :details, [Decidim::AccountabilitySimple::ResultDetailAttributes], required: false
@@ -209,8 +208,7 @@ module Decidim
           "id" => object.id,
           "weight" => args[:weight] || object.weight,
           "title" => args[:title],
-          "decidim_category_id" => args[:category_id],
-          "decidim_scope_id" => args[:scope_id],
+          "taxonomies" => args[:taxonomy_ids],
           "summary" => args[:summary],
           "description" => args[:description],
           "progress" => args[:progress] || object.progress,

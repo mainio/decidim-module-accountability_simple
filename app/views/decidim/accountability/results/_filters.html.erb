@@ -6,20 +6,17 @@
       </div>
     </div>
 
-    <% if current_participatory_space.has_subscopes? %>
-      <div class="columns">
-        <div class="filters__control with_scope_filter">
-          <% scopes = current_component.scope&.children || current_participatory_space.scope&.children || current_organization.scopes.top_level %>
-          <%= form.select(:with_scope, scope_picker_options(scopes, form.object.send(:with_scope)), { label: t(".scope"), include_blank: t(".scopes_values.all", item_name: t(".scope").downcase) }, data: { disable_dynamic_change: true }) %>
-        </div>
-      </div>
-    <% end %>
+    <% first_class_taxonomies.each do |taxonomy| %>
+      <% subelements = cell(
+        "decidim/accountability/status",
+        taxonomy,
+        extra_classes: "accountability__status__background",
+        url: results_path(filter: { taxonomies_part_of_contains: taxonomy }),
+        render_blank: true
+      ) %>
 
-    <% if current_component.categories.any? %>
-      <div class="columns">
-        <div class="filters__control category_id_filter">
-          <%= form.select(:with_category, filter_categories_values, { label: t(".category"), include_blank: t(".categories_values.all") }, data: { disable_dynamic_change: true }) %>
-        </div>
+      <div>
+        <%= subelements.call %>
       </div>
     <% end %>
   </div>
