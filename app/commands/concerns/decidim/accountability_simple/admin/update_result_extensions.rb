@@ -11,6 +11,10 @@ module Decidim
         include Decidim::AttachmentAttributesMethods
 
         included do
+          fetch_form_attributes :taxonomizations, :parent_id, :title, :description, :summary, :start_date, :end_date,
+                                :progress, :decidim_accountability_status_id, :external_id, :weight,
+                                :address, :latitude, :longitude, :use_default_details
+
           private
 
           attr_reader :form # Needed for attachment_attributes
@@ -33,21 +37,9 @@ module Decidim
           end
 
           def attributes
-            {
-              scope: @form.scope,
-              category: @form.category,
-              parent_id: @form.parent_id,
-              title: @form.title,
-              description: @form.description,
-              summary: @form.summary,
-              start_date: @form.start_date,
-              end_date: @form.end_date,
-              progress: @form.progress,
-              decidim_accountability_status_id: @form.decidim_accountability_status_id,
-              external_id: @form.external_id.presence,
-              weight: @form.weight,
-              use_default_details: @form.use_default_details
-            }.merge(attachment_attributes(:main_image, :list_image)).merge(extra_attributes)
+            super
+              .merge(attachment_attributes(:main_image, :list_image))
+              .merge(extra_attributes)
           end
         end
 
