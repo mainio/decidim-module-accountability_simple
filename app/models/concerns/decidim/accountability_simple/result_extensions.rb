@@ -5,8 +5,6 @@ module Decidim
     module ResultExtensions
       extend ActiveSupport::Concern
 
-      include Decidim::HasAttachments
-      include Decidim::HasAttachmentCollections
       include Decidim::HasUploadValidations
       include Decidim::Tags::Taggable
       include Decidim::Locations::Locatable
@@ -67,7 +65,7 @@ module Decidim
         ransacker_i18n_multi :search_text, [:title, :description]
 
         def self.ransackable_scopes(_auth_object = nil)
-          [:with_category, :with_scope, :with_any_tag]
+          [:with_any_taxonomies, :with_any_tag]
         end
       end
 
