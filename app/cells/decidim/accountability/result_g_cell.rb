@@ -60,37 +60,20 @@ module Decidim
         model.main_image && model.main_image.attached?
       end
 
-      def has_scope?
-        model.scope.present?
-      end
-
-      def has_category?
-        model.category.present?
+      def has_taxonomies?
+        model.taxonomies.present?
       end
 
       def resource_image_path
         return model.attached_uploader(:list_image).variant_url(resource_image_variant) if has_list_image?
-        return model.attached_uploader(:main_image).variant_url(resource_image_variant) if has_main_image?
-        return unless has_category?
 
-        category_image_path(model.category)
-      end
-
-      def category_image_path(cat)
-        return unless cat.respond_to?(:category_image_url)
-        return unless cat.category_image.attached?
-
-        cat.category_image_url(category_image_variant)
+        model.attached_uploader(:main_image).variant_url(resource_image_variant) if has_main_image?
       end
 
       def resource_image_variant
         return :default if has_list_image?
 
         :thumbnail
-      end
-
-      def category_image_variant
-        :card
       end
 
       def status_label
@@ -202,12 +185,8 @@ module Decidim
         start_date.present? && end_date.present?
       end
 
-      def scope
-        translated_attribute(model.scope.name) if has_scope?
-      end
-
-      def category
-        translated_attribute(model.category.name) if has_category?
+      def taxonomies
+        model.taxonomies
       end
 
       def category_class
@@ -232,28 +211,6 @@ module Decidim
         content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
           image_tag(cat.attached_uploader(:category_icon).url, alt: full_category.join(" - "))
         end
-      end
-
-      def icon_category(cat = nil)
-        return unless has_category?
-
-        cat ||= model.category
-        return unless cat.respond_to?(:category_icon)
-        return cat if cat.category_icon && cat.category_icon.attached?
-        return unless cat.parent
-
-        icon_category(cat.parent)
-      end
-
-      def color_category(cat = nil)
-        return unless has_category?
-
-        cat ||= model.category
-        return unless cat.respond_to?(:color)
-        return cat if cat.color
-        return unless cat.parent
-
-        color_category(cat.parent)
       end
     end
   end

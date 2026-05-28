@@ -6,12 +6,8 @@ module Decidim
   module Accountability
     # This cell renders a result with its L-size card.
     class ResultLCell < Decidim::CardLCell
-      def has_scope?
-        model.scope.present?
-      end
-
-      def has_category?
-        model.category.present?
+      def has_taxonomies?
+        model.taxonomies.present?
       end
 
       def card_classes

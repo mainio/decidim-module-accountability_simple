@@ -1,10 +1,4 @@
 <div class="card__info">
-  <% if has_scope? %>
-    <div class="card__info__item">
-      <%= scope %>
-    </div>
-  <% end %>
-
   <div class="card__info__item">
     #<%= model.id %>
   </div>
@@ -13,9 +7,19 @@
     <%= creation_date_status %>
   </div>
 
-  <% if has_category? %>
+  <% if has_taxonomies? %>
     <div class="card__info__item">
-      <%= category %>
+      <%= taxonomies.group_by(&:parent).each do |parent, taxonomies| %>
+        <div class="attributes__item">
+          <h3 class="attributes__item__name"><%= t(".attributes.taxonomy") %></h3>
+          <div class="attributes__item__value">
+            <% if parent %>
+              <%= translated_attribute(parent.name) %> -
+            <% end %>
+            <%= taxonomies.map { |t| translated_attribute(t.name) }.join(", ") %>
+          </div>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
