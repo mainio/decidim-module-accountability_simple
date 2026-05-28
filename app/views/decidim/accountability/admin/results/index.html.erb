@@ -1,93 +1,69 @@
 <% add_decidim_page_title(t(".title")) %>
 <div class="card">
-  <div class="item_show__header">
+  <div class="item_show__header item_show__header--with-action-options">
     <h1 class="item_show__header-title">
-      <% if parent_result %>
-        <%= "#{translated_attribute(parent_result.title)} > " %>
-      <% end %>
-      <%= t(".title") %>
+      <div>
+        <% if parent_result %>
+          <%= "#{translated_attribute(parent_result.title)} > " %>
+        <% end %>
+        <%= t(".title") %>
+        <span data-selected-count class="component-counter" title="<%= t(".selected") %>"></span>
+      </div>
 
-      <%= export_dropdowns(query) %>
-      <%= import_dropdown do %>
-        <% if allowed_to?(:create, :result) && parent_result.nil? %>
-          <%= link_to new_projects_import_path do %>
-            <li class="imports--component imports--results">
-              <%= t("actions.import", scope: "decidim.accountability", name: t("models.result.name", scope: "decidim.accountability.admin")) %>
-            </li>
+      <div class="flex items-center gap-x-4">
+        <%= render partial: "decidim/accountability/admin/results/bulk_actions/dropdown" %>
+        <%= export_dropdowns(query) %>
+        <%= import_dropdown do %>
+          <% if allowed_to?(:create, :result) && parent_result.nil? %>
+            <%= link_to new_import_component_path do %>
+              <li class="imports--component imports--results">
+                <%= t("actions.import", scope: "decidim.accountability", name: t("models.result.name", scope: "decidim.accountability.admin")) %>
+              </li>
+            <% end %>
+          <% end %>
+          <% if allowed_to? :create, :result %>
+            <%= link_to import_results_path do %>
+              <li class="imports--component imports--results">
+                <%= t("actions.import_csv", scope: "decidim.accountability") %>
+              </li>
+            <% end %>
           <% end %>
         <% end %>
-        <% if allowed_to? :create, :result %>
-          <%= link_to import_results_path do %>
-            <li class="imports--component imports--results">
-              <%= t("actions.import_csv", scope: "decidim.accountability") %>
-            </li>
-          <% end %>
-        <% end %>
-      <% end %>
-      <%= render partial: "decidim/accountability/admin/shared/subnav" unless parent_result %>
-      <%= link_to t("actions.new_result", scope: "decidim.accountability"), new_result_path(parent_id: parent_result), class: "button button__sm button__secondary" if allowed_to? :create, :result %>
-      <%= render partial: "decidim/admin/components/resource_action" %>
+        <%= render partial: "decidim/accountability/admin/shared/subnav" unless parent_result %>
+        <%= link_to t("actions.new_result", scope: "decidim.accountability"), new_result_path(parent_id: parent_result), class: "button button__sm button__secondary" if allowed_to? :create, :result %>
+        <%= render partial: "decidim/admin/components/resource_action" %>
+      </div>
     </h1>
+
+    <%= render partial: "decidim/accountability/admin/results/bulk_actions/taxonomies_form" %>
+    <%= render partial: "decidim/accountability/admin/results/bulk_actions/status_form" %>
+    <%= render partial: "decidim/accountability/admin/results/bulk_actions/dates_form" %>
   </div>
 
-  <%= admin_filter_selector(:results) %>
   <div class="table-scroll">
     <table class="table-list">
-      <thead>
-        <tr>
-          <th><%= t("models.result.fields.title", scope: "decidim.accountability") %></th>
-          <th class="actions"><%= t("actions.title", scope: "decidim.accountability") %></th>
-        </tr>
-      </thead>
+      <%= render partial: "decidim/accountability/admin/results/results-thead", locals: { query: } %>
+
       <tbody>
-        <% results.each do |result| %>
-          <tr data-id="<%= result.id %>">
-            <td>
-              <%= link_to translated_attribute(result.title), results_path(parent_id: result.id) %><br>
-            </td>
-            <td class="table-list__actions">
-              <%= icon_link_to "eye-line", resource_locator(result).path, t("actions.preview", scope: "decidim.accountability"), class: "action-icon--preview", target: :blank %>
-
-              <% if allowed_to? :update, :result, result: result %>
-                <% if result.published? %>
-                  <%= icon_link_to "close-circle-line", url_for(action: :unpublish, id: result, controller: "results"), t("actions.unpublish", scope: "decidim.admin"), class: "action-icon--unpublish", method: :put %>
-                <% else %>
-                  <%= icon_link_to "check-line", url_for(action: :publish, id: result, controller: "results"), t("actions.publish", scope: "decidim.admin"), class: "action-icon--publish", method: :put %>
-                <% end %>
-              <% end %>
-
-              <% if allowed_to? :update, :result, result: result %>
-                <%= icon_link_to "add-line", results_path(parent_id: result.id), t("actions.new_result", scope: "decidim.accountability", name: t("models.result.name", scope: "decidim.accountability.admin")), class: "action-icon--plus" %>
-              <% end %>
-
-              <% if allowed_to? :update, :result, result: result %>
-                <%= icon_link_to "time-line", result_timeline_entries_path(result), t("actions.timeline_entries", scope: "decidim.accountability"), class: "action-icon--clock" %>
-              <% end %>
-
-              <% if allowed_to? :update, :result, result: result %>
-                <%= icon_link_to "pencil-line", edit_result_path(result), t("actions.edit", scope: "decidim.accountability"), class: "action-icon--edit" %>
-              <% end %>
-
-              <% if allowed_to? :update, :result, result: result %>
-                  <%= icon_link_to "folder-line", result_attachment_collections_path(result), t("actions.attachment_collections", scope: "decidim.accountability"), class: "action-icon--attachment_collections" %>
-              <% end %>
-
-              <% if allowed_to? :update, :result, result: result %>
-                <%= icon_link_to "attachment-line", result_attachments_path(result), t("actions.attachments", scope: "decidim.accountability"), class: "action-icon--attachments" %>
-              <% end %>
-
-              <% if allowed_to? :update, :result, result: result %>
-                <%= icon_link_to "globe-line", result_link_collections_path(result), t("actions.link_collections", scope: "decidim.accountability"), class: "action-icon--link_collections" %>
-              <% end %>
-
-              <% if allowed_to? :destroy, :result, result: result %>
-                <%= icon_link_to "delete-bin-line", result_path(result), t("actions.destroy", scope: "decidim.accountability"), class: "action-icon--remove", method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.accountability", name: t("models.result.name", scope: "decidim.accountability.admin")) } %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
+        <%= render partial: "decidim/accountability/admin/results/result-tr",
+                   collection: results,
+                   as: :result,
+                   locals: { view: :index } %>
       </tbody>
     </table>
-    <%= paginate results, theme: "decidim" %>
   </div>
+  <% if allowed_to? :manage_trash, :result, participatory_space: current_participatory_space %>
+    <div class="card mt-4">
+      <%= link_to manage_trash_results_path(parent_id: params[:parent_id].presence), class: "flex items-center underline text-secondary" do %>
+        <%= icon "delete-bin-2-line", class: "mr-2 fill-current text-secondary", role: "img" %>
+        <%= t("actions.view_deleted_results", scope: "decidim.accountability") %>
+        <span class="ml-2">
+      <%= icon_with_tooltip("information-line", t("actions.deleted_results_info", scope: "decidim.accountability")) %>
+    </span>
+      <% end %>
+    </div>
+  <% end %>
 </div>
+<%= decidim_paginate results %>
+
+<%= append_javascript_pack_tag "decidim_accountability_admin_index" %>
