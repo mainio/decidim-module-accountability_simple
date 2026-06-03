@@ -2,7 +2,6 @@ import AutoButtonsByPositionComponent from "src/decidim/admin/auto_buttons_by_po
 import AutoLabelByPositionComponent from "src/decidim/admin/auto_label_by_position.component";
 import createDynamicFields from "src/decidim/admin/dynamic_fields.component";
 import createSortList from "src/decidim/admin/sort_list.component";
-import createQuillEditor from "src/decidim/editor";
 
 (() => {
   const wrapperSelector = ".result-link-items";
@@ -53,7 +52,7 @@ import createQuillEditor from "src/decidim/editor";
       createSortableList();
 
       $field.find(".editor-container").each((_i, el) => {
-        createQuillEditor(el);
+        window.createEditor(el);
       });
 
       autoLabelByPosition.run();
