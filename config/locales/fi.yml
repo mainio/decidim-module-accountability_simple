@@ -110,8 +110,12 @@ fi:
             end_date: Päättymispäivä
             title: Otsikko
       result_l:
+        attributes:
+          taxonomy: Luokitus
         card_label: "Hanke: %{title}"
       result_g:
+        attributes:
+          taxonomy: Luokitus
         card_label: "Hanke: %{title}"
         progress_explanation: Hankkeen edistyminen
         tags_title: Tunnisteet
@@ -161,12 +165,11 @@ fi:
           title: Ehdotuksen arviointi
         result_attributes:
           attributes:
-            category: Teema
             id: Numero (ID)
             location: Sijainti
             published_at: Julkaisuaika
             reference: Viite
-            scope: Alue
+            taxonomy: Luokitukset
           title: Tiedot
         show:
           stats:
