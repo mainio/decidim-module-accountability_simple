@@ -112,8 +112,12 @@ cs:
             end_date: Datum ukončení
             title: Název
       result_l:
+        attributes:
+          taxonomy: Taxonomy
         card_label: "Projekt: %{title}"
       result_g:
+        attributes:
+          taxonomy: Taxonomy
         card_label: "Project: %{title}"
         progress_explanation: Project progress
         tags_title: Tags
@@ -165,12 +169,11 @@ cs:
           title: Evaluation of the proposal
         result_attributes:
           attributes:
-            category: Theme
             id: Number (ID)
             location: Location
             published_at: Publish time
             reference: Reference
-            scope: Area
+            taxonomy: Taxonomies
           title: Information
         show:
           stats:
