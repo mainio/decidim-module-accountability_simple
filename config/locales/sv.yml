@@ -110,8 +110,12 @@ sv:
             end_date: Slutdatum
             title: Rubrik
       result_l:
+        attributes:
+          taxonomy: Taxonomi
         card_label: "Projekt: %{title}"
       result_g:
+        attributes:
+          taxonomy: Taxonomi
         card_label: "Projekt: %{title}"
         progress_explanation: Projektets framsteg
         tags_title: Taggar
@@ -161,12 +165,11 @@ sv:
           title: Utvärdering av förslaget
         result_attributes:
           attributes:
-            category: Tema
             id: Nummer (ID)
             location: Plats
             published_at: Publiceringstiden
             reference: Referens
-            scope: Område
+            taxonomy: Taxonomier
           title: Information
         show:
           stats:
