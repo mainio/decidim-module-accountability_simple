@@ -8,25 +8,27 @@ module Decidim
       graphql_name "ResultTimelineEntryMutation"
       description "A result timeline entry which includes its available mutations"
 
-      field :result_id, GraphQL::Types::ID, null: false
+      field :result_id, GraphQL::Types::ID, null: false do
+        description "Result ID"
+      end
 
       field :create, Decidim::Accountability::TimelineEntryType, null: true do
         description "Add a new timeline entry to a result"
 
-        argument :entry_date, GraphQL::Types::ISO8601Date, description: "The timeline entry date", required: true
-        argument :end_date, GraphQL::Types::ISO8601Date, description: "The timeline entry end date", required: false
-        argument :title, GraphQL::Types::JSON, description: "Use this to override the date of this entry", required: false
         argument :description, GraphQL::Types::JSON, description: "The timeline entry description (HTML)", required: true
+        argument :end_date, GraphQL::Types::ISO8601Date, description: "The timeline entry end date", required: false
+        argument :entry_date, GraphQL::Types::ISO8601Date, description: "The timeline entry date", required: true
+        argument :title, GraphQL::Types::JSON, description: "Use this to override the date of this entry", required: false
       end
 
       field :update, Decidim::Accountability::TimelineEntryType, null: true do
         description "Add a new timeline entry to a result"
 
-        argument :id, GraphQL::Types::ID, required: true
-        argument :entry_date, GraphQL::Types::ISO8601Date, description: "The timeline entry date", required: true
-        argument :end_date, GraphQL::Types::ISO8601Date, description: "The timeline entry end date", required: false
-        argument :title, GraphQL::Types::JSON, description: "Use this to override the date of this entry", required: false
         argument :description, GraphQL::Types::JSON, description: "The timeline entry description (HTML)", required: true
+        argument :end_date, GraphQL::Types::ISO8601Date, description: "The timeline entry end date", required: false
+        argument :entry_date, GraphQL::Types::ISO8601Date, description: "The timeline entry date", required: true
+        argument :id, GraphQL::Types::ID, description: "The timeline ID", required: true
+        argument :title, GraphQL::Types::JSON, description: "Use this to override the date of this entry", required: false
       end
 
       field :destroy, Decidim::Accountability::TimelineEntryType, null: true do

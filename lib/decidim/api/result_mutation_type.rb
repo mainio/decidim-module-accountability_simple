@@ -11,35 +11,35 @@ module Decidim
       graphql_name "ResultMutation"
       description "A result which includes its available mutations"
 
-      field :id, GraphQL::Types::ID, null: false
+      field :id, GraphQL::Types::ID, description: "The result ID", null: false
 
       field :update, Decidim::Accountability::ResultType, null: true do
         description "The content mutations to be updated."
 
-        argument :title, GraphQL::Types::JSON, description: "The result title localized hash, e.g. {\"en\": \"English title\"}", required: true
-        argument :summary, GraphQL::Types::JSON, description: "The result summary localized hash, e.g. {\"en\": \"English summary\"}", required: true
         argument :description, GraphQL::Types::JSON, description: "The result description localized hash (HTML), e.g. {\"en\": \"<p>English description</p>\"}", required: true
-        argument :start_date, GraphQL::Types::ISO8601DateTime, description: "The result start date", required: false
         argument :end_date, GraphQL::Types::ISO8601DateTime, description: "The result end date", required: false
         argument :progress, GraphQL::Types::Float, description: "The result progress percentage", required: true
+        argument :start_date, GraphQL::Types::ISO8601DateTime, description: "The result start date", required: false
         argument :status_id, GraphQL::Types::Int, description: "The result status ID", required: false
+        argument :summary, GraphQL::Types::JSON, description: "The result summary localized hash, e.g. {\"en\": \"English summary\"}", required: true
+        argument :title, GraphQL::Types::JSON, description: "The result title localized hash, e.g. {\"en\": \"English title\"}", required: true
         argument :weight, GraphQL::Types::Float, description: "The weight (order) of the result", required: false
 
         argument :taxonomy_ids, [GraphQL::Types::Int], description: "The result taxonomy IDs", required: false
 
-        argument :default_details, [Decidim::AccountabilitySimple::ResultDefaultDetailAttributes], required: false
-        argument :details, [Decidim::AccountabilitySimple::ResultDetailAttributes], required: false
-        argument :links, [Decidim::AccountabilitySimple::ResultLinkAttributes], required: false
-        argument :locations, [Decidim::Locations::LocationAttributes], required: false
+        argument :default_details, [Decidim::AccountabilitySimple::ResultDefaultDetailAttributes], description: "The result default details", required: false
+        argument :details, [Decidim::AccountabilitySimple::ResultDetailAttributes], description: "The result details", required: false
+        argument :links, [Decidim::AccountabilitySimple::ResultLinkAttributes], description: "The result links", required: false
+        argument :locations, [Decidim::Locations::LocationAttributes], description: "The result locations", required: false
 
-        argument :main_image, Decidim::Apifiles::FileAttributes, "The main image for the result", required: false
         argument :list_image, Decidim::Apifiles::FileAttributes, "The list image for the result", required: false
+        argument :main_image, Decidim::Apifiles::FileAttributes, "The main image for the result", required: false
 
         # Linked resources
-        argument :proposal_ids, [GraphQL::Types::Int], description: "The linked proposal IDs for the result", required: false
         argument :idea_ids, [GraphQL::Types::Int], description: "The linked idea IDs for the result", required: false
         argument :plan_ids, [GraphQL::Types::Int], description: "The linked plan IDs for the result", required: false
         argument :project_ids, [GraphQL::Types::Int], description: "The linked project IDs for the result", required: false
+        argument :proposal_ids, [GraphQL::Types::Int], description: "The linked proposal IDs for the result", required: false
       end
 
       field :publicity, Decidim::Accountability::ResultType, null: true do
@@ -57,12 +57,14 @@ module Decidim
       field :update_link_collection, Decidim::AccountabilitySimple::ResultLinkCollectionType, null: false do
         description "Updates a link collection."
 
-        argument :id, GraphQL::Types::ID, required: true
         argument :attributes, Decidim::AccountabilitySimple::ResultLinkCollectionAttributes, description: "Input attributes to update a link collection", required: true
+        argument :id, GraphQL::Types::ID, description: "ID to update a link collection", required: true
       end
 
       field :delete_link_collection, Decidim::AccountabilitySimple::ResultLinkCollectionType, null: false do
-        argument :id, GraphQL::Types::ID, required: true
+        description "Deletes a link collection"
+
+        argument :id, GraphQL::Types::ID, description: "ID to delete a link collection", required: true
       end
 
       def update(**args)

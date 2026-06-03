@@ -7,9 +7,9 @@ module Decidim
     class ResultLinkCollectionAttributes < GraphQL::Schema::InputObject
       description "Attributes for result link collections"
 
-      argument :position, GraphQL::Types::Int, description: "The result link collection position, lowest first", required: false, default_value: 0
       argument :key, GraphQL::Types::String, description: "The attachment collection key, i.e. its technical handle", required: false
       argument :name, GraphQL::Types::JSON, description: "The attachment collection name localized hash, e.g. {\"en\": \"English name\"}", required: true
+      argument :position, GraphQL::Types::Int, description: "The result link collection position, lowest first", required: false, default_value: 0
     end
   end
 end

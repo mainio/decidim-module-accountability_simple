@@ -7,7 +7,7 @@ module Decidim
       def build(params)
         add_scope(:user_favorites, user) if user && params[:favorites] == "1"
 
-        super(params)
+        super
       end
     end
   end
