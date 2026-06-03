@@ -110,8 +110,12 @@ en:
             end_date: End date
             title: Title
       result_l:
+        attributes:
+          taxonomy: Taxonomy
         card_label: "Project: %{title}"
       result_g:
+        attributes:
+          taxonomy: Taxonomy
         card_label: "Project: %{title}"
         progress_explanation: Project progress
         tags_title: Tags

@@ -109,8 +109,12 @@ fi:
             end_date: Päättymispäivä
             title: Otsikko
       result_l:
+        attributes:
+          taxonomy: Luokitus
         card_label: "Hanke: %{title}"
       result_g:
+        attributes:
+          taxonomy: Luokitus
         card_label: "Hanke: %{title}"
         progress_explanation: Hankkeen edistyminen
         tags_title: Tunnisteet

@@ -106,8 +106,12 @@ sv:
             end_date: Slutdatum
             title: Rubrik
       result_l:
+        attributes:
+          taxonomy: Taxonomi
         card_label: "Projekt: %{title}"
       result_g:
+        attributes:
+          taxonomy: Taxonomi
         card_label: "Projekt: %{title}"
         progress_explanation: Projektets framsteg
         tags_title: Taggar
