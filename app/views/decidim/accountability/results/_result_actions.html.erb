@@ -22,10 +22,7 @@
 <% end %>
 
 <div class="actions-panel bg-secondary">
-  <button id="openShareModal" type="button" class="link action-link" aria-controls="socialShare" aria-haspopup="dialog">
-    <span class="link-text"><%= t ".share" %></span>
-    <%= icon "share", role: "img", "aria-hidden": true %>
-  </button>
+  <%= cell "decidim/share_widget", result %>
 </div>
 
 <% if false %>
