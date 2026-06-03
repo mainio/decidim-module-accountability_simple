@@ -24,6 +24,10 @@ module Decidim
         :thumbnail_box
       end
 
+      def taxonomies
+        model.taxonomies
+      end
+
       def category_image_variant
         :card_box
       end
