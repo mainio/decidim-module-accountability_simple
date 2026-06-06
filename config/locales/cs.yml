@@ -134,15 +134,15 @@ cs:
           categories_values:
             all: All themes
           favorites: Show my favourites
-          label: Project search
+          label: Vyhledávání projektů
           open: Otevřít
           related_to: Souvisí s
           reset: Vymazat filtry
           scope: Oblast
           scopes_values:
-            all: All areas
+            all: Všechny oblasti
           search: Hledat
-          term: Keyword
+          term: Klíčové slovo
           title: Hledat projekty
         filters_small_view:
           close_modal: Zavřít modální okno
@@ -155,26 +155,26 @@ cs:
         nav_breadcrumb:
           all_projects: Všechny projekty
         orders:
-          alphabetical: Alphabetical
+          alphabetical: Abecedně
           category: Kategorie
-          label: Label
-          scope: Scope
+          label: Štítek
+          scope: Oblast působnosti
         result:
           project_info: Informace o projektu
         result_actions:
           share: Sdílet projekt
           show_comments: Zobrazit komentáře projektu
-          show_on_map: Show on a map
+          show_on_map: Zobrazit na mapě
         result_answer:
-          title: Evaluation of the proposal
+          title: Hodnocení návrhu
         result_attributes:
           attributes:
-            id: Number (ID)
-            location: Location
-            published_at: Publish time
+            id: Číslo (ID)
+            location: Poloha
+            published_at: Čas zveřejnění
             reference: Reference
-            taxonomy: Taxonomies
-          title: Information
+            taxonomy: Taxonomie
+          title: Informace
         show:
           stats:
             scope: Oblast působnosti
@@ -184,14 +184,14 @@ cs:
           locations: Projekt na mapě
           subresults: Podprojekty
         show_result_body:
-          description: Project description
-          subtitle: Project
+          description: Popis projektu
+          subtitle: Projekt
         stats_box:
           average_progress: Průměrný pokrok u všech projektů %{progress}.
-          implementation_phases: Phases
-          progress: Progress
+          implementation_phases: Fáze
+          progress: Pokrok
         timeline:
-          title: Timeline
+          title: Časová osa
     accountability_simple:
       models:
         result_detail:
@@ -234,13 +234,13 @@ cs:
       included_ideas:
         result_idea: Související nápady
       included_plans:
-        result_plan: Related original proposals
+        result_plan: Související původní návrhy
       included_projects:
         result_project: Související návrhy
       included_proposals:
         result_proposal: Související návrhy
     tags:
-      filter_results_for_tag: Filter results for tag %{tag}
+      filter_results_for_tag: Filtrovat výsledky pro značku %{tag}
   forms:
     scopes_picker:
       others: Ostatní
