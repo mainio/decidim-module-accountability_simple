@@ -7,17 +7,17 @@ cs:
         main_image: Hlavní obrázek
         summary: Shrnutí
       result_detail:
-        description: Description
-        icon: Icon
-        title: Title
+        description: Popis
+        icon: Ikona
+        title: Název
       result_link:
-        collection_id: Link collection
-        label: Label
-        url: URL address
+        collection_id: Sbírka odkazů
+        label: Štítek
+        url: URL adresa
       result_link_collection:
-        key: Key
-        name: Name
-        position: Order number
+        key: Klíč
+        name: Název
+        position: Pořadové číslo
       timeline_entry:
         end_date: Datum ukončení
         title: Název (nahrazuje data)
@@ -34,8 +34,8 @@ cs:
         attachment_collections: Složky
         attachments: Přílohy
         default_details: Výchozí detaily
-        link_collections: Link collections
-        new_link_collection: New link collection
+        link_collections: Sbírka odkazů
+        new_link_collection: Nová sbírka odkazů
       admin:
         details:
           detail:
@@ -53,7 +53,7 @@ cs:
             success: Výchozí údaje byly úspěšně aktualizovány
         link_collections:
           create:
-            error: There was a problem creating a new link collection.
+            error: Při vytváření nové sbírky odkazů došlo k chybě.
             success: Link collection successfully created.
           destroy:
             success: Link collection successfully deleted.
@@ -108,20 +108,20 @@ cs:
             comments: Komentáře
         timeline_entry:
           fields:
-            description: Description
+            description: Popis
             end_date: Datum ukončení
             title: Název
       result_l:
         attributes:
-          taxonomy: Taxonomy
+          taxonomy: Taxonomie
         card_label: "Projekt: %{title}"
       result_g:
         attributes:
-          taxonomy: Taxonomy
+          taxonomy: Taxonomie
         card_label: "Project: %{title}"
         progress_explanation: Project progress
-        tags_title: Tags
-        view: Show project
+        tags_title: Štítky
+        view: Zobrazit projekt
       results:
         count:
           results_count:
@@ -156,7 +156,7 @@ cs:
           all_projects: Všechny projekty
         orders:
           alphabetical: Alphabetical
-          category: Category
+          category: Kategorie
           label: Label
           scope: Scope
         result:
