@@ -1,0 +1,22 @@
+<h2 class="section-heading"><%= t(".title") %></h2>
+<ol class="stepper stepper--vertical">
+  <% result.milestones.each_with_index do |milestone, i| %>
+    <li class="stepper__item<%= " stepper__item--active" if milestone.active? %>">
+      <div class="stepper__item__indicator">
+        <span><%= i + 1 %></span>
+      </div>
+      <div class="stepper__item__label">
+        <div class="stepper__item__label__date">
+          <% if translated_attribute(milestone.title)&.strip.empty? %>
+            <%= human_range_time(milestone.entry_date, milestone.end_date) %>
+          <% else %>
+            <%= translated_attribute(milestone.title) %>
+          <% end %>
+        </div>
+        <h3 class="stepper__item__label__title">
+          <%= translated_attribute milestone.description %>
+        </h3>
+      </div>
+    </li>
+  <% end %>
+</ol>

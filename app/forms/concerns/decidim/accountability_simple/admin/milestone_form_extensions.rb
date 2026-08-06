@@ -3,7 +3,7 @@
 module Decidim
   module AccountabilitySimple
     module Admin
-      module TimelineEntryFormExtensions
+      module MilestoneFormExtensions
         extend ActiveSupport::Concern
 
         included do

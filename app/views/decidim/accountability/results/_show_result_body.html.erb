@@ -6,4 +6,4 @@
   <%== decidim_sanitize(translated_attribute(result.description)) %>
 </div>
 
-<%= render partial: "timeline", locals: { result: result } if result.timeline_entries.any? %>
+<%= render partial: "milestone", locals: { result: result } if result.milestones.any? %>

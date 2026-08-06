@@ -18,7 +18,7 @@ en:
         key: Key
         name: Name
         position: Order number
-      timeline_entry:
+      milestone:
         end_date: End date
         title: Title (replaces the dates)
   activerecord:
@@ -104,7 +104,7 @@ en:
         result:
           fields:
             comments: Comments
-        timeline_entry:
+        milestone:
           fields:
             description: Description
             end_date: End date
@@ -186,8 +186,8 @@ en:
           average_progress: Average progress on all projects %{progress}.
           implementation_phases: Phases
           progress: Progress
-        timeline:
-          title: Timeline
+        milestone:
+          title: Milestone
     accountability_simple:
       models:
         result_detail:

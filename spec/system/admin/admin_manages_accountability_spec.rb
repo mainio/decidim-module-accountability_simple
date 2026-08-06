@@ -88,7 +88,10 @@ describe "AdminManagesAccountability" do
 
     describe "edit result" do
       it "edits result" do
-        find(".action-icon--edit").click
+        within ".table-list__actions" do
+          find("button[data-controller='dropdown']").click
+          find("a", text: "Edit").click
+        end
 
         fill_in_i18n(
           :result_title,
@@ -126,7 +129,10 @@ describe "AdminManagesAccountability" do
 
     describe "delete result" do
       it "deletes result" do
-        find(".action-icon--delete").click
+        within ".table-list__actions" do
+          find("button[data-controller='dropdown']").click
+          find("a", text: "Move to trash").click
+        end
         click_on "OK"
         expect(page).to have_content("Result successfully deleted")
       end

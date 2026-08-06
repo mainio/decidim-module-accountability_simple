@@ -14,7 +14,7 @@ module Decidim
     autoload :ResultLinkCollectionType, "decidim/api/result_link_collection_type"
     autoload :ResultLinkType, "decidim/api/result_link_type"
     autoload :ResultMutationType, "decidim/api/result_mutation_type"
-    autoload :ResultTimelineEntryMutationType, "decidim/api/result_timeline_entry_mutation_type"
+    autoload :ResultMilestoneMutationType, "decidim/api/result_milestone_mutation_type"
 
     module Api
       autoload :Permissions, "decidim/accountability_simple/api/permissions"
@@ -22,7 +22,7 @@ module Decidim
       autoload :AccountabilityTypeExtensions, "decidim/accountability_simple/api/types/accountability_type_extensions"
       autoload :ResourceLinkTypeExtensions, "decidim/accountability_simple/api/types/resource_link_type_extensions"
       autoload :ResultTypeExtensions, "decidim/accountability_simple/api/types/result_type_extensions"
-      autoload :TimelineEntryTypeExtensions, "decidim/accountability_simple/api/types/timeline_entry_type_extensions"
+      autoload :MilestoneTypeExtensions, "decidim/accountability_simple/api/types/milestone_type_extensions"
     end
   end
 end

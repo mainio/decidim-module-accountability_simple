@@ -18,7 +18,7 @@ sv:
         key: Nyckel
         name: Namn
         position: Ordernummer
-      timeline_entry:
+      milestone:
         end_date: Slutdatum
         title: Titel (ersätter datumen)
   activerecord:
@@ -100,7 +100,7 @@ sv:
         result:
           fields:
             comments: Bilder
-        timeline_entry:
+        milestone:
           fields:
             description: Beskrivning
             end_date: Slutdatum
@@ -177,7 +177,7 @@ sv:
           average_progress: Genomsnittlig framsteg på alla projekt %{progress}.
           implementation_phases: Faser
           progress: Genomförande
-        timeline:
+        milestone:
           title: Tidslinje
     accountability_simple:
       models:

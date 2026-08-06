@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import Tribute from "src/decidim/vendor/tribute"
 
 ((exports) => {

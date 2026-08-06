@@ -3,7 +3,7 @@
 require "spec_helper"
 require "decidim/api/test/type_context"
 
-describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
+describe Decidim::AccountabilitySimple::ResultMilestoneMutationType do
   include_context "with a graphql class type"
   include_context "with accountability graphql mutation"
 
@@ -33,16 +33,16 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
 
     it_behaves_like "when the user does not have permissions"
 
-    it "creates a new timeline entry" do
-      expect { response }.to change(Decidim::Accountability::TimelineEntry, :count).by(1)
+    it "creates a new milestone" do
+      expect { response }.to change(Decidim::Accountability::Milestone, :count).by(1)
 
       expect(response["create"]["id"]).to match(/[0-9]+/)
 
       model.reload
-      expect(model.timeline_entries.first.title).to eq(title)
-      expect(model.timeline_entries.first.description).to eq(description)
-      expect(model.timeline_entries.first.entry_date).to eq(entry_date)
-      expect(model.timeline_entries.first.end_date).to eq(end_date)
+      expect(model.milestones.first.title).to eq(title)
+      expect(model.milestones.first.description).to eq(description)
+      expect(model.milestones.first.entry_date).to eq(entry_date)
+      expect(model.milestones.first.end_date).to eq(end_date)
     end
 
     # Note that this is important for backwards compatibility because some of
@@ -61,21 +61,21 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
         )
       end
 
-      it "creates a new timeline entry" do
-        expect { response }.to change(Decidim::Accountability::TimelineEntry, :count).by(1)
+      it "creates a new milestone" do
+        expect { response }.to change(Decidim::Accountability::Milestone, :count).by(1)
 
         expect(response["create"]["id"]).to match(/[0-9]+/)
 
         model.reload
-        expect(model.timeline_entries.first.description).to eq(description)
-        expect(model.timeline_entries.first.entry_date).to eq(entry_date)
-        expect(model.timeline_entries.first.end_date).to eq(end_date)
+        expect(model.milestones.first.description).to eq(description)
+        expect(model.milestones.first.entry_date).to eq(entry_date)
+        expect(model.milestones.first.end_date).to eq(end_date)
       end
     end
   end
 
   describe "update" do
-    let!(:entry) { create(:timeline_entry, result: model) }
+    let!(:entry) { create(:milestone, result: model) }
 
     let(:query) do
       %(
@@ -93,8 +93,8 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
 
     it_behaves_like "when the user does not have permissions"
 
-    it "updates the timeline entry" do
-      expect { response }.not_to change(Decidim::Accountability::TimelineEntry, :count)
+    it "updates the milestone" do
+      expect { response }.not_to change(Decidim::Accountability::Milestone, :count)
 
       expect(response["update"]["id"]).to eq(entry.id.to_s)
 
@@ -106,7 +106,7 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
     end
 
     # Note that this is important for backwards compatibility because some of
-    # the legacy integration apps are relying on creating the entries without
+    # the legacy integration apps are relying on creating the milestones without
     # titles.
     context "without a title" do
       let(:query) do
@@ -122,8 +122,8 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
         )
       end
 
-      it "creates a new timeline entry" do
-        expect { response }.not_to change(Decidim::Accountability::TimelineEntry, :count)
+      it "creates a new milestone" do
+        expect { response }.not_to change(Decidim::Accountability::Milestone, :count)
 
         expect(response["update"]["id"]).to eq(entry.id.to_s)
 
@@ -137,14 +137,14 @@ describe Decidim::AccountabilitySimple::ResultTimelineEntryMutationType do
   end
 
   describe "destroy" do
-    let!(:entry) { create(:timeline_entry, result: model) }
+    let!(:entry) { create(:milestone, result: model) }
 
     let(:query) { %({ destroy(id: "#{entry.id}") { id } }) }
 
     it_behaves_like "when the user does not have permissions"
 
-    it "destroys the timeline entry" do
-      expect { response }.to change(Decidim::Accountability::TimelineEntry, :count).by(-1)
+    it "destroys the milestone" do
+      expect { response }.to change(Decidim::Accountability::Milestone, :count).by(-1)
 
       expect(response["destroy"]["id"]).to match(entry.id.to_s)
     end

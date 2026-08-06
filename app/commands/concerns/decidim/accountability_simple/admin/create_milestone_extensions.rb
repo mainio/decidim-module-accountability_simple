@@ -3,14 +3,14 @@
 module Decidim
   module AccountabilitySimple
     module Admin
-      module CreateTimelineEntryExtensions
+      module CreateMilestoneExtensions
         extend ActiveSupport::Concern
 
         included do
           private
 
-          def create_timeline_entry
-            @timeline_entry = Decidim::Accountability::TimelineEntry.create!(
+          def create_milestone
+            @milestone = Decidim::Accountability::Milestone.create!(
               decidim_accountability_result_id: @form.decidim_accountability_result_id,
               entry_date: @form.entry_date,
               end_date: @form.end_date,

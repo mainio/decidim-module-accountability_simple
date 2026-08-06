@@ -2,7 +2,7 @@
 
 module Decidim
   module AccountabilitySimple
-    module TimelineEntryExtensions
+    module MilestoneExtensions
       extend ActiveSupport::Concern
 
       def active?(at = Time.zone.now)

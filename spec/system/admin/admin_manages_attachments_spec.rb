@@ -21,7 +21,10 @@ describe "AdminManagesAccountabilityAttachments" do
 
   describe "attachments" do
     before do
-      find(".action-icon--attachments").click
+      within ".table-list__actions" do
+        find("button[data-controller='dropdown']").click
+        find("a", text: "Add attachment").click
+      end
     end
 
     it "shows attachments" do
@@ -62,7 +65,10 @@ describe "AdminManagesAccountabilityAttachments" do
 
   describe "folders" do
     before do
-      find(".action-icon--attachment_collections").click
+      within ".table-list__actions" do
+        find("button[data-controller='dropdown']").click
+        find("a", text: "Add folder").click
+      end
     end
 
     it "shows attachment folders" do
@@ -108,7 +114,10 @@ describe "AdminManagesAccountabilityAttachments" do
       end
 
       it "destroys folder" do
-        find(".action-icon--remove").click
+        within ".table-list__actions" do
+          find("button[data-controller='dropdown']").click
+          find("a", text: "Delete").click
+        end
         click_on "OK"
         expect(page).to have_content("Folder destroyed successfully")
       end

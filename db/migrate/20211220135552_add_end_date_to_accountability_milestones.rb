@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+class AddEndDateToAccountabilityMilestones < ActiveRecord::Migration[5.2]
+  def change
+    add_column :decidim_accountability_milestones, :end_date, :date
+    add_index :decidim_accountability_milestones, :end_date
+  end
+end

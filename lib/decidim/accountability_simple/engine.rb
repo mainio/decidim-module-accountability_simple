@@ -45,7 +45,7 @@ module Decidim
       initializer "decidim_accountability_simple.api_extensions" do
         Decidim::Accountability::AccountabilityType.include Decidim::AccountabilitySimple::Api::AccountabilityTypeExtensions
         Decidim::Accountability::ResultType.include Decidim::AccountabilitySimple::Api::ResultTypeExtensions
-        Decidim::Accountability::TimelineEntryType.include Decidim::AccountabilitySimple::Api::TimelineEntryTypeExtensions
+        Decidim::Accountability::MilestoneType.include Decidim::AccountabilitySimple::Api::MilestoneTypeExtensions
 
         Decidim::Proposals::ProposalType.include Decidim::AccountabilitySimple::Api::ResourceLinkTypeExtensions if Decidim.const_defined?("Proposals")
         Decidim::Budgets::ProjectType.include Decidim::AccountabilitySimple::Api::ResourceLinkTypeExtensions if Decidim.const_defined?("Budgets")
@@ -66,8 +66,8 @@ module Decidim
           Decidim::Accountability::Result.include(
             Decidim::AccountabilitySimple::ResultExtensions
           )
-          Decidim::Accountability::TimelineEntry.include(
-            Decidim::AccountabilitySimple::TimelineEntryExtensions
+          Decidim::Accountability::Milestone.include(
+            Decidim::AccountabilitySimple::MilestoneExtensions
           )
 
           # Form extensions
@@ -77,8 +77,8 @@ module Decidim
           Decidim::Accountability::Admin::ResultForm.include(
             Decidim::AccountabilitySimple::Admin::ResultFormExtensions
           )
-          Decidim::Accountability::Admin::TimelineEntryForm.include(
-            Decidim::AccountabilitySimple::Admin::TimelineEntryFormExtensions
+          Decidim::Accountability::Admin::MilestoneForm.include(
+            Decidim::AccountabilitySimple::Admin::MilestoneFormExtensions
           )
 
           # Command extensions
@@ -94,11 +94,11 @@ module Decidim
           Decidim::Accountability::Admin::UpdateResult.include(
             Decidim::AccountabilitySimple::Admin::UpdateResultExtensions
           )
-          Decidim::Accountability::Admin::CreateTimelineEntry.include(
-            Decidim::AccountabilitySimple::Admin::CreateTimelineEntryExtensions
+          Decidim::Accountability::Admin::CreateMilestone.include(
+            Decidim::AccountabilitySimple::Admin::CreateMilestoneExtensions
           )
-          Decidim::Accountability::Admin::UpdateTimelineEntry.include(
-            Decidim::AccountabilitySimple::Admin::UpdateTimelineEntryExtensions
+          Decidim::Accountability::Admin::UpdateMilestone.include(
+            Decidim::AccountabilitySimple::Admin::UpdateMilestoneExtensions
           )
 
           # Helper extensions
