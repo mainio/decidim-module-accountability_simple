@@ -79,7 +79,7 @@ import Tribute from "src/decidim/vendor/tribute"
 
           xhr = $.post(
             "/api",
-            {query: `{users(filter:{wildcard:"${text}"}) {id, nickname, name, __typename, ...on UserGroup{membersCount}}}`}
+            {query: `{users(filter:{wildcard:"${text}"}) {id, nickname, name, __typename}}`}
           ).then((response) => {
             const data = response.data.users || {};
             callback(

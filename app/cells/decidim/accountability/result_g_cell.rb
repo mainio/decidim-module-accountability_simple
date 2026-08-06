@@ -99,17 +99,13 @@ module Decidim
 
       def presenters_for_identities
         model.identities.map do |identity|
-          if identity.is_a?(Decidim::Organization)
+          case identity
+          when Decidim::Organization
             "#{model.class.module_parent}::OfficialAuthorPresenter".constantize.new
+          when Decidim::User
+            present(identity, presenter_class: Decidim::AccountabilitySimple::UserCardPresenter)
           else
-            presenter_class =
-              case identity
-              when Decidim::User
-                Decidim::AccountabilitySimple::UserCardPresenter
-              when Decidim::UserGroup
-                Decidim::AccountabilitySimple::UserGroupCardPresenter
-              end
-            present(identity, presenter_class:)
+            present(identity)
           end
         end
       end
