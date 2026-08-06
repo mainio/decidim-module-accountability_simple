@@ -18,7 +18,7 @@ fi:
         key: Tunniste
         name: Nimi
         position: Järjestysnumero
-      timeline_entry:
+      milestone:
         end_date: Päättymispäivä
         title: Otsake (päivämäärien tilalla)
   activerecord:
@@ -104,7 +104,7 @@ fi:
         result:
           fields:
             comments: Kommentit
-        timeline_entry:
+        milestone:
           fields:
             description: Kuvaus
             end_date: Päättymispäivä
@@ -186,7 +186,7 @@ fi:
           average_progress: Kaikkien hankkeiden edistymisen keskiarvo %{progress}.
           implementation_phases: Toteutuksen vaiheet
           progress: Valmiusaste
-        timeline:
+        milestone:
           title: Aikataulu
     accountability_simple:
       models:
