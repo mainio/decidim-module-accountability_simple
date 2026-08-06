@@ -18,9 +18,9 @@ cs:
         key: Klíč
         name: Název
         position: Pořadové číslo
-      timeline_entry:
-        end_date: Datum ukončení
-        title: Název (nahrazuje data)
+      milestone:
+        end_date: End date
+        title: Title (replaces the dates)
   activerecord:
     models:
       decidim/accountability/result:
@@ -106,11 +106,11 @@ cs:
         result:
           fields:
             comments: Komentáře
-        timeline_entry:
+        milestone:
           fields:
-            description: Popis
-            end_date: Datum ukončení
-            title: Název
+            description: Description
+            end_date: End date
+            title: Title
       result_l:
         attributes:
           taxonomy: Taxonomie
@@ -190,8 +190,8 @@ cs:
           average_progress: Průměrný pokrok u všech projektů %{progress}.
           implementation_phases: Fáze
           progress: Pokrok
-        timeline:
-          title: Časová osa
+        milestone:
+          title: Milestone
     accountability_simple:
       models:
         result_detail:
