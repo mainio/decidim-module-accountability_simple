@@ -26,7 +26,7 @@ module Decidim
               put :unpublish
             end
           end
-          resource :details, only: [:index, :show, :update]
+          resource :details, only: [:show, :update]
         end
       end
 

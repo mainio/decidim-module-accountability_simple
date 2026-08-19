@@ -10,6 +10,7 @@ module Decidim
 
       helper Decidim::TraceabilityHelper
       helper Decidim::Accountability::BreadcrumbHelper
+      helper Decidim::Accountability::CalculatorHelper
       helper Decidim::TooltipHelper
 
       helper_method :results, :geocoded_results, :result, :geocoded_result, :show_map?, :first_class_taxonomies, :count_calculator

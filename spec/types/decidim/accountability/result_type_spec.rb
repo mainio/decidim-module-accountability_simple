@@ -52,7 +52,7 @@ describe Decidim::Accountability::ResultType, type: :graphql do
     end
 
     it "does not return the blob for unauthorized users" do
-      expect(response["mainImageBlob"]).to be_nil
+      expect { response["mainImageBlob"] }.to raise_error(Decidim::Api::Errors::UnauthorizedObjectError)
     end
 
     context "when signed in as an admin" do
@@ -92,7 +92,7 @@ describe Decidim::Accountability::ResultType, type: :graphql do
     end
 
     it "does not return the blob for unauthorized users" do
-      expect(response["mainImageBlob"]).to be_nil
+      expect { response["mainImageBlob"] }.to raise_error(Decidim::Api::Errors::UnauthorizedObjectError)
     end
 
     context "when signed in as an admin" do
