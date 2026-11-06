@@ -13,11 +13,6 @@ module Decidim
 
         helper_method :results, :parent_result, :parent_results, :statuses, :present, :bulk_actions_form, :blank_result_detail, :blank_result_link
 
-        def collection
-          parent_id = params[:parent_id].presence
-          @collection ||= Result.where(component: current_component, parent_id:).page(params[:page]).per(15).order(created_at: :asc)
-        end
-
         def new
           enforce_permission_to :create, :result
 
@@ -99,6 +94,11 @@ module Decidim
         end
 
         private
+
+        def collection
+          parent_id = params[:parent_id].presence
+          @collection ||= Result.where(component: current_component, parent_id:).page(params[:page]).per(15).order(created_at: :asc)
+        end
 
         def trashable_deleted_resource_type
           :result
