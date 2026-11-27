@@ -69,7 +69,10 @@ module Decidim
         end
 
         def update_result_default_detail(form_default_detail)
+          # Component scopes to organization
+          # rubocop:disable Decidim/OrganizationScopedFinder
           record = Decidim::AccountabilitySimple::ResultDetail.find(
+            # rubocop:enable Decidim/OrganizationScopedFinder
             form_default_detail.id
           )
 

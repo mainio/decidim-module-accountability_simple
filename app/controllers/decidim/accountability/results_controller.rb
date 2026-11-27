@@ -50,7 +50,7 @@ module Decidim
       end
 
       def geocoded_result
-        @geocoded_result ||= Result.where(id: params[:id]).geocoded_data
+        @geocoded_result ||= Result.where(component: current_component, id: params[:id]).geocoded_data
       end
 
       def show_map?
