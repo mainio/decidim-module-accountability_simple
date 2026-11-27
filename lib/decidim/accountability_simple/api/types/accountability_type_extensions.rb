@@ -5,7 +5,6 @@ module Decidim
     module Api
       module AccountabilityTypeExtensions
         def self.included(type)
-          type.field :statuses, [Decidim::Accountability::StatusType], null: false
           type.field :available_details, [Decidim::AccountabilitySimple::ResultDetailType], "The available details for the record", null: false
 
           # Overridden methods from the original class
@@ -20,12 +19,8 @@ module Decidim
           end
         end
 
-        def statuses
-          Decidim::Accountability::Status.where(component: object)
-        end
-
         def available_details
-          context.scoped_context[:parent] = object
+          context.scoped_context.merge!({ parent: object })
 
           Decidim::AccountabilitySimple::ResultDetail.where(
             accountability_result_detailable: object

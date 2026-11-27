@@ -7,9 +7,11 @@ module Decidim
       class ResultsController < Admin::ApplicationController
         include Decidim::ApplicationHelper
         include Decidim::SanitizeHelper
-        include Decidim::Proposals::Admin::Picker
+        include Decidim::Admin::ComponentTaxonomiesHelper
+        include Decidim::Accountability::Admin::Filterable
+        include Decidim::Admin::HasTrashableResources
 
-        helper_method :results, :parent_result, :parent_results, :statuses, :present, :blank_result_detail, :blank_result_link
+        helper_method :results, :parent_result, :parent_results, :statuses, :present, :bulk_actions_form, :blank_result_detail, :blank_result_link
 
         def new
           enforce_permission_to :create, :result
@@ -17,6 +19,12 @@ module Decidim
           # Pass the component
           @form = form(ResultForm).from_model(Result.new(component: current_component))
           @form.parent_id = params[:parent_id]
+        end
+
+        def edit
+          enforce_permission_to(:update, :result, result:)
+
+          @form = form(ResultForm).from_model(result)
         end
 
         def create
@@ -37,14 +45,8 @@ module Decidim
           end
         end
 
-        def edit
-          enforce_permission_to :update, :result, result: result
-
-          @form = form(ResultForm).from_model(result)
-        end
-
         def update
-          enforce_permission_to :update, :result, result: result
+          enforce_permission_to(:update, :result, result:)
 
           @form = form(ResultForm).from_params(params)
 
@@ -61,20 +63,8 @@ module Decidim
           end
         end
 
-        def destroy
-          enforce_permission_to :destroy, :result, result: result
-
-          DestroyResult.call(result, current_user) do
-            on(:ok) do
-              flash[:notice] = I18n.t("results.destroy.success", scope: "decidim.accountability.admin")
-
-              redirect_to results_path(parent_id: result.parent_id)
-            end
-          end
-        end
-
         def publish
-          enforce_permission_to :update, :result, result: result
+          enforce_permission_to(:update, :result, result:)
 
           PublishResult.call(result, current_user) do
             on(:ok) do
@@ -89,7 +79,7 @@ module Decidim
         end
 
         def unpublish
-          enforce_permission_to :update, :result, result: result
+          enforce_permission_to(:update, :result, result:)
 
           UnpublishResult.call(result, current_user) do
             on(:ok) do
@@ -105,9 +95,30 @@ module Decidim
 
         private
 
+        def collection
+          parent_id = params[:parent_id].presence
+          @collection ||= Result.where(component: current_component, parent_id:).page(params[:page]).per(15).order(created_at: :asc)
+        end
+
+        def trashable_deleted_resource_type
+          :result
+        end
+
+        def trashable_deleted_resource
+          @trashable_deleted_resource ||= Result.with_deleted.where(component: current_component).find_by(id: params[:id])
+        end
+
+        def trashable_deleted_collection
+          @trashable_deleted_collection = results.only_deleted.deleted_at_desc
+        end
+
+        def find_parent_resource
+          parent_result
+        end
+
         def results
           parent_id = params[:parent_id].presence
-          @results ||= Result.where(component: current_component, parent_id: parent_id).page(params[:page]).per(15)
+          @results ||= Result.where(component: current_component, parent_id:).page(params[:page]).per(15)
         end
 
         def result
@@ -132,6 +143,10 @@ module Decidim
 
         def blank_result_link
           @blank_result_link ||= Decidim::AccountabilitySimple::Admin::ResultLinkForm.new
+        end
+
+        def bulk_actions_form
+          @bulk_actions_form ||= ResultBulkActionsForm.new(result_ids: [])
         end
       end
     end

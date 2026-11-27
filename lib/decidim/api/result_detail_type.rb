@@ -7,11 +7,11 @@ module Decidim
       graphql_name "ResultDetailType"
       description "A detail for results"
 
+      field :icon, GraphQL::Types::String, description: "The icon handle of this detail", null: true
       field :id, GraphQL::Types::ID, "The internal ID for this detail", null: false
       field :position, GraphQL::Types::Int, description: "The position of this detail", null: false
       field :title, Decidim::Core::TranslatedFieldType, description: "The title of this detail.", null: false
-      field :icon, GraphQL::Types::String, description: "The icon handle of this detail", null: true
-      field :values, [Decidim::AccountabilitySimple::ResultDetailValueType], null: false
+      field :values, [Decidim::AccountabilitySimple::ResultDetailValueType], description: "The values of this detail", null: false
 
       def values
         parent = context.scoped_context[:parent]

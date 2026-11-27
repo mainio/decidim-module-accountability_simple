@@ -1,0 +1,33 @@
+<%
+# Note that the order is important as the resource links are created in the
+# order that they are defined in the API query.
+linked_plans = Decidim::ResourceLink.where(
+  from_type: "Decidim::Accountability::Result",
+  from_id: result.id,
+  name: "included_plans",
+  to_type: "Decidim::Plans::Plan"
+).order(:id).map(&:to)
+
+answers = linked_plans.map { |plan| translated_attribute(plan.answer) }.select { |answer| strip_tags(answer).strip.present? }
+%>
+
+<% if answers.any? %>
+  <div class="accordion accordion--large" data-accordion data-multi-expand="true" data-allow-all-closed="true">
+    <div class="accordion-item" data-accordion-item>
+      <a role="button" class="accordion-title" href="#" aria-expanded="false">
+        <span class="accordion-title__text"><%= t(".title") %></span>
+        <span class="accordion-title__icon">
+          <span class="accordion--inactive">
+            <%= icon("chevron-bottom", role: "img", "aria-hidden": true) %>
+          </span>
+          <span class="accordion--active">
+            <%= icon("chevron-top", role: "img", "aria-hidden": true) %>
+          </span>
+        </span>
+      </a>
+      <div class="accordion-content" data-tab-content="" role="region" aria-hidden="true">
+        <%== answers.first %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,20 @@
+<% add_decidim_page_title(t("link_collections.edit.title", scope: "decidim.accountability.admin")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t(".title", name: t("models.link_collection.name", scope: "decidim.accountability.admin")) %>
+  </h1>
+</div>
+
+<div class="item__edit item__edit-1col">
+  <div class="item__edit-form">
+    <%= decidim_form_for(@form, url: result_link_collection_path(@link_collection.result, @link_collection), html: { class: "form form-defaults edit_link_collection" }) do |f| %>
+      <%= render partial: "form", object: f, locals: { title: t("link_collections.edit.title", scope: "decidim.accountability.admin") } %>
+
+      <div class="item__edit-sticky">
+        <div class="item__edit-sticky-container">
+          <%= f.submit t("link_collections.edit.update", scope: "decidim.accountability.admin"), class: "button button__sm button__secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

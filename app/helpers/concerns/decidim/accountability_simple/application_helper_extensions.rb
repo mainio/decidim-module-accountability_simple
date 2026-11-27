@@ -6,35 +6,15 @@ module Decidim
       extend ActiveSupport::Concern
       include Decidim::LayoutHelper
 
-      included do
-        def heading_parent_level_results(count)
-          text = translated_attribute(component_settings.heading_parent_level_results).presence
-          if text
-            "#{text}: #{count}"
-          else
-            t("results.count.results_count", scope: "decidim.accountability", count: count)
-          end
-        end
-
-        def heading_leaf_level_results(count)
-          text = translated_attribute(component_settings.heading_leaf_level_results).presence
-          if text
-            "#{text}: #{count}"
-          else
-            t("results.count.results_count", scope: "decidim.accountability", count: count)
-          end
-        end
+      def filter_taxonomy_values_for(taxonomy_filter)
+        organization = current_component.participatory_space.organization
+        flatten_taxonomy_values(taxonomy_filter.taxonomies, organization)
       end
 
-      def filter_categories_values
-        organization = current_component.participatory_space.organization
-
-        sorted_main_categories = current_component.participatory_space.categories.first_class.includes(:subcategories).sort_by do |category|
-          [category.weight, translated_attribute(category.name, organization)]
-        end
-
-        sorted_main_categories.map do |category|
-          [translated_attribute(category.name, organization), category.id]
+      def flatten_taxonomy_values(children, organization)
+        children.flat_map do |id, hash|
+          [[translated_attribute(hash[:taxonomy].name, organization), id]] +
+            flatten_taxonomy_values(hash[:children], organization)
         end
       end
 
@@ -57,7 +37,7 @@ module Decidim
         style = "border-color: #{color};"
         title_style = "background-color: #{color};"
 
-        content_tag :div, class: "progress-level section", style: style do
+        content_tag(:div, class: "progress-level section", style:) do
           title = content_tag :div, class: "definition-data__boxtitle", style: title_style do
             t("models.result.fields.progress", scope: "decidim.accountability")
           end
@@ -74,7 +54,7 @@ module Decidim
         style = "border-color: #{color};"
         title_style = "background-color: #{color};"
 
-        content_tag :div, class: "card extra line-stats line-stats-project", style: style do
+        content_tag(:div, class: "card extra line-stats line-stats-project", style:) do
           title = content_tag :div, class: "definition-data__boxtitle", style: title_style do
             t("results.result.project_info", scope: "decidim.accountability")
           end
@@ -92,7 +72,7 @@ module Decidim
         color = result_theme_color(result)
         style = "background-color: #{color};"
 
-        content_tag(:span, "", class: "definition-data__icon__marker", style: style).html_safe
+        content_tag(:span, "", class: "definition-data__icon__marker", style:).html_safe
       end
 
       def default_theme_color

@@ -15,7 +15,7 @@ module Decidim
           argument :id, GraphQL::Types::ID, "The result's id", required: true
         end
 
-        type.field :result_timeline_entry, Decidim::AccountabilitySimple::ResultTimelineEntryMutationType, "A result timeline entry", null: false do
+        type.field :result_milestone, Decidim::AccountabilitySimple::ResultMilestoneMutationType, "A result milestone", null: false do
           argument :result_id, GraphQL::Types::ID, "The result's id", required: true
         end
       end
@@ -24,7 +24,7 @@ module Decidim
         Decidim::Accountability::Result.find(id)
       end
 
-      def result_timeline_entry(result_id:)
+      def result_milestone(result_id:)
         Decidim::Accountability::Result.find(result_id)
       end
     end

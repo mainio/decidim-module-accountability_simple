@@ -1,0 +1,47 @@
+<div class="attributes">
+  <h2 class="resource__aside__title"><%= t(".title") %></h2>
+
+  <% if result.reference.present? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.reference") %></h3>
+      <div class="attributes__item__value"><%= result.reference %></div>
+    </div>
+  <% end %>
+  <% root_result.taxonomies.group_by(&:parent).each do |parent, taxonomies| %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.taxonomy") %></h3>
+      <div class="attributes__item__value">
+        <% if parent %>
+          <%= translated_attribute(parent.name) %> -
+        <% end %>
+        <%= taxonomies.map { |t| translated_attribute(t.name) }.join(", ") %>
+      </div>
+    </div>
+  <% end %>
+  <% if result.published? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.published_at") %></h3>
+      <div class="attributes__item__value"><%= l(result.published_at.to_date, format: :decidim_short) %></div>
+    </div>
+  <% end %>
+
+  <%= render partial: "result_attributes_extra", locals: { result: result, root_result: root_result } %>
+
+  <% result.result_all_details.each do |detail| %>
+    <% description = translated_attribute(detail.description_for(result)) %>
+    <% if description.present? %>
+      <div class="attributes__item">
+        <h3 class="attributes__item__name"><%= translated_attribute(detail.title) %></h3>
+        <div class="attributes__item__value"><%= description %></div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if result.locations.any? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.location") %></h3>
+      <div class="attributes__item__value"><%= result.locations.map(&:address).join(", ") %></div>
+    </div>
+  <% end %>
+</div>
+

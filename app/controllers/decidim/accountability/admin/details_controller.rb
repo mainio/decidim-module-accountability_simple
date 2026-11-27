@@ -33,11 +33,15 @@ module Decidim
 
         private
 
+        # Disabling rubocop since it doesn't realize it's already scoped
+        # through current_component which is scoped for current_organization
+        # rubocop:disable Decidim/OrganizationScopedFinder
         def details
           @details ||= Decidim::AccountabilitySimple::ResultDetail.where(
             accountability_result_detailable: current_component
           )
         end
+        # rubocop:enable Decidim/OrganizationScopedFinder
 
         def blank_detail
           @blank_detail ||= Decidim::AccountabilitySimple::Admin::DefaultDetailsForm.new

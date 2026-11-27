@@ -2,21 +2,21 @@
 
 require "spec_helper"
 
-describe "Admin manages accountability details", type: :system do
+describe "AdminManagesAccountabilityDetails" do
   include_context "when managing a component"
 
   let(:organization) { create(:organization, available_locales: [:en, :ca, :es]) }
   let(:participatory_process) do
-    create(:participatory_process, :with_steps, organization: organization)
+    create(:participatory_process, :with_steps, organization:)
   end
   let!(:component) { create(:component, participatory_space: participatory_process, manifest_name: "accountability") }
-  let(:user) { create(:user, :confirmed, :admin, organization: organization) }
+  let(:user) { create(:user, :confirmed, :admin, organization:) }
 
   before do
     switch_to_host(organization.host)
     login_as user, scope: :user
     visit_component_admin
-    click_link "Default details"
+    click_on "Default details"
   end
 
   describe "show" do
@@ -49,21 +49,21 @@ describe "Admin manages accountability details", type: :system do
 
   describe "update" do
     let(:icon) { "Person" }
-    let(:title_en) { ::Faker::Lorem.sentence }
-    let(:title_ca) { ::Faker::Lorem.sentence }
-    let(:title_es) { ::Faker::Lorem.sentence }
+    let(:title_en) { Faker::Lorem.sentence }
+    let(:title_ca) { Faker::Lorem.sentence }
+    let(:title_es) { Faker::Lorem.sentence }
 
     it "updates default details" do
-      click_button "Add default detail"
+      click_on "Add default detail"
 
       find("select[id^='component_details_details_']").find(:option, icon).select_option
       find("input[id^='component_details_details_']").set(title_en)
-      click_link "Català"
+      click_on "Català"
       find("input[id^='component_details_details_']").set(title_ca)
-      click_link "Castellano"
+      click_on "Castellano"
       find("input[id^='component_details_details_']").set(title_es)
 
-      click_button "Update"
+      click_on "Update"
       expect(page).to have_content("Default details successfully updated")
       expect(Decidim::AccountabilitySimple::ResultDetail.last.icon).to eq(icon.downcase)
       expect(Decidim::AccountabilitySimple::ResultDetail.last.title["en"]).to eq(title_en)

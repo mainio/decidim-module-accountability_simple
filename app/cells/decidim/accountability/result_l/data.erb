@@ -1,0 +1,25 @@
+<div class="card__info">
+  <div class="card__info__item">
+    #<%= model.id %>
+  </div>
+
+  <div class="card__info__item">
+    <%= creation_date_status %>
+  </div>
+
+  <% if has_taxonomies? %>
+    <div class="card__info__item">
+      <%= taxonomies.group_by(&:parent).each do |parent, taxonomies| %>
+        <div class="attributes__item">
+          <h3 class="attributes__item__name"><%= t(".attributes.taxonomy") %></h3>
+          <div class="attributes__item__value">
+            <% if parent %>
+              <%= translated_attribute(parent.name) %> -
+            <% end %>
+            <%= taxonomies.map { |t| translated_attribute(t.name) }.join(", ") %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

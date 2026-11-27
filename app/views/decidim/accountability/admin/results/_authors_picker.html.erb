@@ -1,10 +1,11 @@
-<div class="js-authors-input input-field" data-input-name="<%= "#{form.object_name}[author_ids][]" %>">
-  <label for="authors_filter"><%= t(".label") %></label>
-  <input type="text" name="authors-filter" id="authors_filter" class="authors-filter" placeholder="<%= t(".search_placeholder", collection: t(".collection_name")) %>">
-
-  <div class="values">
-    <% form.object.authors.each do |author| %>
-      <input type="hidden" value="<%= author.id %>" data-author-name="<%= "#{author.name} (#{author.nickname})" %>">
-    <% end %>
-  </div>
+<% selected_authors = form.object.authors.map { |author| { key: "label", value: { value: author.id, label: "#{author.name} (#{author.nickname})" } } } %>
+<div data-autocomplete="<%= {
+  name: "#{form.object_name}[author_ids][]",
+  options: [],
+  placeholder: t(".search_placeholder", collection: t(".collection_name")),
+  selected: selected_authors,
+  searchPromptText: t(".search_prompt", default: t("autocomplete.search_prompt", scope: "decidim.admin")),
+  noResultsText: t(".no_results", default: t("autocomplete.no_results", scope: "decidim.admin")),
+  mode: "multi"
+}.to_json %>">
 </div>

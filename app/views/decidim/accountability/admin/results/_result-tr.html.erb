@@ -1,0 +1,12 @@
+<tr data-id="<%= result.id %>">
+  <td class="!text-left">
+    <% if result.parent_id.nil? %>
+      <%= link_to translated_attribute(result.title), results_path(parent_id: result.id) %><br>
+    <% else %>
+      <%= translated_attribute(result.title) %>
+    <% end %>
+  </td>
+  <td class="table-list__actions">
+    <%= render partial: "decidim/accountability/admin/results/actions", locals: { result:, view: } %>
+  </td>
+</tr>

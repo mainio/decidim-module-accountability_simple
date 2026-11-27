@@ -1,0 +1,19 @@
+<div class="card">
+  <%= render :top if render_top? %>
+  <%= render :image %>
+
+  <div class="card__content">
+    <h3 class="h4"><%= title %></h3>
+
+    <div class="card__text">
+      <div class="card__text--paragraph">
+        <%= description %>
+      </div>
+    </div>
+  </div>
+
+  <%= render :tags %>
+  <%= render :progress if display_progress? %>
+  <%= render :data %>
+  <%= render :status %>
+</div>

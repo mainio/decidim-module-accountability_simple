@@ -1,0 +1,19 @@
+<% collection = result.attachment_collections.find_by(key: collection_key) %>
+
+<% if collection && collection.attachments.any? %>
+  <% collection.attachments.each do |attachment| %>
+    <% next unless attachment.file.attached? %>
+
+    <% icon_type = attachment.photo? ? "image" : "file" %>
+
+    <%= link_to attachment.attached_uploader(:file).url, class: "asset", target: "_blank", data: { external_link_spacer: "" } do %>
+      <span class="asset__label">
+        <%= translated_attribute(attachment.title) %>
+        (<%= attachment.file_type %>, <%= number_to_human_size(attachment.file_size) %>)
+      </span>
+      <span class="asset__icon">
+        <%= icon icon_type, role: "img", "aria-hidden": true %>
+      </span>
+    <% end %>
+  <% end %>
+<% end %>

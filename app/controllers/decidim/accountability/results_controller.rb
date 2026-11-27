@@ -5,15 +5,26 @@ module Decidim
     # Exposes the result resource so users can view them
     class ResultsController < Decidim::Accountability::ApplicationController
       include FilterResource
-      helper Decidim::WidgetUrlsHelper
+      include Decidim::Paginable
+      include Decidim::AccountabilitySimple::Orderable
+
       helper Decidim::TraceabilityHelper
       helper Decidim::Accountability::BreadcrumbHelper
+      helper Decidim::Accountability::CalculatorHelper
       helper Decidim::TooltipHelper
 
-      helper_method :results, :geocoded_results, :result, :geocoded_result, :show_map?, :first_class_categories, :count_calculator
+      helper_method :results, :geocoded_results, :result, :geocoded_result, :show_map?, :first_class_taxonomies, :count_calculator
 
       def show
         raise ActionController::RoutingError, "Not Found" if result.blank? || !can_show_result?
+
+        enforce_permission_to :read, :result, result:
+      end
+
+      def home
+        enforce_permission_to :read, :result
+
+        @all_geocoded_results = results.geocoded
       end
 
       private
@@ -26,20 +37,20 @@ module Decidim
 
       def results
         @results ||= begin
-          orders = [Arel.sql("title->>'#{current_locale}'")]
-          orders << Arel.sql("title->>'#{current_organization.default_locale}'") if current_organization.default_locale != current_locale
-
           parent_id = params[:parent_id].presence
-          search.result.published.where(parent_id: parent_id).order(*orders).page(params[:page]).per(12)
+          query = search.result.where(parent_id:)
+
+          query = reorder(query)
+          paginate(query)
         end
       end
 
       def geocoded_results
-        @geocoded_results ||= search.results.geocoded_data
+        @geocoded_results ||= search.result.geocoded_data
       end
 
       def geocoded_result
-        @geocoded_result ||= Result.where(id: params[:id]).geocoded_data
+        @geocoded_result ||= Result.where(component: current_component, id: params[:id]).geocoded_data
       end
 
       def show_map?
@@ -62,27 +73,46 @@ module Decidim
       end
 
       def result
-        @result ||= Result.includes(:timeline_entries).where(component: current_component).find(params[:id])
+        @result ||= Result.includes(:milestones).where(component: current_component).find(params[:id])
       end
 
       def search_collection
-        Result.where(component: current_component)
+        Result.where(component: current_component).published
       end
 
       def default_filter_params
         {
           search_text_cont: "",
-          with_scope: "",
-          with_category: ""
+          taxonomies_part_of_contains: "",
+          favorites: nil,
+          with_any_tag: []
         }
       end
 
-      def first_class_categories
-        @first_class_categories ||= current_participatory_space.categories.first_class
+      def first_class_taxonomies
+        @first_class_taxonomies ||= current_organization.taxonomies.where(parent_id: current_component.available_root_taxonomies, id: current_component.available_taxonomy_ids)
       end
 
-      def count_calculator(scope_id, category_id)
-        Decidim::Accountability::ResultsCalculator.new(current_component, scope_id, category_id).count
+      def count_calculator(taxonomy_id)
+        Decidim::Accountability::ResultsCalculator.new(current_component, taxonomy_id).count
+      end
+
+      def controller_breadcrumb_items
+        @controller_breadcrumb_items ||= []
+      end
+
+      def set_controller_breadcrumb
+        controller_breadcrumb_items << breadcrumb_item
+      end
+
+      def breadcrumb_item
+        return {} if result&.parent.blank?
+
+        {
+          label: translated_attribute(result.parent.title),
+          url: result_path(result.parent),
+          active: true
+        }
       end
     end
   end

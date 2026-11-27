@@ -5,7 +5,8 @@ module Decidim
     class ListImageUploader < ::Decidim::ImageUploader
       set_variants do
         {
-          default: { resize_to_limit: [850, 320] }
+          default: { resize_to_limit: [860, 395] },
+          box: { resize_to_fill: [660, 450] }
         }
       end
 

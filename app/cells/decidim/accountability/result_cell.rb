@@ -14,7 +14,7 @@ module Decidim
       private
 
       def card_size
-        "decidim/accountability/result_m"
+        "decidim/accountability/result_g"
       end
     end
   end

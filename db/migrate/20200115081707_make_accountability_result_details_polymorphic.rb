@@ -15,7 +15,7 @@ class MakeAccountabilityResultDetailsPolymorphic < ActiveRecord::Migration[5.2]
 
     reversible do |dir|
       dir.up do
-        execute <<-SQL.squish
+        execute <<~SQL.squish
           UPDATE decidim_accountability_simple_result_details
           SET accountability_result_detailable_type = 'Decidim::Accountability::Result'
         SQL

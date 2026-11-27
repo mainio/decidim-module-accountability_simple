@@ -1,39 +1,62 @@
-<div class="row accountability result-view">
-  <div class="small-12 columns">
-    <div class="row">
-      <div class="mediumlarge-8 columns">
-        <div class="section">
-          <% if result.main_image && result.main_image.attached? %>
-            <%= image_tag result.attached_uploader(:main_image).path, alt: translated_attribute(result.title), class: "hero-heading" %>
-          <% end %>
+<%
+root_result = result
+root_result = root_result.parent while root_result.parent
+%>
 
-          <%= render partial: "show_result_body", locals: { result: result } %>
-
-          <% if result.children.any? %>
-            <%= render partial: "results_leaf", locals: {
-              title: t(".subresults"),
-              grid_classes: "small-up-1 medium-up-2",
-              results: result.children.page(1).per(result.children_count),
-              total_count: result.children_count
-            } %>
-          <% end %>
-        </div>
-      </div>
-      <%= render partial: "stats_box", locals: { geocoded_results: geocoded_result } %>
-    </div>
-
-  </div>
-
-  <%= render partial: "linked_resources" %>
-
-  <%= attachments_for result %>
-
-  <%= comments_for result %>
+<div class="row column back-link">
+  <%= link_to results_path, class: "action-link" do %>
+    <%= icon "arrow-left-line", role: "img", "aria-hidden": true %>
+    <span><%= t(".back_to_list") %></span>
+  <% end %>
 </div>
 
-<% if show_map? %>
-  <div class="row column" id="result_map">
-    <h2><%= t(".locations") %><h2>
+<div class="row column resource">
+  <div class="row">
+    <div class="columns small-12 medium-8">
+      <div class="resource__main static__content margin-bottom-0">
+        <h1><%= translated_attribute result.title %></h1>
+        <%= render partial: "result_tags", locals: { result: result } %>
+
+        <% if result.main_image && result.main_image.attached? %>
+          <%= image_tag result.attached_uploader(:main_image).variant_url(:main), alt: translated_attribute(result.title), class: "resource__image" %>
+        <% elsif result.category.present? && result.category.respond_to?(:category_image_url) && result.category.category_image.attached? %>
+          <%= image_tag result.category.category_image_url, alt: translated_attribute(result.title), class: "resource__image" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="columns small-12 medium-4">
+      <div class="resource__aside">
+        <div class="resource__actions">
+          <%= render partial: "result_actions", locals: { result: result } %>
+        </div>
+
+        <%= render partial: "result_attributes", locals: { result: @result, root_result: root_result } %>
+
+        <%= render partial: "stats_box", locals: { result: @result, root_result: root_result, geocoded_results: geocoded_result } %>
+      </div>
+    </div>
   </div>
-  <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_result } %>
-<% end %>
+
+
+  <div class="row">
+    <div class="columns small-12 medium-8">
+      <div class="resource__main resource__content resource__content--result static__content">
+        <%= render partial: "show_result_body", locals: { result: result } %>
+
+        <% if show_map? %>
+          <div id="result_map" class="margin-top-3">
+            <h2><%= t(".locations") %></h2>
+
+            <%= render partial: "decidim/accountability_simple/shared/map", locals: { geocoded_results: geocoded_result } %>
+          </div>
+        <% end %>
+
+        <%= render partial: "linked_resources" %>
+        <%= render partial: "result_answer", locals: { result: result } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= comments_for result %>

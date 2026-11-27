@@ -11,16 +11,19 @@ module Decidim
         include Decidim::AttachmentAttributesMethods
 
         included do
+          fetch_form_attributes :taxonomizations, :parent_id, :title, :description, :summary, :start_date, :end_date,
+                                :progress, :decidim_accountability_status_id, :external_id, :weight,
+                                :address, :latitude, :longitude, :use_default_details
+
           private
 
           attr_reader :form # Needed for attachment_attributes
 
-          def update_result
-            Decidim.traceability.update!(
-              result,
-              @form.current_user,
-              attributes
-            )
+          def run_after_hooks
+            link_proposals
+            link_meetings
+            link_projects
+            send_notifications if should_notify_followers?
 
             update_result_authors
             update_result_default_details
@@ -34,21 +37,9 @@ module Decidim
           end
 
           def attributes
-            {
-              scope: @form.scope,
-              category: @form.category,
-              parent_id: @form.parent_id,
-              title: @form.title,
-              description: @form.description,
-              summary: @form.summary,
-              start_date: @form.start_date,
-              end_date: @form.end_date,
-              progress: @form.progress,
-              decidim_accountability_status_id: @form.decidim_accountability_status_id,
-              external_id: @form.external_id.presence,
-              weight: @form.weight,
-              use_default_details: @form.use_default_details
-            }.merge(attachment_attributes(:main_image, :list_image)).merge(extra_attributes)
+            super
+              .merge(attachment_attributes(:main_image, :list_image))
+              .merge(extra_attributes)
           end
         end
 
@@ -78,11 +69,14 @@ module Decidim
         end
 
         def update_result_default_detail(form_default_detail)
+          # Component scopes to organization
+          # rubocop:disable Decidim/OrganizationScopedFinder
           record = Decidim::AccountabilitySimple::ResultDetail.find(
+            # rubocop:enable Decidim/OrganizationScopedFinder
             form_default_detail.id
           )
 
-          value = record.value_for(@result) || record.values.build(result: @result)
+          value = record.value_for(result) || record.values.build(result:)
           value.attributes = { description: form_default_detail.description }
           value.save!
         end
@@ -94,8 +88,8 @@ module Decidim
             position: form_result_detail.position
           }
 
-          record = @result.result_details.find_by(id: form_result_detail.id) ||
-                   @result.result_details.build(result_detail_attributes)
+          record = result.result_details.find_by(id: form_result_detail.id) ||
+                   result.result_details.build(result_detail_attributes)
 
           if record.persisted?
             if form_result_detail.deleted?
@@ -107,7 +101,7 @@ module Decidim
             record.save!
           end
 
-          value = record.value_for(@result) || record.values.build(result: @result)
+          value = record.value_for(result) || record.values.build(result:)
           value.attributes = { description: form_result_detail.description }
           value.save!
 
@@ -115,20 +109,21 @@ module Decidim
         end
 
         def update_result_links
-          @form.result_links.each do |form_result_link|
+          form.result_links.each do |form_result_link|
             update_result_link(form_result_link)
           end
         end
 
         def update_result_link(form_result_link)
           result_link_attributes = {
+            link_collection: result.result_link_collections.find_by(id: form_result_link.collection_id),
             label: form_result_link.label,
             url: form_result_link.url,
             position: form_result_link.position
           }
 
-          record = @result.result_links.find_by(id: form_result_link.id) ||
-                   @result.result_links.build(result_link_attributes)
+          record = result.result_links.find_by(id: form_result_link.id) ||
+                   result.result_links.build(result_link_attributes)
 
           if record.persisted?
             if form_result_link.deleted?

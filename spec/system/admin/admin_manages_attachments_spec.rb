@@ -2,16 +2,16 @@
 
 require "spec_helper"
 
-describe "Admin manages accountability attachments", type: :system do
+describe "AdminManagesAccountabilityAttachments" do
   include_context "when managing a component"
 
   let(:organization) { create(:organization, available_locales: [:en, :ca, :es]) }
   let(:participatory_process) do
-    create(:participatory_process, :with_steps, organization: organization)
+    create(:participatory_process, :with_steps, organization:)
   end
   let(:component) { create(:component, participatory_space: participatory_process, manifest_name: "accountability") }
-  let!(:result) { create(:result, component: component) }
-  let(:user) { create(:user, :confirmed, :admin, organization: organization) }
+  let!(:result) { create(:result, component:) }
+  let(:user) { create(:user, :confirmed, :admin, organization:) }
 
   before do
     switch_to_host(organization.host)
@@ -21,7 +21,10 @@ describe "Admin manages accountability attachments", type: :system do
 
   describe "attachments" do
     before do
-      find(".icon--paperclip").click
+      within ".table-list__actions" do
+        find("button[data-controller='dropdown']").click
+        find("a", text: "Add attachment").click
+      end
     end
 
     it "shows attachments" do
@@ -29,11 +32,11 @@ describe "Admin manages accountability attachments", type: :system do
     end
 
     describe "create attachment", processing_uploads_for: Decidim::AttachmentUploader do
-      let(:title) { ::Faker::Lorem.sentence }
-      let(:description) { ::Faker::Lorem.paragraph }
+      let(:title) { Faker::Lorem.sentence }
+      let(:description) { Faker::Lorem.paragraph }
 
       before do
-        click_link "New attachment"
+        click_on "New attachment"
       end
 
       it "creates attachment" do
@@ -54,7 +57,7 @@ describe "Admin manages accountability attachments", type: :system do
         )
 
         dynamically_attach_file(:attachment_file, Decidim::Dev.asset("city.jpeg"))
-        click_button "Create attachment"
+        click_on "Create attachment"
         expect(page).to have_content("Attachment created successfully")
       end
     end
@@ -62,7 +65,10 @@ describe "Admin manages accountability attachments", type: :system do
 
   describe "folders" do
     before do
-      find(".icon--folder").click
+      within ".table-list__actions" do
+        find("button[data-controller='dropdown']").click
+        find("a", text: "Add folder").click
+      end
     end
 
     it "shows attachment folders" do
@@ -70,11 +76,11 @@ describe "Admin manages accountability attachments", type: :system do
     end
 
     describe "new folder" do
-      let(:title) { ::Faker::Lorem.sentence }
-      let(:description) { ::Faker::Lorem.paragraph }
+      let(:title) { Faker::Lorem.sentence }
+      let(:description) { Faker::Lorem.paragraph }
 
       before do
-        click_link "New attachment collection"
+        click_on "New attachment folder"
       end
 
       it "creates new folder" do
@@ -94,13 +100,13 @@ describe "Admin manages accountability attachments", type: :system do
           ca: description
         )
 
-        click_button "Create"
+        click_on "Create"
         expect(page).to have_content("Folder created successfully")
       end
     end
 
     describe "destroy folder" do
-      let(:result) { create(:result, component: component) }
+      let(:result) { create(:result, component:) }
       let!(:folder) { create(:attachment_collection, collection_for: result) }
 
       before do
@@ -108,8 +114,11 @@ describe "Admin manages accountability attachments", type: :system do
       end
 
       it "destroys folder" do
-        find(".icon--circle-x").click
-        click_link "OK"
+        within ".table-list__actions" do
+          find("button[data-controller='dropdown']").click
+          find("a", text: "Delete").click
+        end
+        click_on "OK"
         expect(page).to have_content("Folder destroyed successfully")
       end
     end

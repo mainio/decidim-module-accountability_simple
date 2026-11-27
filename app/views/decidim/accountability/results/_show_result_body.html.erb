@@ -1,14 +1,9 @@
-<h2 class="heading2"><%= translated_attribute result.title %></h2>
+<h2><%= t(".subtitle") %></h2>
 
 <p><%== translated_attribute result.summary %></p>
 
 <div class="description">
-  <%== translated_attribute result.description %>
+  <%== decidim_sanitize(translated_attribute(result.description)) %>
 </div>
 
-<%== cell("decidim/tags/tags", result) %>
-<%= cell "decidim/tags", result, context: { extra_classes: ["tags--result"] } %>
-
-<div class="row">
-  <%= render partial: "timeline", locals: { result: result } if result.timeline_entries.any? %>
-</div>
+<%= render partial: "milestone", locals: { result: result } if result.milestones.any? %>

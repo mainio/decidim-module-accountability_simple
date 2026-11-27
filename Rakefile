@@ -2,28 +2,23 @@
 
 require "decidim/dev/common_rake"
 
-def install_module(path)
+def install_module(path, test: false)
   ENV["accountability_simple"] = ""
   Dir.chdir(path) do
-    system("bundle exec rails decidim_favorites:install:migrations")
-    system("bundle exec rails decidim_locations:install:migrations")
-    system("bundle exec rails decidim_tags:install:migrations")
-    system("bundle exec rails decidim_accountability_simple:install:migrations")
-    system("bundle exec rails db:migrate")
+    env = {}
 
-    # Temporary fix to overcome the issue with sass-embedded, see:
-    # https://github.com/decidim/decidim/pull/11074
-    system("npm i sass-embedded@~1.62.0")
-  end
-end
+    # Disable Spring to evade reloading error.
+    # (Spring reloads, and therefore needs the application to have reloading enabled.) This is disabled by default.
 
-# Temporary fix to overcome the issue with babel plugin updates, see:
-# https://github.com/decidim/decidim/pull/10916
-def fix_babel_config(path)
-  Dir.chdir(path) do
-    babel_config = "#{Dir.pwd}/babel.config.json"
-    File.delete(babel_config) if File.exist?(babel_config)
-    FileUtils.cp("#{__dir__}/babel.config.json", Dir.pwd)
+    env["DISABLE_SPRING"] = "1" if test
+
+    system(env, "bundle exec rails decidim_favorites:install:migrations")
+    system(env, "bundle exec rails decidim_locations:install:migrations")
+    system(env, "bundle exec rails decidim_tags:install:migrations")
+    system(env, "bundle exec rails decidim_nav:install:migrations")
+    system(env, "bundle exec rails decidim_apifiles:install:migrations")
+    system(env, "bundle exec rails decidim_accountability_simple:install:migrations")
+    system(env, "bundle exec rails db:migrate")
   end
 end
 
@@ -34,21 +29,10 @@ def seed_db(path)
 end
 
 desc "Generates a dummy app for testing"
-task :test_app do
+task test_app: "decidim:generate_external_test_app" do
   ENV["accountability_simple"] = "create_app"
   ENV["RAILS_ENV"] = "test"
-  generate_decidim_app(
-    "spec/decidim_dummy_app",
-    "--app_name",
-    "#{base_app_name}_test_app",
-    "--path",
-    "../..",
-    "--recreate_db",
-    "--skip_gemfile",
-    "--demo"
-  )
-  fix_babel_config("spec/decidim_dummy_app")
-  install_module("spec/decidim_dummy_app")
+  install_module("spec/decidim_dummy_app", test: true)
 end
 
 desc "Generates a development app"
@@ -63,7 +47,6 @@ task :development_app do
     "--recreate_db",
     "--demo"
   )
-  fix_babel_config("development_app")
   install_module("development_app")
   seed_db("development_app")
 end

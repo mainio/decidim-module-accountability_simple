@@ -11,7 +11,7 @@ breadcrumbs.reverse!
 <div class="lines-breadcrumb">
   <%= link_to t(".all_projects"), root_path %>
   <% if false && component_settings.display_progress_enabled? %>
-    <span class="percentage"><%= display_percentage progress_calculator(current_scope, nil) %></span>
+    <span class="percentage"><%= display_percentage progress_calculator(nil) %></span>
   <% end %>
 
   <% breadcrumbs.each do |current_result| %>

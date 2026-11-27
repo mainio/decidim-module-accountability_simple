@@ -13,18 +13,18 @@ class CreateAccountabilityResultDetailValues < ActiveRecord::Migration[5.2]
       dir.up do
         details = select_all("SELECT * FROM decidim_accountability_simple_result_details")
         details.each do |detail|
-          execute <<-SQL.squish
+          execute <<~SQL.squish
             INSERT INTO decidim_accountability_simple_result_detail_values
-            (decidim_accountability_result_detail_id, description, decidim_accountability_result_id)
+              (decidim_accountability_result_detail_id, description, decidim_accountability_result_id)
             VALUES
-            (#{detail["id"]}, '#{detail["description"]}', #{detail["decidim_accountability_result_id"]})
+              (#{detail["id"]}, '#{detail["description"]}', #{detail["decidim_accountability_result_id"]})
           SQL
         end
       end
       dir.down do
         values = select_all("SELECT * FROM decidim_accountability_simple_result_detail_values")
         values.each do |value|
-          execute <<-SQL.squish
+          execute <<~SQL.squish
             UPDATE decidim_accountability_simple_result_details
             SET description = '#{value["description"]}'
             WHERE id = #{value["decidim_accountability_result_detail_id"]}

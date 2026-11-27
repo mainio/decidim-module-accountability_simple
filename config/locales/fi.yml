@@ -148,6 +148,11 @@ fi:
         listing:
           show_list: Näytä tulokset listana
           show_map: Näytä tulokset kartalla
+        orders:
+          alphabetical: Aakkosjärjestys
+          category: Teeman mukaan
+          label: Järjestä hankkeet
+          scope: Alueen mukaan
         nav_breadcrumb:
           all_projects: Kaikki hankkeet
         orders:

@@ -12,11 +12,7 @@ module Decidim
     #
     class TagsCell < Decidim::TagsCell
       def show
-        render if category? || scope? || taggings?
-      end
-
-      def taggings
-        render if taggings?
+        render if taxonomies? || taggings?
       end
 
       private
@@ -25,12 +21,8 @@ module Decidim
         (["tags-list"] + context[:extra_classes].to_a).join(" ")
       end
 
-      def category?
-        model.category.present?
-      end
-
-      def scope?
-        has_visible_scopes?(model)
+      def taxonomies?
+        model.taxonomies.present?
       end
 
       def taggings?
@@ -39,6 +31,10 @@ module Decidim
 
       def tag_name(tag)
         translated_attribute(tag.name)
+      end
+
+      def taxonomy_name(taxonomy)
+        translated_attribute(taxonomy.name)
       end
 
       def tag_path(tag)

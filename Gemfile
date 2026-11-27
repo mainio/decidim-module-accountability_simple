@@ -13,31 +13,28 @@ require_relative "#{base_path}lib/decidim/accountability_simple/version"
 DECIDIM_VERSION = Decidim::AccountabilitySimple.decidim_version
 
 gem "decidim", DECIDIM_VERSION
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "main"
-gem "decidim-locations", github: "mainio/decidim-module-locations", branch: "main"
-gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "main"
+gem "decidim-apifiles", github: "mainio/decidim-module-apifiles"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites"
+gem "decidim-locations", github: "mainio/decidim-module-locations"
+gem "decidim-nav", github: "mainio/decidim-module-nav"
+gem "decidim-tags", github: "mainio/decidim-module-tags"
 
 gem "decidim-accountability_simple", path: "."
 
 gem "bootsnap", "~> 1.4"
-gem "puma", ">= 5.6.2"
 
-gem "faker", "~> 2.14"
+gem "puma", ">= 6.4.2"
+
+gem "faker", "~> 3.2.0"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
   gem "decidim-dev", DECIDIM_VERSION
+  gem "decidim-initiatives", DECIDIM_VERSION
 end
 
 group :development do
   gem "letter_opener_web", "~> 2.0"
   gem "listen", "~> 3.1"
-  gem "rubocop-faker"
-  gem "spring", "~> 2.0"
-  gem "spring-watcher-listen", "~> 2.0"
   gem "web-console", "~> 4.2"
-end
-
-group :test do
-  gem "codecov", require: false
 end

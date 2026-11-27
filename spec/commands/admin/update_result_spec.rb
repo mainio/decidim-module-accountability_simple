@@ -6,14 +6,14 @@ module Decidim::Accountability
   describe Admin::UpdateResult do
     subject { described_class.new(form, result) }
 
-    let(:result) { create :result, progress: progress }
+    let(:result) { create(:result, progress:) }
     let(:progress) { 33 }
     let(:organization) { result.component.organization }
-    let(:user) { create :user, organization: organization }
+    let(:user) { create(:user, organization:) }
     let(:form) do
       double(
         invalid?: invalid,
-        organization: organization,
+        organization:,
         title: { en: "title" },
         summary: { en: "summary" },
         description: { en: "description" },
@@ -22,12 +22,11 @@ module Decidim::Accountability
         project_ids: [],
         idea_ids: [],
         plan_ids: [],
-        scope: nil,
-        category: nil,
+        taxonomizations: [],
         start_date: Date.yesterday,
         end_date: Date.tomorrow,
         decidim_accountability_status_id: nil,
-        progress: progress,
+        progress:,
         current_user: user,
         parent_id: nil,
         external_id: nil,
@@ -36,14 +35,17 @@ module Decidim::Accountability
         main_image: nil,
         list_image: nil,
         taggings: taggings_form,
-        locations: locations,
-        result_default_details: result_default_details,
-        result_details: result_details,
-        result_links: result_links
+        locations:,
+        result_default_details:,
+        result_details:,
+        result_links:,
+        address: nil,
+        latitude: nil,
+        longitude: nil
       )
     end
     let(:taggings_form) do
-      double(tags: tags)
+      double(tags:)
     end
     let(:invalid) { false }
     let(:tags) { [] }

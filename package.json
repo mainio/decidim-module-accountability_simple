@@ -1,0 +1,24 @@
+{
+  "name": "decidim-budgeting_feedback",
+  "version": "0.1.0",
+  "description": "Attach feedback modals for Decidim",
+  "main": "index.js",
+  "author": "Antti Hukkanen <antti.hukkanen@mainiotech.fi>",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "lint": "eslint -c .eslintrc.json --no-error-on-unmatched-pattern --ignore-pattern app/packs/vendor --ext .js app/packs",
+    "stylelint": "stylelint app/packs/**/*.scss"
+  },
+  "devDependencies": {
+    "@decidim/dev": "^0.32.0",
+    "@decidim/eslint-config": "^0.32.0",
+    "@decidim/stylelint-config": "^0.32.0",
+    "eslint": "^8.7.0",
+    "postcss-scss": "^4.0.9",
+    "stylelint": "^15.3.0"
+  },
+  "overrides": {
+    "stylelint-prettier": "^4.1.0",
+    "prettier": "~3.3.0"
+  }
+}
