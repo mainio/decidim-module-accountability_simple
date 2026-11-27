@@ -33,6 +33,7 @@ fi:
         attachments: Liitteet
         default_details: Oletustiedot
         link_collections: Linkkikokoelmat
+        new_link_collection: New link collection
       admin:
         details:
           detail:
@@ -154,6 +155,11 @@ fi:
           scope: Alueen mukaan
         nav_breadcrumb:
           all_projects: Kaikki hankkeet
+        orders:
+          alphabetical: Aakkosjärjestys
+          category: Teeman mukaan
+          label: Järjestä hankkeet
+          scope: Alueen mukaan
         result:
           project_info: Hankeinfo
         result_actions:

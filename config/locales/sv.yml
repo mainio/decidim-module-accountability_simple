@@ -33,6 +33,7 @@ sv:
         attachments: Bilagor
         default_details: Default detaljer
         link_collections: Länksamlingar
+        new_link_collection: New link collection
       admin:
         details:
           detail:
@@ -65,6 +66,9 @@ sv:
           new:
             create: Skapa länksamling
             title: Ny länksamling
+        models:
+          link_collection:
+            name: Link collection
         results:
           authors_picker:
             collection_name: Projekt
@@ -146,6 +150,11 @@ sv:
           show_map: Visa resultat på kartan
         nav_breadcrumb:
           all_projects: Alla projekt
+        orders:
+          alphabetical: Alphabetical
+          category: Category
+          label: Label
+          scope: Scope
         result:
           project_info: Projektinfo
         result_actions:
